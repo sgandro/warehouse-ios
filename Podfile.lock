@@ -1,0 +1,43 @@
+PODS:
+  - Alamofire (5.3.0)
+  - iCarousel (1.8.3)
+  - MGCollapsingHeader (1.0.6)
+  - Realm (10.0.0):
+    - Realm/Headers (= 10.0.0)
+  - Realm/Headers (10.0.0)
+  - RealmSwift (10.0.0):
+    - Realm (= 10.0.0)
+  - SideMenuSwift (2.0.6)
+  - SwiftKeychainWrapper (4.0.1)
+
+DEPENDENCIES:
+  - Alamofire
+  - iCarousel
+  - MGCollapsingHeader
+  - Realm
+  - RealmSwift
+  - SideMenuSwift
+  - SwiftKeychainWrapper
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - iCarousel
+    - MGCollapsingHeader
+    - Realm
+    - RealmSwift
+    - SideMenuSwift
+    - SwiftKeychainWrapper
+
+SPEC CHECKSUMS:
+  Alamofire: 2c792affbdc2f18016e08fdbcacd60aebe1ba593
+  iCarousel: d782f635afac190c49bb8ee455882284cff8b85f
+  MGCollapsingHeader: 82a52988e0dcdd32558e883ae4df4c9c1a1674b1
+  Realm: 5654b8e5e45034d07b219e089034be2ef7d1e7bf
+  RealmSwift: 5b4c8c85be4c14ff52054a4d80a8d338167dd79c
+  SideMenuSwift: f12ca1b11faad909bfc2878df37e0a1c40fa4570
+  SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
+
+PODFILE CHECKSUM: c938656ee0fe0dc8193f833be9eb6567d6ceeae4
+
+COCOAPODS: 1.9.3
