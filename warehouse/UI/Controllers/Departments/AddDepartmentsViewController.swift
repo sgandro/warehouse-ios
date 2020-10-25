@@ -26,10 +26,12 @@ class AddDepartmentsViewController: UIViewController {
 
         labelDescription.initialize(textValue: "Inserie il nome del nuovo reparto.\nAd ogni reparto vanno associate le relative categorie.",
                                     font: UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.light),
-                                    color: UIColor.blue,
+                                    color: UIColor.secondaryLabel,
                                     align: .center)
 
         textFieldDepartmentName.placeholder = "Nome reparto"
+        textFieldDepartmentName.autocapitalizationType = .words
+
     }
 
 

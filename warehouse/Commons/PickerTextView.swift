@@ -13,6 +13,13 @@ class PickerTextView: UITextField {
     var datasource:[String]?{
         didSet{
             pickerView.reloadComponent(0)
+            if datasource?.count == 1{
+                self.text = datasource?.first
+                self.isEnabled = false
+            }
+            if datasource == nil{
+                self.isEnabled = false
+            }
         }
     }
     var selectedValue:String?{

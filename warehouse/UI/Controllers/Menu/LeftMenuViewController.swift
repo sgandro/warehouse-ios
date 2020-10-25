@@ -56,10 +56,11 @@ class LeftMenuViewController: UIViewController {
             MenuItem("Dashboard",UIImage(named: "menu"),"MainViewController","dashboard"),
         ]))
 
-        menuItems.append(MenuHeader("Magazzino", [
-            MenuItem("Categorie",UIImage(named: "menu"), "CategoriesViewController", "categories"),
+        menuItems.append(MenuHeader("Cambusa", [
             MenuItem("Reparti",UIImage(named: "menu"), "DepartmentsViewController", "departments"),
-            MenuItem("Articoli",UIImage(named: "menu"), "ItemsViewController", "items")
+            MenuItem("Categorie",UIImage(named: "menu"), "CategoriesViewController", "categories"),
+            MenuItem("Articoli",UIImage(named: "menu"), "ItemsViewController", "items"),
+            MenuItem("Unità di Misura",UIImage(named: "menu"), "UnitsViewController", "items"),
         ]))
 
         menuItems.append(MenuHeader("Gestione", [

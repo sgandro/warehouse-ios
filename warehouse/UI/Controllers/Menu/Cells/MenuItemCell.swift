@@ -16,8 +16,8 @@ class MenuItemCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         self.backgroundColor = UIColor.clear
-        self.labelTitle.initializeAttributes(font: UIFont.systemFont(ofSize: 18, weight: .bold), color: UIColor.white, align: .left)
-        self.imageViewIcon.tintColor = UIColor.white
+        self.labelTitle.initializeAttributes(font: UIFont.systemFont(ofSize: 18, weight: .bold), color: UIColor.label, align: .left)
+        self.imageViewIcon.tintColor = UIColor.label
         self.selectionStyle = .none
     }
 
@@ -52,9 +52,9 @@ class MenuItemCell: UITableViewCell {
 
         // Configure the view for the selected state
         if selected{
-            self.labelTitle.initializeAttributes(font: UIFont.systemFont(ofSize: 18, weight: .bold), color: UIColor.white, align: .left)
+            self.labelTitle.initializeAttributes(font: UIFont.systemFont(ofSize: 18, weight: .bold), color: UIColor.label, align: .left)
         }else{
-            self.labelTitle.initializeAttributes(font: UIFont.systemFont(ofSize: 18, weight: .regular), color: UIColor.white, align: .left)
+            self.labelTitle.initializeAttributes(font: UIFont.systemFont(ofSize: 18, weight: .regular), color: UIColor.label, align: .left)
         }
 
     }

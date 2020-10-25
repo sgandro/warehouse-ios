@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9E87FD6FDF22B76DE89CF79D /* Pods_warehouse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8198F56ABED7502C8682D1A2 /* Pods_warehouse.framework */; };
+		DE0F8CAD253F21660000F682 /* BundleVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0F8CAC253F21660000F682 /* BundleVersion.swift */; };
 		DE22C6DE253970BC004879F1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE22C6DD253970BC004879F1 /* MainViewController.swift */; };
 		DE22C6E0253971E1004879F1 /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE22C6DF253971E1004879F1 /* LeftMenuViewController.swift */; };
 		DE22C6FE253B7662004879F1 /* MenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE22C6FC253B7662004879F1 /* MenuItemCell.swift */; };
@@ -15,7 +16,7 @@
 		DE36225D253C5203004060A5 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE36225C253C5203004060A5 /* Item.swift */; };
 		DE36225F253CC724004060A5 /* AddCategorieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE36225E253CC724004060A5 /* AddCategorieViewController.swift */; };
 		DE362261253CCE54004060A5 /* AddDepartmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE362260253CCE54004060A5 /* AddDepartmentsViewController.swift */; };
-		DE362263253CCEF1004060A5 /* AddItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE362262253CCEF1004060A5 /* AddItemsViewController.swift */; };
+		DE362263253CCEF1004060A5 /* AddItemsFirstStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE362262253CCEF1004060A5 /* AddItemsFirstStepViewController.swift */; };
 		DE362265253CD6F5004060A5 /* PickerTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE362264253CD6F5004060A5 /* PickerTextView.swift */; };
 		DE362267253CE47B004060A5 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE362266253CE47B004060A5 /* UIViewController+Extension.swift */; };
 		DE553250253B82BC00B2B29F /* MenuHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE55324F253B82BC00B2B29F /* MenuHeaderView.swift */; };
@@ -29,20 +30,29 @@
 		DE553264253BB13600B2B29F /* ClientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE553263253BB13600B2B29F /* ClientsViewController.swift */; };
 		DE55326F253C350B00B2B29F /* EmptyStateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE55326E253C350B00B2B29F /* EmptyStateView.xib */; };
 		DE553271253C351B00B2B29F /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE553270253C351B00B2B29F /* EmptyStateView.swift */; };
+		DE6A263E25456CCD00B7795A /* AddItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6A263D25456CCD00B7795A /* AddItemsViewController.swift */; };
 		DE98A0482538286A000C8938 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE98A0472538286A000C8938 /* AppDelegate.swift */; };
 		DE98A04A2538286A000C8938 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE98A0492538286A000C8938 /* SceneDelegate.swift */; };
 		DE98A04F2538286A000C8938 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE98A04D2538286A000C8938 /* Main.storyboard */; };
 		DE98A0512538286D000C8938 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE98A0502538286D000C8938 /* Assets.xcassets */; };
 		DE98A0542538286D000C8938 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE98A0522538286D000C8938 /* LaunchScreen.storyboard */; };
+		DEC0DE7A25419B050086CBE0 /* BackgroundTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE7925419B050086CBE0 /* BackgroundTaskManager.swift */; };
+		DEC0DE7D2541B53B0086CBE0 /* KeyboardToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE7C2541B53B0086CBE0 /* KeyboardToolBar.swift */; };
+		DEC0DE812541B62A0086CBE0 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE802541B62A0086CBE0 /* BaseViewController.swift */; };
+		DEC0DE842541B6660086CBE0 /* ApplicationNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE832541B6660086CBE0 /* ApplicationNotification.swift */; };
+		DEC0DE872541B6770086CBE0 /* DiskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE862541B6770086CBE0 /* DiskStatus.swift */; };
 		DEF14036253C446900828B74 /* Department.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF14035253C446900828B74 /* Department.swift */; };
 		DEF14038253C459400828B74 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF14037253C459400828B74 /* Category.swift */; };
 		DEF1403B253C484F00828B74 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF1403A253C484F00828B74 /* StorageManager.swift */; };
 		DEF1403D253C4A8500828B74 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF1403C253C4A8500828B74 /* UITableView+Extension.swift */; };
+		DEF22E472540391500E5A5F3 /* AddItemsSecondStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF22E462540391500E5A5F3 /* AddItemsSecondStepViewController.swift */; };
+		DEF22E4A2540393500E5A5F3 /* AddItemsThirdStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF22E492540393500E5A5F3 /* AddItemsThirdStepViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2829617CB943B588CAC033AD /* Pods-warehouse.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-warehouse.release.xcconfig"; path = "Target Support Files/Pods-warehouse/Pods-warehouse.release.xcconfig"; sourceTree = "<group>"; };
 		8198F56ABED7502C8682D1A2 /* Pods_warehouse.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_warehouse.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE0F8CAC253F21660000F682 /* BundleVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleVersion.swift; sourceTree = "<group>"; };
 		DE22C6B125382A18004879F1 /* AlmaFramework_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AlmaFramework_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE22C6DD253970BC004879F1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		DE22C6DF253971E1004879F1 /* LeftMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
@@ -51,7 +61,7 @@
 		DE36225C253C5203004060A5 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		DE36225E253CC724004060A5 /* AddCategorieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategorieViewController.swift; sourceTree = "<group>"; };
 		DE362260253CCE54004060A5 /* AddDepartmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDepartmentsViewController.swift; sourceTree = "<group>"; };
-		DE362262253CCEF1004060A5 /* AddItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemsViewController.swift; sourceTree = "<group>"; };
+		DE362262253CCEF1004060A5 /* AddItemsFirstStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemsFirstStepViewController.swift; sourceTree = "<group>"; };
 		DE362264253CD6F5004060A5 /* PickerTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTextView.swift; sourceTree = "<group>"; };
 		DE362266253CE47B004060A5 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		DE55324F253B82BC00B2B29F /* MenuHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHeaderView.swift; sourceTree = "<group>"; };
@@ -65,6 +75,7 @@
 		DE553263253BB13600B2B29F /* ClientsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientsViewController.swift; sourceTree = "<group>"; };
 		DE55326E253C350B00B2B29F /* EmptyStateView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyStateView.xib; sourceTree = "<group>"; };
 		DE553270253C351B00B2B29F /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		DE6A263D25456CCD00B7795A /* AddItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemsViewController.swift; sourceTree = "<group>"; };
 		DE98A0442538286A000C8938 /* warehouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = warehouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE98A0472538286A000C8938 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE98A0492538286A000C8938 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,10 +83,17 @@
 		DE98A0502538286D000C8938 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DE98A0532538286D000C8938 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE98A0552538286D000C8938 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DEC0DE7925419B050086CBE0 /* BackgroundTaskManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundTaskManager.swift; sourceTree = "<group>"; };
+		DEC0DE7C2541B53B0086CBE0 /* KeyboardToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardToolBar.swift; sourceTree = "<group>"; };
+		DEC0DE802541B62A0086CBE0 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		DEC0DE832541B6660086CBE0 /* ApplicationNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationNotification.swift; sourceTree = "<group>"; };
+		DEC0DE862541B6770086CBE0 /* DiskStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskStatus.swift; sourceTree = "<group>"; };
 		DEF14035253C446900828B74 /* Department.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Department.swift; sourceTree = "<group>"; };
 		DEF14037253C459400828B74 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		DEF1403A253C484F00828B74 /* StorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		DEF1403C253C4A8500828B74 /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
+		DEF22E462540391500E5A5F3 /* AddItemsSecondStepViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemsSecondStepViewController.swift; sourceTree = "<group>"; };
+		DEF22E492540393500E5A5F3 /* AddItemsThirdStepViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemsThirdStepViewController.swift; sourceTree = "<group>"; };
 		F541AAFA2A61C5103EB611ED /* Pods-warehouse.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-warehouse.debug.xcconfig"; path = "Target Support Files/Pods-warehouse/Pods-warehouse.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,7 +130,6 @@
 		DE22C6F8253B7600004879F1 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				DE22C6FA253B7620004879F1 /* Resources */,
 				DE22C6F9253B7605004879F1 /* Controllers */,
 			);
 			path = UI;
@@ -203,7 +220,10 @@
 			isa = PBXGroup;
 			children = (
 				DE55325D253BAF9600B2B29F /* ItemsViewController.swift */,
-				DE362262253CCEF1004060A5 /* AddItemsViewController.swift */,
+				DE6A263D25456CCD00B7795A /* AddItemsViewController.swift */,
+				DE362262253CCEF1004060A5 /* AddItemsFirstStepViewController.swift */,
+				DEF22E462540391500E5A5F3 /* AddItemsSecondStepViewController.swift */,
+				DEF22E492540393500E5A5F3 /* AddItemsThirdStepViewController.swift */,
 			);
 			path = Items;
 			sourceTree = "<group>";
@@ -262,12 +282,14 @@
 		DE98A0462538286A000C8938 /* warehouse */ = {
 			isa = PBXGroup;
 			children = (
+				DE22C6FA253B7620004879F1 /* Resources */,
 				DEF14045253C4C3400828B74 /* Commons */,
 				DEF14039253C481B00828B74 /* Managers */,
 				DEF14033253C42E300828B74 /* Models */,
 				DE553254253B992100B2B29F /* Extensions */,
 				DE22C6F8253B7600004879F1 /* UI */,
 				DE98A0472538286A000C8938 /* AppDelegate.swift */,
+				DE0F8CAC253F21660000F682 /* BundleVersion.swift */,
 				DE98A0492538286A000C8938 /* SceneDelegate.swift */,
 				DE98A0552538286D000C8938 /* Info.plist */,
 			);
@@ -303,6 +325,11 @@
 		DEF14045253C4C3400828B74 /* Commons */ = {
 			isa = PBXGroup;
 			children = (
+				DEC0DE862541B6770086CBE0 /* DiskStatus.swift */,
+				DEC0DE832541B6660086CBE0 /* ApplicationNotification.swift */,
+				DEC0DE802541B62A0086CBE0 /* BaseViewController.swift */,
+				DEC0DE7925419B050086CBE0 /* BackgroundTaskManager.swift */,
+				DEC0DE7C2541B53B0086CBE0 /* KeyboardToolBar.swift */,
 				DE362264253CD6F5004060A5 /* PickerTextView.swift */,
 			);
 			path = Commons;
@@ -337,6 +364,7 @@
 				DE98A0412538286A000C8938 /* Frameworks */,
 				DE98A0422538286A000C8938 /* Resources */,
 				DC0D6BE4E0961B218CD94535 /* [CP] Embed Pods Frameworks */,
+				DE64D1F42540EF5F00E99E9C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -413,6 +441,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-warehouse/Pods-warehouse-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		DE64D1F42540EF5F00E99E9C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "buildPlist=${INFOPLIST_FILE}\nBundleShortVersion=$MARKETING_VERSION\nBuildVersion=$(/bin/date +%Y%m%d)\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $BuildVersion\" $buildPlist\necho \"struct BUNDLE_VERSION { static let version: String =  \\\"$BundleShortVersion.$BuildVersion\\\" }\" > src/BundleVersion.swift\n\nsed -i \"\" -e \"/userLabel=\\\"APP_VERSION\\\"/s/text=\\\"[^\\\"]*\\\"/text=\\\"Ver. $BundleShortVersion.$BuildVersion\\\"/\" \"$PROJECT_DIR/Resources/Base.lproj/LaunchScreen.storyboard\"\necho \"test\"\necho \"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)\"\n";
+			showEnvVarsInLog = 0;
+		};
 		F13356CCD615F4FC5AF5D01D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -444,11 +490,15 @@
 			files = (
 				DE362267253CE47B004060A5 /* UIViewController+Extension.swift in Sources */,
 				DEF1403B253C484F00828B74 /* StorageManager.swift in Sources */,
+				DEF22E4A2540393500E5A5F3 /* AddItemsThirdStepViewController.swift in Sources */,
 				DE553264253BB13600B2B29F /* ClientsViewController.swift in Sources */,
+				DEC0DE7A25419B050086CBE0 /* BackgroundTaskManager.swift in Sources */,
+				DEC0DE812541B62A0086CBE0 /* BaseViewController.swift in Sources */,
 				DE22C6DE253970BC004879F1 /* MainViewController.swift in Sources */,
 				DEF14036253C446900828B74 /* Department.swift in Sources */,
 				DE55325C253BABDC00B2B29F /* DepartmentsViewController.swift in Sources */,
 				DE98A0482538286A000C8938 /* AppDelegate.swift in Sources */,
+				DE6A263E25456CCD00B7795A /* AddItemsViewController.swift in Sources */,
 				DE553250253B82BC00B2B29F /* MenuHeaderView.swift in Sources */,
 				DE553258253B996500B2B29F /* UILabel+Extension.swift in Sources */,
 				DE36225F253CC724004060A5 /* AddCategorieViewController.swift in Sources */,
@@ -461,11 +511,16 @@
 				DE362265253CD6F5004060A5 /* PickerTextView.swift in Sources */,
 				DE36225D253C5203004060A5 /* Item.swift in Sources */,
 				DE362261253CCE54004060A5 /* AddDepartmentsViewController.swift in Sources */,
+				DEF22E472540391500E5A5F3 /* AddItemsSecondStepViewController.swift in Sources */,
 				DE22C6FE253B7662004879F1 /* MenuItemCell.swift in Sources */,
 				DE55325A253BA55300B2B29F /* CategoriesViewController.swift in Sources */,
+				DEC0DE7D2541B53B0086CBE0 /* KeyboardToolBar.swift in Sources */,
+				DEC0DE872541B6770086CBE0 /* DiskStatus.swift in Sources */,
 				DE553262253BB0AE00B2B29F /* BanksViewController.swift in Sources */,
+				DE0F8CAD253F21660000F682 /* BundleVersion.swift in Sources */,
 				DE98A04A2538286A000C8938 /* SceneDelegate.swift in Sources */,
-				DE362263253CCEF1004060A5 /* AddItemsViewController.swift in Sources */,
+				DEC0DE842541B6660086CBE0 /* ApplicationNotification.swift in Sources */,
+				DE362263253CCEF1004060A5 /* AddItemsFirstStepViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -620,6 +675,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = it.alper.warehouse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -640,6 +696,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = it.alper.warehouse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

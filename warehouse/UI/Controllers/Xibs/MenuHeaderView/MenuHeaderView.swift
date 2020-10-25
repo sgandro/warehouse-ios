@@ -37,7 +37,7 @@ class MenuHeaderView: UIView {
         contentView.frame = self.bounds
         contentView.backgroundColor = UIColor.clear
         contentView.autoresizingMask = [.flexibleWidth,.flexibleHeight]
-        lblTitle.textColor = UIColor.white
+        lblTitle.textColor = UIColor.label
 
     }
 

@@ -77,10 +77,15 @@ class ItemsViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
     //MARK: - Actions
     @IBAction func openMenuButtonPressed(button: UIBarButtonItem){
         self.sideMenuController?.revealMenu()
     }
+
+    @IBAction func unwind( _ segue: UIStoryboardSegue) {
+    }
+
 
     //MARK: - Method
 

@@ -31,10 +31,12 @@ class AddCategorieViewController: UIViewController {
 
         labelDescription.initialize(textValue: "Inserie il nome della nuova caregoria.\nOgni categoria va associata ad un reparto.\nVerificare di aver precedentemente inserito il reparto desiderato",
                                     font: UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.light),
-                                    color: UIColor.blue,
+                                    color: UIColor.secondaryLabel,
                                     align: .center)
 
         textFieldCategoryName.placeholder = "Nome categoria"
+        textFieldCategoryName.autocapitalizationType = .words
+
         textFieldDepartmentName.placeholder = "Seleziona reparto"
 
         StorageManager.sharedInstance.getDefaultRealm { (realm) in
@@ -68,7 +70,7 @@ class AddCategorieViewController: UIViewController {
 
         StorageManager.sharedInstance.getDefaultRealm { (realm) in
 
-            if let department = realm.objects(Department.self).first{
+            if let department = realm.objects(Department.self).first(where: {$0.name == departmentName}){
                 realm.beginWrite()
                 let category = realm.create(Category.self, value: ["name":categoryName], update: .all)
                 department.categories.append(category)

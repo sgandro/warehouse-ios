@@ -7,4 +7,7 @@
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:AlmaFramework-iOS/AlmaFramework-iOS.xcodeproj">
+   </FileRef>
 </Workspace>
