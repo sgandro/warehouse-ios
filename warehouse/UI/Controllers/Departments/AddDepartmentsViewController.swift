@@ -11,6 +11,7 @@ class AddDepartmentsViewController: UIViewController {
 
     @IBOutlet weak var labelTitle:UILabel!
     @IBOutlet weak var labelDescription:UILabel!
+    @IBOutlet weak var labelCaptionDepartmentName:UILabel!
     @IBOutlet weak var textFieldDepartmentName:UITextField!
 
     override func viewDidLoad() {
@@ -29,8 +30,13 @@ class AddDepartmentsViewController: UIViewController {
                                     color: UIColor.secondaryLabel,
                                     align: .center)
 
-        textFieldDepartmentName.placeholder = "Nome reparto"
-        textFieldDepartmentName.autocapitalizationType = .words
+        labelCaptionDepartmentName.initialize(textValue: "Dipartimento",
+                                              font: UIFont.systemFont(ofSize: 12, weight: .semibold),
+                                              color: UIColor.secondaryLabel,
+                                              align: .left)
+
+        textFieldDepartmentName.delegate = self
+        textFieldDepartmentName.returnKeyType = .next
 
     }
 
@@ -62,5 +68,40 @@ class AddDepartmentsViewController: UIViewController {
 
         dismiss(animated: true, completion: nil)
     }
+
+}
+
+extension AddDepartmentsViewController:UITextFieldDelegate{
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        checkFields(textField)
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        nextFieldMove()
+        return true
+    }
+
+    func nextFieldMove(){
+
+        let fields: [UITextField] = [textFieldDepartmentName]
+
+        if
+            let activeField: UITextField = fields.first(where: { $0.isFirstResponder }),
+            let index: Int = fields.firstIndex(of: activeField)
+        {
+            let lastIndex = (index < fields.count) ? index:(fields.count - 1)
+            let nextField: UITextField = fields[fields.index(after: lastIndex)]
+            nextField.becomeFirstResponder()
+        }
+
+    }
+
+    func checkFields(_ textField: UITextField){
+
+        if textField == textFieldDepartmentName {}
+
+    }
+
 
 }

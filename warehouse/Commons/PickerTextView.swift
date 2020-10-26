@@ -10,6 +10,7 @@ import UIKit
 class PickerTextView: UITextField {
 
     private let pickerView = UIPickerView()
+    var pickerItemSelected:((_ done:Bool)->Void)?
     var datasource:[String]?{
         didSet{
             pickerView.reloadComponent(0)
@@ -52,12 +53,14 @@ class PickerTextView: UITextField {
         //salva il risultato
         guard let datasource = self.datasource else {
             self.text = nil
+            pickerItemSelected?(false)
             return
         }
 
         let row = pickerView.selectedRow(inComponent: 0)
         self.text = datasource[row]
         self.resignFirstResponder()
+        pickerItemSelected?(true)
     }
 
 

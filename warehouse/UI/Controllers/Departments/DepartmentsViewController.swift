@@ -93,7 +93,7 @@ class DepartmentsViewController: UIViewController {
         tableView.separatorStyle = .singleLine
         tableView.alwaysBounceVertical = false
         tableView.bounces = false
-        emptyStateView.labelMessage.text = "Non ci sono dipartimenti in Archivio"
+        emptyStateView.labelMessage.text = "Non ci sono reparti in Archivio"
         tableView.backgroundView = emptyStateView
 
         //tableView.register(MenuItemCell.nibName, forCellReuseIdentifier: MenuItemCell.identifier)

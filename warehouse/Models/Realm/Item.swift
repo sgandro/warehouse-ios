@@ -18,7 +18,7 @@ class Item: Object{
     @objc dynamic var currency: String = ""
     @objc dynamic var minimumStock: Int = 0
     @objc dynamic var unit: String = ""
-    @objc dynamic var quantity: Double = 0.0
+    @objc dynamic var quantity: Int = 0
     @objc dynamic var vat: Double = 0.0
     @objc dynamic var note: String = ""
 

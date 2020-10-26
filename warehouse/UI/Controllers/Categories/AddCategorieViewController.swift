@@ -11,7 +11,11 @@ class AddCategorieViewController: UIViewController {
 
     @IBOutlet weak var labelTitle:UILabel!
     @IBOutlet weak var labelDescription:UILabel!
+
+    @IBOutlet weak var labelCaptionCategoryName:UILabel!
     @IBOutlet weak var textFieldCategoryName:UITextField!
+
+    @IBOutlet weak var labelCaptionDepartmentName:UILabel!
     @IBOutlet weak var textFieldDepartmentName:PickerTextView!
 
 
@@ -34,13 +38,30 @@ class AddCategorieViewController: UIViewController {
                                     color: UIColor.secondaryLabel,
                                     align: .center)
 
-        textFieldCategoryName.placeholder = "Nome categoria"
-        textFieldCategoryName.autocapitalizationType = .words
+        labelCaptionCategoryName.initialize(textValue: "Categoria",
+                                            font: UIFont.systemFont(ofSize: 12, weight: .semibold),
+                                            color: UIColor.secondaryLabel,
+                                            align: .left)
 
+        labelCaptionDepartmentName.initialize(textValue: "Dipartimento",
+                                              font: UIFont.systemFont(ofSize: 12, weight: .semibold),
+                                              color: UIColor.secondaryLabel,
+                                              align: .left)
+
+
+        textFieldCategoryName.delegate = self
+        textFieldCategoryName.returnKeyType = .next
+
+        textFieldDepartmentName.delegate = self
+        textFieldDepartmentName.returnKeyType = .next
         textFieldDepartmentName.placeholder = "Seleziona reparto"
-
         StorageManager.sharedInstance.getDefaultRealm { (realm) in
             self.textFieldDepartmentName.datasource = realm.objects(Department.self).map({$0.name})
+            let count = self.textFieldDepartmentName.datasource?.count ?? 0
+            if count == 0{
+                self.showAlert(title: "Informazione", andBody: "Creare prima un reparto")
+            }
+
         }
 
     }
@@ -88,4 +109,42 @@ class AddCategorieViewController: UIViewController {
 
         dismiss(animated: true, completion: nil)
     }
+}
+
+
+extension AddCategorieViewController:UITextFieldDelegate{
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        checkFields(textField)
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        nextFieldMove()
+        return true
+    }
+
+    func nextFieldMove(){
+
+        let fields: [UITextField] = [textFieldCategoryName,
+                                     textFieldDepartmentName]
+
+        if
+            let activeField: UITextField = fields.first(where: { $0.isFirstResponder }),
+            let index: Int = fields.firstIndex(of: activeField)
+        {
+            let lastIndex = (index < fields.count) ? index:(fields.count - 1)
+            let nextField: UITextField = fields[fields.index(after: lastIndex)]
+            nextField.becomeFirstResponder()
+        }
+
+    }
+
+    func checkFields(_ textField: UITextField){
+
+        if textField == textFieldCategoryName {}
+        if textField == textFieldDepartmentName {}
+
+    }
+
+
 }
