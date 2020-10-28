@@ -50,13 +50,14 @@ class AddItemsViewController: UIViewController {
     @IBOutlet weak var textFieldNote:UITextField!
 
     @IBOutlet weak var labelCaptionDepartimentName:UILabel!
-    @IBOutlet weak var textFieldDepartimentName:PickerTextView!
+    @IBOutlet weak var textFieldDepartmentName:PickerTextView!
 
     @IBOutlet weak var scrollView:UIScrollView!
     @IBOutlet weak var containerView:UIView!
 
 
-    var item:[String:Any]?
+    var itemToUpdate:Item?
+    private let keyboardToolBar = KeyboardToolBar()
 
 
     override func viewDidLoad() {
@@ -73,12 +74,201 @@ class AddItemsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        labelTitle.initialize(textValue: "Nuovo Articolo", font: UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.bold), color: UIColor.darkGray, align: .center)
+        let formatter = NumberFormatter()
+        formatter.locale = Locale(identifier: "it_IT")
+        formatter.minimumIntegerDigits = 1
+        formatter.maximumIntegerDigits = 2
 
-        labelDescription.initialize(textValue: "Prima di inserire i dati è necessario creare un reparto e una categoria a cui associare il prodotto",
-                                    font: UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.light),
-                                    color: UIColor.secondaryLabel,
-                                    align: .center)
+        keyboardToolBar.nextButtonPressed = {
+            self.nextFieldMove()
+        }
+        keyboardToolBar.doneButtonPressed = {
+            self.view.endEditing(true)
+        }
+        keyboardToolBar.cancelButtonPressed = {
+            self.view.endEditing(true)
+        }
+
+        if itemToUpdate != nil{
+
+            labelTitle.initialize(textValue: "Modifica Articolo", font: UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.bold), color: UIColor.darkGray, align: .center)
+
+            labelDescription.initialize(textValue: "Puoi modificare l'articolo, ma non puoi modificare la categoria di appartenenza",
+                                        font: UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.light),
+                                        color: UIColor.secondaryLabel,
+                                        align: .center)
+
+            textFieldName.delegate = self
+            textFieldName.returnKeyType = .next
+            textFieldName.text = itemToUpdate?.name
+            textFieldName.inputAccessoryView = keyboardToolBar
+
+            textFieldBarcode.delegate = self
+            textFieldBarcode.returnKeyType = .next
+            textFieldBarcode.text = itemToUpdate?.barcode
+            textFieldBarcode.inputAccessoryView = keyboardToolBar
+
+            textFieldSerialNumber.delegate = self
+            textFieldSerialNumber.returnKeyType = .next
+            textFieldSerialNumber.text = itemToUpdate?.serialNumber
+            textFieldSerialNumber.inputAccessoryView = keyboardToolBar
+
+            textFieldUnit.delegate = self
+            textFieldUnit.returnKeyType = .next
+            textFieldUnit.text = itemToUpdate?.unit
+            textFieldUnit.inputAccessoryView = keyboardToolBar
+
+            formatter.numberStyle = .none
+
+            textFieldQuantity.delegate = self
+            textFieldQuantity.returnKeyType = .next
+            textFieldQuantity.text = formatter.string(from: NSNumber(value: itemToUpdate?.quantity ?? 0))
+            textFieldQuantity.inputAccessoryView = keyboardToolBar
+
+            formatter.numberStyle = .currency
+
+            textFieldPrice.delegate = self
+            textFieldPrice.returnKeyType = .next
+            textFieldPrice.text = formatter.string(from: NSNumber(value: itemToUpdate?.price ?? 0.0))
+            textFieldPrice.inputAccessoryView = keyboardToolBar
+
+            textFieldUnitPrice.delegate = self
+            textFieldUnitPrice.returnKeyType = .next
+            textFieldUnitPrice.text = formatter.string(from: NSNumber(value: itemToUpdate?.unitPrice ?? 0.0))
+            textFieldUnitPrice.inputAccessoryView = keyboardToolBar
+
+            textFieldCurrency.delegate = self
+            textFieldCurrency.returnKeyType = .next
+            textFieldCurrency.datasource = [self.itemToUpdate?.currency ?? "EUR"]
+            textFieldCurrency.inputAccessoryView = keyboardToolBar
+
+            formatter.numberStyle = .percent
+
+            textFieldVat.delegate = self
+            textFieldVat.returnKeyType = .next
+            textFieldVat.text = formatter.string(from: NSNumber(value: (itemToUpdate?.vat ?? 0.0)))
+            textFieldVat.inputAccessoryView = keyboardToolBar
+
+            formatter.numberStyle = .none
+
+            textFieldMinimumStock.delegate = self
+            textFieldMinimumStock.returnKeyType = .next
+            textFieldMinimumStock.text = formatter.string(from: NSNumber(value: itemToUpdate?.minimumStock ?? 0))
+            textFieldMinimumStock.inputAccessoryView = keyboardToolBar
+
+            textFieldCategoryName.delegate = self
+            textFieldCategoryName.returnKeyType = .next
+            if let categoryName = self.itemToUpdate?.categories.first?.name{
+                self.textFieldCategoryName.datasource = [categoryName]
+            }
+
+            textFieldNote.delegate = self
+            textFieldNote.returnKeyType = .next
+            textFieldNote.text = itemToUpdate?.note
+            textFieldNote.inputAccessoryView = keyboardToolBar
+
+            textFieldDepartmentName.delegate = self
+            textFieldDepartmentName.returnKeyType = .next
+            textFieldDepartmentName.placeholder = "Seleziona reparto"
+
+            if let departmentName = self.itemToUpdate?.categories.first?.department.first?.name{
+                self.textFieldDepartmentName.datasource = [departmentName]
+            }
+
+
+
+        }else{
+            labelTitle.initialize(textValue: "Nuovo Articolo", font: UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.bold), color: UIColor.darkGray, align: .center)
+
+            labelDescription.initialize(textValue: "Prima di inserire i dati è necessario creare un reparto e una categoria a cui associare il prodotto",
+                                        font: UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.light),
+                                        color: UIColor.secondaryLabel,
+                                        align: .center)
+
+            textFieldName.delegate = self
+            textFieldName.returnKeyType = .next
+            textFieldName.inputAccessoryView = keyboardToolBar
+
+            textFieldBarcode.delegate = self
+            textFieldBarcode.returnKeyType = .next
+            textFieldBarcode.keyboardType = .numberPad
+            textFieldBarcode.inputAccessoryView = keyboardToolBar
+
+            textFieldSerialNumber.delegate = self
+            textFieldSerialNumber.returnKeyType = .next
+            textFieldSerialNumber.keyboardType = .asciiCapable
+            textFieldSerialNumber.inputAccessoryView = keyboardToolBar
+
+            textFieldUnit.delegate = self
+            textFieldUnit.returnKeyType = .next
+            textFieldUnit.keyboardType = .asciiCapable
+            textFieldUnit.inputAccessoryView = keyboardToolBar
+
+            textFieldQuantity.delegate = self
+            textFieldQuantity.returnKeyType = .next
+            textFieldQuantity.keyboardType = .numberPad
+            textFieldQuantity.inputAccessoryView = keyboardToolBar
+
+            textFieldPrice.delegate = self
+            textFieldPrice.returnKeyType = .next
+            textFieldPrice.keyboardType = .decimalPad
+            textFieldPrice.inputAccessoryView = keyboardToolBar
+
+            textFieldUnitPrice.delegate = self
+            textFieldUnitPrice.returnKeyType = .next
+            textFieldUnitPrice.keyboardType = .decimalPad
+            textFieldUnitPrice.inputAccessoryView = keyboardToolBar
+
+            textFieldCurrency.delegate = self
+            textFieldCurrency.returnKeyType = .next
+            textFieldCurrency.placeholder = "Seleziona valuta"
+
+            textFieldCurrency.datasource = ["EUR"]
+            textFieldCurrency.pickerItemSelected = {(done) in
+                self.nextFieldMove()
+            }
+
+            textFieldVat.delegate = self
+            textFieldVat.returnKeyType = .next
+            textFieldVat.keyboardType = .numberPad
+            textFieldVat.inputAccessoryView = keyboardToolBar
+
+            textFieldMinimumStock.delegate = self
+            textFieldMinimumStock.returnKeyType = .next
+            textFieldMinimumStock.keyboardType = .numberPad
+            textFieldMinimumStock.inputAccessoryView = keyboardToolBar
+
+            textFieldCategoryName.delegate = self
+            textFieldCategoryName.returnKeyType = .next
+            textFieldCategoryName.placeholder = "Seleziona categoria"
+
+            textFieldCategoryName.pickerItemSelected = {(done) in
+                self.nextFieldMove()
+                if done{
+                    self.loadDepartiments()
+                }
+            }
+            self.loadCategories()
+
+            textFieldNote.delegate = self
+            textFieldNote.returnKeyType = .next
+            textFieldNote.inputAccessoryView = keyboardToolBar
+
+            textFieldDepartmentName.delegate = self
+            textFieldDepartmentName.returnKeyType = .next
+            textFieldDepartmentName.placeholder = "Seleziona reparto"
+            textFieldDepartmentName.inputAccessoryView = keyboardToolBar
+
+            textFieldDepartmentName.pickerItemSelected = {(done) in
+                self.nextFieldMove()
+                if done {
+                    self.loadCategories()
+                }
+            }
+            self.loadDepartiments()
+
+
+        }
 
         labelCaptionName.initialize(textValue: "Nome",
                                     font: UIFont.systemFont(ofSize: 12, weight: .semibold),
@@ -152,68 +342,6 @@ class AddItemsViewController: UIViewController {
 
 
 
-        textFieldName.delegate = self
-        textFieldName.returnKeyType = .next
-
-        textFieldBarcode.delegate = self
-        textFieldBarcode.returnKeyType = .next
-
-        textFieldSerialNumber.delegate = self
-        textFieldSerialNumber.returnKeyType = .next
-
-        textFieldUnit.delegate = self
-        textFieldUnit.returnKeyType = .next
-
-        textFieldQuantity.delegate = self
-        textFieldQuantity.returnKeyType = .next
-
-        textFieldPrice.delegate = self
-        textFieldPrice.returnKeyType = .next
-
-        textFieldUnitPrice.delegate = self
-        textFieldUnitPrice.returnKeyType = .next
-
-        textFieldCurrency.delegate = self
-        textFieldCurrency.returnKeyType = .next
-        textFieldCurrency.placeholder = "Seleziona valuta"
-
-        textFieldCurrency.datasource = ["EUR"]
-        textFieldCurrency.pickerItemSelected = {(done) in
-            self.nextFieldMove()
-        }
-
-        textFieldVat.delegate = self
-        textFieldVat.returnKeyType = .next
-
-        textFieldMinimumStock.delegate = self
-        textFieldMinimumStock.returnKeyType = .next
-
-        textFieldCategoryName.delegate = self
-        textFieldCategoryName.returnKeyType = .next
-        textFieldCategoryName.placeholder = "Seleziona categoria"
-
-        textFieldCategoryName.pickerItemSelected = {(done) in
-            self.nextFieldMove()
-            if done{
-                self.loadDepartiments()
-            }
-        }
-        self.loadCategories()
-
-        textFieldNote.delegate = self
-        textFieldNote.returnKeyType = .next
-
-        textFieldDepartimentName.delegate = self
-        textFieldDepartimentName.returnKeyType = .next
-        textFieldDepartimentName.placeholder = "Seleziona reparto"
-
-        textFieldDepartimentName.pickerItemSelected = {(done) in
-            self.nextFieldMove()
-            if done {
-                self.loadCategories()
-            }
-        }
-        self.loadDepartiments()
 
     }
 
@@ -221,7 +349,7 @@ class AddItemsViewController: UIViewController {
     //MARK: - functions
     func loadCategories(){
         StorageManager.sharedInstance.getDefaultRealm { (realm) in
-            if let departimentName = self.textFieldDepartimentName.selectedValue, departimentName.isEmpty == false{
+            if let departimentName = self.textFieldDepartmentName.selectedValue, departimentName.isEmpty == false{
                 self.textFieldCategoryName.datasource = realm.objects(Category.self).filter("ANY department.name == %@", departimentName).map({$0.name})
             }else{
                 self.textFieldCategoryName.datasource = realm.objects(Category.self).map({$0.name})
@@ -236,12 +364,12 @@ class AddItemsViewController: UIViewController {
     func loadDepartiments(){
         StorageManager.sharedInstance.getDefaultRealm { (realm) in
             if let categoryName = self.textFieldCategoryName.selectedValue, categoryName.isEmpty == false{
-                self.textFieldDepartimentName.datasource = realm.objects(Department.self).filter("ANY categories.name == %@", categoryName).map({$0.name})
+                self.textFieldDepartmentName.datasource = realm.objects(Department.self).filter("ANY categories.name == %@", categoryName).map({$0.name})
             }else{
-                self.textFieldDepartimentName.datasource = realm.objects(Department.self).map({$0.name})
+                self.textFieldDepartmentName.datasource = realm.objects(Department.self).map({$0.name})
             }
 
-            let count = self.textFieldDepartimentName.datasource?.count ?? 0
+            let count = self.textFieldDepartmentName.datasource?.count ?? 0
             if count == 0{
                 self.showAlert(title: "Informazione", andBody: "Creare prima un reparto")
             }
@@ -314,14 +442,6 @@ class AddItemsViewController: UIViewController {
         }
 
         guard
-            let minimumStockValue = textFieldMinimumStock.text,
-            minimumStockValue.isEmpty == false,
-            let minimumStockInteger = Int(minimumStockValue)
-        else {
-            requestAttention(to: textFieldMinimumStock)
-            return
-        }
-        guard
             let categoryNameValue = textFieldCategoryName.selectedValue,
             categoryNameValue.isEmpty == false
         else {
@@ -356,48 +476,72 @@ class AddItemsViewController: UIViewController {
             return
         }
 
-        formatter.numberStyle = .ordinal
+        guard
+            let minimumStockValue = textFieldMinimumStock.text,
+            minimumStockValue.isEmpty == false,
+            let minimumStockInteger = Int(minimumStockValue)
+        else {
+            requestAttention(to: textFieldMinimumStock)
+            return
+        }
 
         guard
             let quantityValue = textFieldQuantity.text,
             quantityValue.isEmpty == false,
-            let quantityInteger = formatter.number(from: quantityValue)?.intValue
+            let quantityInteger = Int(quantityValue)
         else {
             requestAttention(to: textFieldQuantity)
             return
         }
 
 
-        item = ["name":nameValue,
-                "serialNumber":serialNumberValue,
-                "barcode":barcodeNumberValue,
-                "price":priceDouble,
-                "unitPrice":unitPriceDouble,
-                "currency":currencyValue,
-                "unit":unitValue,
-                "quantity":quantityInteger,
-                "vat":vatDouble,
-                "note":noteValue,
-                "minimumStock":minimumStockInteger]
 
-        if let item = self.item{
+        StorageManager.sharedInstance.getDefaultRealm { (realm) in
 
-            StorageManager.sharedInstance.getDefaultRealm { (realm) in
+            if let category = realm.objects(Category.self).first(where: {$0.name == categoryNameValue}){
+                realm.beginWrite()
 
-                if let category = realm.objects(Category.self).first(where: {$0.name == categoryNameValue}){
-                    realm.beginWrite()
+                if let itemToUpdate = self.itemToUpdate{
+
+                    itemToUpdate.name = nameValue
+                    itemToUpdate.serialNumber = serialNumberValue
+                    itemToUpdate.barcode = barcodeNumberValue
+                    itemToUpdate.price = priceDouble
+                    itemToUpdate.unitPrice = unitPriceDouble
+                    itemToUpdate.currency = currencyValue
+                    itemToUpdate.unit = unitValue
+                    itemToUpdate.quantity = quantityInteger
+                    itemToUpdate.vat = vatDouble
+                    itemToUpdate.note = noteValue
+                    itemToUpdate.minimumStock = minimumStockInteger
+                    realm.add(category, update: .modified)
+
+                }else{
+
+                    let item:[String:Any] = ["name":nameValue,
+                                             "serialNumber":serialNumberValue,
+                                             "barcode":barcodeNumberValue,
+                                             "price":priceDouble,
+                                             "unitPrice":unitPriceDouble,
+                                             "currency":currencyValue,
+                                             "unit":unitValue,
+                                             "quantity":quantityInteger,
+                                             "vat":vatDouble,
+                                             "note":noteValue,
+                                             "minimumStock":minimumStockInteger]
+
                     let newItem = realm.create(Item.self, value: item, update: .all)
                     category.items.append(newItem)
-                    do{
-                        try realm.commitWrite()
-                    }catch{
-                        realm.cancelWrite()
-                        print("Error:\(error.localizedDescription)")
-                    }
-
+                }
+                do{
+                    try realm.commitWrite()
+                }catch{
+                    realm.cancelWrite()
+                    print("Error:\(error.localizedDescription)")
                 }
 
             }
+
         }
 
         dismiss(animated: true, completion: nil)
@@ -413,6 +557,11 @@ class AddItemsViewController: UIViewController {
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(onKeyboardDisappear(_:)),
+                                               name: UIResponder.keyboardWillChangeFrameNotification,
+                                               object: nil)
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(onKeyboardDisappear(_:)),
                                                name: UIResponder.keyboardDidHideNotification,
                                                object: nil)
     }
@@ -421,6 +570,10 @@ class AddItemsViewController: UIViewController {
     deinit {
         NotificationCenter.default.removeObserver(self,
                                                   name: UIResponder.keyboardDidShowNotification,
+                                                  object: nil)
+
+        NotificationCenter.default.removeObserver(self,
+                                                  name: UIResponder.keyboardWillChangeFrameNotification,
                                                   object: nil)
 
         NotificationCenter.default.removeObserver(self,
@@ -433,19 +586,19 @@ class AddItemsViewController: UIViewController {
         let rect = info[UIResponder.keyboardFrameBeginUserInfoKey] as! CGRect
         let kbSize = rect.size
 
-        let insets = UIEdgeInsets(top: 0, left: 0, bottom: kbSize.height, right: 0)
+        let insets = UIEdgeInsets(top: 0, left: 0, bottom: kbSize.height + keyboardToolBar.frame.height, right: 0)
         scrollView.contentInset = insets
         scrollView.scrollIndicatorInsets = insets
 
         // If active text field is hidden by keyboard, scroll it so it's visible
         // Your application might not need or want this behavior.
         var aRect = self.containerView.frame;
-        aRect.size.height -= kbSize.height;
+        aRect.size.height -= kbSize.height + keyboardToolBar.frame.height;
 
         let activeField: UITextField? = [textFieldName,
                                          textFieldSerialNumber,
                                          textFieldBarcode,
-                                         textFieldDepartimentName,
+                                         textFieldDepartmentName,
                                          textFieldCategoryName,
                                          textFieldUnit,
                                          textFieldQuantity,
@@ -490,8 +643,8 @@ extension AddItemsViewController:UITextFieldDelegate{
         let fields: [UITextField] = [textFieldName,
                                      textFieldSerialNumber,
                                      textFieldBarcode,
-                                     textFieldDepartimentName,
-                                     textFieldCategoryName,
+                                     //textFieldDepartmentName,
+                                     //textFieldCategoryName,
                                      textFieldUnit,
                                      textFieldQuantity,
                                      //textFieldCurrency,
@@ -563,11 +716,11 @@ extension AddItemsViewController:UITextFieldDelegate{
             }
         }
 
-        if textField == textFieldDepartimentName {}
+        if textField == textFieldDepartmentName {}
         if textField == textFieldCategoryName {}
         if textField == textFieldUnit {}
         if textField == textFieldQuantity {
-            formatter.numberStyle = .ordinal
+            formatter.numberStyle = .none
 
             if
                 let text = textField.text,
@@ -579,7 +732,7 @@ extension AddItemsViewController:UITextFieldDelegate{
             }
         }
         if textField == textFieldMinimumStock {
-            formatter.numberStyle = .ordinal
+            formatter.numberStyle = .none
 
             if
                 let text = textField.text,

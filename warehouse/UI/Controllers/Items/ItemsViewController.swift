@@ -68,15 +68,22 @@ class ItemsViewController: UIViewController {
 
     
 
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+
+        if
+            let vc = segue.destination as? AddItemsViewController,
+            let item = sender as? Item
+        {
+            vc.itemToUpdate = item
+        }
     }
-    */
+
     
     //MARK: - Actions
     @IBAction func openMenuButtonPressed(button: UIBarButtonItem){
@@ -132,12 +139,50 @@ extension ItemsViewController : UITableViewDataSource{
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let datasource = self.datasource else { return UITableViewCell() }
+
+        let category = datasource[indexPath.row].categories.first
+        let department = category?.department.first
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
         cell.textLabel?.text = datasource[indexPath.row].name
+        cell.detailTextLabel?.text = "\(category?.name ?? "") - \(department?.name ?? "")"
+        cell.accessoryType = .disclosureIndicator
         return cell
     }
 
 }
 
 //MARK: - Table delegate
-extension ItemsViewController : UITableViewDelegate{}
+extension ItemsViewController : UITableViewDelegate{
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard let datasource = self.datasource else { return }
+
+        if editingStyle == .delete {
+            self.showAlertWithCancel(title: "Attenzione", andBody: "Vuoi eliminare l'articolo?") { (done) in
+
+                if done{
+
+                    StorageManager.sharedInstance.getDefaultRealm { (realm) in
+                        if let category = realm.objects(Item.self).first(where: { $0.id == datasource[indexPath.row].id }){
+                            realm.beginWrite()
+                            realm.delete(category)
+                            do{
+                                try realm.commitWrite()
+                            }catch{
+                                realm.cancelWrite()
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let datasource = self.datasource else { return }
+        let item = datasource[indexPath.row]
+        performSegue(withIdentifier: "segueItemEntry", sender: item)
+    }
+}

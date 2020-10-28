@@ -59,7 +59,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eTJ-X6-jo2">
-                                <rect key="frame" x="0.0" y="88" width="240" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="240" height="730"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="k8O-yu-M8J"/>
@@ -69,16 +69,28 @@
                                     <outlet property="delegate" destination="9E6-T8-yUg" id="5wf-qM-5yh"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ver. 1.0.0.20201014" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vz9-dv-gsV" userLabel="APP_VERSION">
+                                <rect key="frame" x="0.0" y="833" width="240" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="0pg-e8-wWe"/>
+                                    <constraint firstAttribute="width" constant="240" id="Q1U-cE-xow"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rYf-2o-fOl"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
-                            <constraint firstItem="rYf-2o-fOl" firstAttribute="bottom" secondItem="eTJ-X6-jo2" secondAttribute="bottom" id="3HJ-38-Ex9"/>
+                            <constraint firstItem="rYf-2o-fOl" firstAttribute="bottom" secondItem="eTJ-X6-jo2" secondAttribute="bottom" constant="44" id="3HJ-38-Ex9"/>
                             <constraint firstItem="eTJ-X6-jo2" firstAttribute="top" secondItem="rYf-2o-fOl" secondAttribute="top" constant="44" id="GKK-dd-153"/>
+                            <constraint firstItem="vz9-dv-gsV" firstAttribute="leading" secondItem="rYf-2o-fOl" secondAttribute="leading" id="TgJ-LV-hcq"/>
+                            <constraint firstItem="rYf-2o-fOl" firstAttribute="bottom" secondItem="vz9-dv-gsV" secondAttribute="bottom" constant="8" id="gqa-0q-rQE"/>
                             <constraint firstItem="eTJ-X6-jo2" firstAttribute="leading" secondItem="rYf-2o-fOl" secondAttribute="leading" id="qih-lI-saG"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="APP_VERSION" destination="vz9-dv-gsV" id="TZR-P8-SA6"/>
                         <outlet property="tableView" destination="eTJ-X6-jo2" id="gyn-iX-fkM"/>
                     </connections>
                 </viewController>
@@ -155,7 +167,7 @@
                         <barButtonItem key="rightBarButtonItem" image="add-button" id="RYi-QF-BqL">
                             <color key="tintColor" systemColor="labelColor"/>
                             <connections>
-                                <segue destination="sVQ-Mm-gVa" kind="presentation" id="hWz-cn-0KU"/>
+                                <segue destination="sVQ-Mm-gVa" kind="presentation" identifier="segueCategoryEntry" id="hWz-cn-0KU"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -415,12 +427,28 @@
                                 <rect key="frame" x="0.0" y="196" width="414" height="666"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="defaultCell" id="yT2-Bk-zE2">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="defaultCell" textLabel="mOZ-MM-m7l" detailTextLabel="xCZ-Y1-cNy" style="IBUITableViewCellStyleSubtitle" id="yT2-Bk-zE2">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="55.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yT2-Bk-zE2" id="DWp-jN-gLR">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="55.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mOZ-MM-m7l">
+                                                    <rect key="frame" x="20" y="10" width="33" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xCZ-Y1-cNy">
+                                                    <rect key="frame" x="20" y="31.5" width="44" height="14.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -452,7 +480,7 @@
                         <barButtonItem key="rightBarButtonItem" image="add-button" id="RgY-dc-6f9">
                             <color key="tintColor" systemColor="labelColor"/>
                             <connections>
-                                <segue destination="tJ2-B8-Mk6" kind="presentation" id="Gw8-Fj-3H6"/>
+                                <segue destination="tJ2-B8-Mk6" kind="presentation" identifier="segueItemEntry" id="Gw8-Fj-3H6"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -520,7 +548,7 @@
                         <barButtonItem key="rightBarButtonItem" image="add-button" id="oy0-lE-E4E">
                             <color key="tintColor" systemColor="labelColor"/>
                             <connections>
-                                <segue destination="RLb-6M-bu8" kind="presentation" id="818-wz-yut"/>
+                                <segue destination="RLb-6M-bu8" kind="presentation" identifier="segueDepartimentEntry" id="818-wz-yut"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1349,7 +1377,7 @@
                         <outlet property="textFieldBarcode" destination="u8I-Ir-ru7" id="pAq-pW-l1b"/>
                         <outlet property="textFieldCategoryName" destination="gHq-Qc-txH" id="2nx-r4-0sW"/>
                         <outlet property="textFieldCurrency" destination="p55-xZ-LHk" id="lDe-N6-es7"/>
-                        <outlet property="textFieldDepartimentName" destination="Hia-a2-swa" id="Akh-Ev-WvR"/>
+                        <outlet property="textFieldDepartmentName" destination="Hia-a2-swa" id="Akh-Ev-WvR"/>
                         <outlet property="textFieldMinimumStock" destination="c6A-Ws-dVv" id="MES-OF-AQD"/>
                         <outlet property="textFieldName" destination="UiU-6Z-05g" id="JCA-xQ-1xA"/>
                         <outlet property="textFieldNote" destination="qzt-7q-DOa" id="FT0-sE-ClK"/>

@@ -2,11 +2,9 @@
 workspace 'warehouse.xcworkspace'
 platform :ios, '14.0'
 
-# ignore all warnings from all pods
-
-# Comment the next line if you don't want to use dynamic frameworks
+#inhibit_all_warnings!
 use_frameworks!
-#use_modular_headers!
+#source 'https://github.com/CocoaPods/Specs.git'
 
 def all_pods
     pod 'Realm'
@@ -24,10 +22,8 @@ target 'warehouse' do
   pod 'iCarousel' # https://github.com/nicklockwood/iCarousel
   pod 'MGCollapsingHeader' # https://github.com/mattga/MGCollapsingHeader
   #pod 'FSCalendar' # https://github.com/WenchaoD/FSCalendar
-  #pod 'Firebase/Core'
-  #pod 'Firebase/Messaging'
-  #pod 'Firebase/Crashlytics'
-  #pod 'Firebase/Analytics'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Crashlytics'
 
 end
 

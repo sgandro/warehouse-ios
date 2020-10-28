@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class AddDepartmentsViewController: UIViewController {
 
@@ -13,6 +14,8 @@ class AddDepartmentsViewController: UIViewController {
     @IBOutlet weak var labelDescription:UILabel!
     @IBOutlet weak var labelCaptionDepartmentName:UILabel!
     @IBOutlet weak var textFieldDepartmentName:UITextField!
+
+    var departmentToUpdate:Department?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,20 +26,50 @@ class AddDepartmentsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        labelTitle.initialize(textValue: "Nuovo Reparto", font: UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.bold), color: UIColor.darkGray, align: .center)
+        let keyboardToolBar = KeyboardToolBar()
+        keyboardToolBar.nextButtonPressed = {
+        }
+        keyboardToolBar.doneButtonPressed = {
+            self.view.endEditing(true)
+        }
+        keyboardToolBar.cancelButtonPressed = {
+            self.view.endEditing(true)
+        }
 
-        labelDescription.initialize(textValue: "Inserie il nome del nuovo reparto.\nAd ogni reparto vanno associate le relative categorie.",
-                                    font: UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.light),
-                                    color: UIColor.secondaryLabel,
-                                    align: .center)
+        if departmentToUpdate != nil{
 
-        labelCaptionDepartmentName.initialize(textValue: "Dipartimento",
+            labelTitle.initialize(textValue: "Modifica Reparto", font: UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.bold), color: UIColor.darkGray, align: .center)
+
+            labelDescription.initialize(textValue: "Modifica il nome del reparto.\nAd ogni reparto vanno associate le relative categorie.",
+                                        font: UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.light),
+                                        color: UIColor.secondaryLabel,
+                                        align: .center)
+
+            textFieldDepartmentName.delegate = self
+            textFieldDepartmentName.returnKeyType = .next
+            textFieldDepartmentName.text = departmentToUpdate?.name
+            textFieldDepartmentName.inputAccessoryView = keyboardToolBar
+
+        }else{
+
+            labelTitle.initialize(textValue: "Nuovo Reparto", font: UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.bold), color: UIColor.darkGray, align: .center)
+
+            labelDescription.initialize(textValue: "Inserie il nome del nuovo reparto.\nAd ogni reparto vanno associate le relative categorie.",
+                                        font: UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.light),
+                                        color: UIColor.secondaryLabel,
+                                        align: .center)
+
+            textFieldDepartmentName.delegate = self
+            textFieldDepartmentName.returnKeyType = .next
+            textFieldDepartmentName.inputAccessoryView = keyboardToolBar
+
+
+        }
+        labelCaptionDepartmentName.initialize(textValue: "Reparto",
                                               font: UIFont.systemFont(ofSize: 12, weight: .semibold),
                                               color: UIColor.secondaryLabel,
                                               align: .left)
 
-        textFieldDepartmentName.delegate = self
-        textFieldDepartmentName.returnKeyType = .next
 
     }
 
@@ -55,7 +88,12 @@ class AddDepartmentsViewController: UIViewController {
         StorageManager.sharedInstance.getDefaultRealm { (realm) in
 
             realm.beginWrite()
-            realm.create(Department.self, value: ["name":stringValue], update: .all)
+            if let department = self.departmentToUpdate{
+                department.name = stringValue
+                realm.add(department, update: .modified)
+            }else{
+                realm.create(Department.self, value: ["name":stringValue], update: .all)
+            }
             do{
                 try realm.commitWrite()
             }catch{

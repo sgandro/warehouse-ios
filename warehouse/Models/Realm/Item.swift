@@ -23,6 +23,7 @@ class Item: Object{
     @objc dynamic var note: String = ""
 
     let categories = LinkingObjects(fromType: Category.self, property: "items")
+    let suppliers = LinkingObjects(fromType: Supplier.self, property: "items")
 
     override static func primaryKey() -> String? {
         return "id"

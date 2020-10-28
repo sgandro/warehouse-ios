@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class AddCategorieViewController: UIViewController {
 
@@ -18,6 +19,7 @@ class AddCategorieViewController: UIViewController {
     @IBOutlet weak var labelCaptionDepartmentName:UILabel!
     @IBOutlet weak var textFieldDepartmentName:PickerTextView!
 
+    var categoryToUpdate:Category?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,15 +30,71 @@ class AddCategorieViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        labelTitle.initialize(textValue: "Nuova Categoria",
-                              font: UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.bold),
-                              color: UIColor.darkGray,
-                              align: .center)
+        let keyboardToolBar = KeyboardToolBar()
+        keyboardToolBar.nextButtonPressed = {
+        }
+        keyboardToolBar.doneButtonPressed = {
+            self.view.endEditing(true)
+        }
+        keyboardToolBar.cancelButtonPressed = {
+            self.view.endEditing(true)
+        }
 
-        labelDescription.initialize(textValue: "Inserie il nome della nuova caregoria.\nOgni categoria va associata ad un reparto.\nVerificare di aver precedentemente inserito il reparto desiderato",
-                                    font: UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.light),
-                                    color: UIColor.secondaryLabel,
-                                    align: .center)
+        if categoryToUpdate != nil{
+
+            labelTitle.initialize(textValue: "Modifica Categoria",
+                                  font: UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.bold),
+                                  color: UIColor.darkGray,
+                                  align: .center)
+
+            labelDescription.initialize(textValue: "Modifica il nome della caregoria.\nOgni categoria va associata ad un reparto.\nPuoi cambiare il reparto a cui è associata la categoria.",
+                                        font: UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.light),
+                                        color: UIColor.secondaryLabel,
+                                        align: .center)
+
+            textFieldCategoryName.delegate = self
+            textFieldCategoryName.returnKeyType = .next
+            textFieldCategoryName.text = categoryToUpdate?.name
+            textFieldCategoryName.inputAccessoryView = keyboardToolBar
+
+            textFieldDepartmentName.delegate = self
+            textFieldDepartmentName.returnKeyType = .next
+
+            StorageManager.sharedInstance.getDefaultRealm { (realm) in
+                self.textFieldDepartmentName.datasource = self.categoryToUpdate?.department.map({$0.name})
+            }
+
+        }else{
+
+            labelTitle.initialize(textValue: "Nuova Categoria",
+                                  font: UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.bold),
+                                  color: UIColor.darkGray,
+                                  align: .center)
+
+            labelDescription.initialize(textValue: "Inserie il nome della nuova caregoria.\nOgni categoria va associata ad un reparto.\nVerificare di aver precedentemente inserito il reparto desiderato",
+                                        font: UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.light),
+                                        color: UIColor.secondaryLabel,
+                                        align: .center)
+
+            textFieldCategoryName.delegate = self
+            textFieldCategoryName.returnKeyType = .next
+            textFieldCategoryName.inputAccessoryView = keyboardToolBar
+
+            textFieldDepartmentName.delegate = self
+            textFieldDepartmentName.returnKeyType = .next
+
+            textFieldDepartmentName.placeholder = "Seleziona reparto"
+            StorageManager.sharedInstance.getDefaultRealm { (realm) in
+                self.textFieldDepartmentName.datasource = realm.objects(Department.self).map({$0.name})
+                let count = self.textFieldDepartmentName.datasource?.count ?? 0
+                if count == 0{
+                    self.showAlert(title: "Informazione", andBody: "Creare prima un reparto")
+                }
+
+            }
+
+
+        }
 
         labelCaptionCategoryName.initialize(textValue: "Categoria",
                                             font: UIFont.systemFont(ofSize: 12, weight: .semibold),
@@ -49,20 +107,7 @@ class AddCategorieViewController: UIViewController {
                                               align: .left)
 
 
-        textFieldCategoryName.delegate = self
-        textFieldCategoryName.returnKeyType = .next
 
-        textFieldDepartmentName.delegate = self
-        textFieldDepartmentName.returnKeyType = .next
-        textFieldDepartmentName.placeholder = "Seleziona reparto"
-        StorageManager.sharedInstance.getDefaultRealm { (realm) in
-            self.textFieldDepartmentName.datasource = realm.objects(Department.self).map({$0.name})
-            let count = self.textFieldDepartmentName.datasource?.count ?? 0
-            if count == 0{
-                self.showAlert(title: "Informazione", andBody: "Creare prima un reparto")
-            }
-
-        }
 
     }
 
@@ -93,8 +138,15 @@ class AddCategorieViewController: UIViewController {
 
             if let department = realm.objects(Department.self).first(where: {$0.name == departmentName}){
                 realm.beginWrite()
-                let category = realm.create(Category.self, value: ["name":categoryName], update: .all)
-                department.categories.append(category)
+                if let category = self.categoryToUpdate{
+
+                    category.name = categoryName
+                    realm.add(category, update: .modified)
+
+                }else{
+                    let category = realm.create(Category.self, value: ["name":categoryName], update: .all)
+                    department.categories.append(category)
+                }
                 do{
                     try realm.commitWrite()
                 }catch{

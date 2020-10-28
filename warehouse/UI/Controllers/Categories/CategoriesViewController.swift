@@ -68,15 +68,22 @@ class CategoriesViewController: UIViewController {
 
     
 
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+
+        if
+            let vc = segue.destination as? AddCategorieViewController,
+            let category = sender as? Category
+        {
+            vc.categoryToUpdate = category
+        }
     }
-    */
+
     //MARK: - Actions
     @IBAction func openMenuButtonPressed(button: UIBarButtonItem){
         self.sideMenuController?.revealMenu()
@@ -143,18 +150,31 @@ extension CategoriesViewController : UITableViewDelegate{
         guard let datasource = self.datasource else { return }
 
         if editingStyle == .delete {
-            StorageManager.sharedInstance.getDefaultRealm { (realm) in
-                if let category = realm.objects(Category.self).first(where: { $0.id == datasource[indexPath.row].id }){
-                    realm.beginWrite()
-                    realm.delete(category)
-                    do{
-                        try realm.commitWrite()
-                    }catch{
-                        realm.cancelWrite()
+            self.showAlertWithCancel(title: "Attenzione", andBody: "Vuoi eliminare la categoria?") { (done) in
+
+                if done{
+
+                    StorageManager.sharedInstance.getDefaultRealm { (realm) in
+                        if let category = realm.objects(Category.self).first(where: { $0.id == datasource[indexPath.row].id }){
+                            realm.beginWrite()
+                            realm.delete(category)
+                            do{
+                                try realm.commitWrite()
+                            }catch{
+                                realm.cancelWrite()
+                            }
+                        }
                     }
                 }
+
             }
         }
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let datasource = self.datasource else { return }
+        let category = datasource[indexPath.row]
+        self.performSegue(withIdentifier: "segueCategoryEntry", sender: category)
     }
 }
 

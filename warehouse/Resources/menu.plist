@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>menu</key>
+	<array>
+		<dict>
+			<key>title</key>
+			<string>Principale</string>
+			<key>submenu</key>
+			<array>
+				<dict>
+					<key>alias</key>
+					<string>dashboard</string>
+					<key>controller</key>
+					<string>MainViewController</string>
+					<key>title</key>
+					<string>Dashboard</string>
+				</dict>
+			</array>
+		</dict>
+        <dict>
+            <key>title</key>
+            <string>Cambusa</string>
+            <key>submenu</key>
+            <array>
+                <dict>
+                    <key>alias</key>
+                    <string>departments</string>
+                    <key>controller</key>
+                    <string>DepartmentsViewController</string>
+                    <key>title</key>
+                    <string>Reparti</string>
+                </dict>
+                <dict>
+                    <key>alias</key>
+                    <string>categories</string>
+                    <key>controller</key>
+                    <string>CategoriesViewController</string>
+                    <key>title</key>
+                    <string>Categorie</string>
+                </dict>
+                <dict>
+                    <key>alias</key>
+                    <string>items</string>
+                    <key>controller</key>
+                    <string>ItemsViewController</string>
+                    <key>title</key>
+                    <string>Articoli</string>
+                </dict>
+
+            </array>
+        </dict>
+        <dict>
+            <key>title</key>
+            <string>Gestione</string>
+            <key>submenu</key>
+            <array>
+                <dict>
+                    <key>alias</key>
+                    <string>suppliers</string>
+                    <key>controller</key>
+                    <string>SuppliersViewController</string>
+                    <key>title</key>
+                    <string>Fornitori</string>
+                </dict>
+            </array>
+        </dict>
+
+	</array>
+</dict>
+</plist>

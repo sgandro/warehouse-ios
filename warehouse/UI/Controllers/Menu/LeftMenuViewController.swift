@@ -11,6 +11,7 @@ import SideMenuSwift
 class LeftMenuViewController: UIViewController {
 
     @IBOutlet weak var tableView:UITableView!
+    @IBOutlet weak var APP_VERSION:UILabel!
 
     typealias MenuItem = (title: String, icon: UIImage?, identifier: String?, with: String?)
     typealias MenuHeader = (title: String, items: [MenuItem]?)
@@ -23,6 +24,7 @@ class LeftMenuViewController: UIViewController {
         // Do any additional setup after loading the view.
         tableSettings()
         menuItemSettings()
+        APP_VERSION.text = "Ver. \(BUNDLE_VERSION.version)"
     }
     
 
@@ -49,24 +51,53 @@ class LeftMenuViewController: UIViewController {
         tableView.register(MenuItemCell.nibName, forCellReuseIdentifier: MenuItemCell.identifier)
 
     }
+    private func getMenuFromPlist()->[[String:Any]]?{
+
+        guard
+            let path = Bundle.main.path(forResource: "menu", ofType: "plist", inDirectory: nil)
+        else { return nil }
+
+        let url = URL(fileURLWithPath: path)
+        let data = try! Data(contentsOf: url)
+
+        guard
+            let plist = try! PropertyListSerialization.propertyList(from: data,
+                                                                      options: .mutableContainers,
+                                                                      format: nil) as? [String:Any]
+        else { return nil }
+
+        return plist["menu"] as? [[String:Any]]
+
+    }
+
+
     private func menuItemSettings(){
 
-        //Creazione del menu
-        menuItems.append(MenuHeader("Principale", [
-            MenuItem("Dashboard",UIImage(named: "menu"),"MainViewController","dashboard"),
-        ]))
+        if let menu = getMenuFromPlist(){
 
-        menuItems.append(MenuHeader("Cambusa", [
-            MenuItem("Reparti",UIImage(named: "menu"), "DepartmentsViewController", "departments"),
-            MenuItem("Categorie",UIImage(named: "menu"), "CategoriesViewController", "categories"),
-            MenuItem("Articoli",UIImage(named: "menu"), "ItemsViewController", "items"),
-        ]))
+            menu.forEach { (item) in
 
-        menuItems.append(MenuHeader("Gestione", [
-            MenuItem("Fornitori",UIImage(named: "menu"), "SuppliersViewController", "suppliers"),
-            MenuItem("Banche",UIImage(named: "menu"), "BanksViewController", "banks"),
-            MenuItem("Clienti",UIImage(named: "menu"), "ClientsViewController", "clients"),
-        ]))
+                if
+                    let title = item["title"] as? String,
+                    let subMenu = item["submenu"] as? [[String:Any]]
+                {
+                    var menuHeader = MenuHeader(title,[])
+                    subMenu.forEach { (subMenuItem) in
+                        if
+                            let title = subMenuItem["title"] as? String,
+                            let alias = subMenuItem["alias"] as? String,
+                            let controller = subMenuItem["controller"] as? String{
+
+                            let menuItem = MenuItem(title,UIImage(named: "menu"),controller,alias)
+                            menuHeader.items?.append(menuItem)
+                        }
+
+                    }
+                    menuItems.append(menuHeader)
+                }
+            }
+        }
+
 
         sideMenuController?.delegate = self
 

@@ -3,16 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		9E87FD6FDF22B76DE89CF79D /* Pods_warehouse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8198F56ABED7502C8682D1A2 /* Pods_warehouse.framework */; };
-		DE0F8CAD253F21660000F682 /* BundleVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0F8CAC253F21660000F682 /* BundleVersion.swift */; };
 		DE22C6DE253970BC004879F1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE22C6DD253970BC004879F1 /* MainViewController.swift */; };
 		DE22C6E0253971E1004879F1 /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE22C6DF253971E1004879F1 /* LeftMenuViewController.swift */; };
 		DE22C6FE253B7662004879F1 /* MenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE22C6FC253B7662004879F1 /* MenuItemCell.swift */; };
 		DE22C6FF253B7662004879F1 /* MenuItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE22C6FD253B7662004879F1 /* MenuItemCell.xib */; };
+		DE2EF42E2549B18000534835 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE2EF42D2549B18000534835 /* GoogleService-Info.plist */; };
 		DE36225D253C5203004060A5 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE36225C253C5203004060A5 /* Item.swift */; };
 		DE36225F253CC724004060A5 /* AddCategorieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE36225E253CC724004060A5 /* AddCategorieViewController.swift */; };
 		DE362261253CCE54004060A5 /* AddDepartmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE362260253CCE54004060A5 /* AddDepartmentsViewController.swift */; };
@@ -41,6 +41,12 @@
 		DEC0DE812541B62A0086CBE0 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE802541B62A0086CBE0 /* BaseViewController.swift */; };
 		DEC0DE842541B6660086CBE0 /* ApplicationNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE832541B6660086CBE0 /* ApplicationNotification.swift */; };
 		DEC0DE872541B6770086CBE0 /* DiskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE862541B6770086CBE0 /* DiskStatus.swift */; };
+		DEE81E8F2548852200DC9A46 /* BundleVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE81E8E2548852200DC9A46 /* BundleVersion.swift */; };
+		DEE81F0E25495B6500DC9A46 /* menu.plist in Resources */ = {isa = PBXBuildFile; fileRef = DEE81F0D25495B6500DC9A46 /* menu.plist */; };
+		DEE81F11254988DD00DC9A46 /* Supplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE81F10254988DD00DC9A46 /* Supplier.swift */; };
+		DEE81F1425498F1F00DC9A46 /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE81F1325498F1F00DC9A46 /* Email.swift */; };
+		DEE81F1825498F7B00DC9A46 /* Phone.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE81F1725498F7B00DC9A46 /* Phone.swift */; };
+		DEE81F1B25498FCC00DC9A46 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE81F1A25498FCC00DC9A46 /* Address.swift */; };
 		DEF14036253C446900828B74 /* Department.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF14035253C446900828B74 /* Department.swift */; };
 		DEF14038253C459400828B74 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF14037253C459400828B74 /* Category.swift */; };
 		DEF1403B253C484F00828B74 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF1403A253C484F00828B74 /* StorageManager.swift */; };
@@ -50,12 +56,12 @@
 /* Begin PBXFileReference section */
 		2829617CB943B588CAC033AD /* Pods-warehouse.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-warehouse.release.xcconfig"; path = "Target Support Files/Pods-warehouse/Pods-warehouse.release.xcconfig"; sourceTree = "<group>"; };
 		8198F56ABED7502C8682D1A2 /* Pods_warehouse.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_warehouse.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DE0F8CAC253F21660000F682 /* BundleVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BundleVersion.swift; sourceTree = "<group>"; };
 		DE22C6B125382A18004879F1 /* AlmaFramework_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AlmaFramework_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE22C6DD253970BC004879F1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		DE22C6DF253971E1004879F1 /* LeftMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
 		DE22C6FC253B7662004879F1 /* MenuItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemCell.swift; sourceTree = "<group>"; };
 		DE22C6FD253B7662004879F1 /* MenuItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuItemCell.xib; sourceTree = "<group>"; };
+		DE2EF42D2549B18000534835 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DE36225C253C5203004060A5 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		DE36225E253CC724004060A5 /* AddCategorieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategorieViewController.swift; sourceTree = "<group>"; };
 		DE362260253CCE54004060A5 /* AddDepartmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDepartmentsViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +93,12 @@
 		DEC0DE802541B62A0086CBE0 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		DEC0DE832541B6660086CBE0 /* ApplicationNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationNotification.swift; sourceTree = "<group>"; };
 		DEC0DE862541B6770086CBE0 /* DiskStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskStatus.swift; sourceTree = "<group>"; };
+		DEE81E8E2548852200DC9A46 /* BundleVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleVersion.swift; sourceTree = "<group>"; };
+		DEE81F0D25495B6500DC9A46 /* menu.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = menu.plist; sourceTree = "<group>"; };
+		DEE81F10254988DD00DC9A46 /* Supplier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Supplier.swift; sourceTree = "<group>"; };
+		DEE81F1325498F1F00DC9A46 /* Email.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Email.swift; sourceTree = "<group>"; };
+		DEE81F1725498F7B00DC9A46 /* Phone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone.swift; sourceTree = "<group>"; };
+		DEE81F1A25498FCC00DC9A46 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		DEF14035253C446900828B74 /* Department.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Department.swift; sourceTree = "<group>"; };
 		DEF14037253C459400828B74 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		DEF1403A253C484F00828B74 /* StorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
@@ -155,6 +167,7 @@
 				DE98A0502538286D000C8938 /* Assets.xcassets */,
 				DE98A0522538286D000C8938 /* LaunchScreen.storyboard */,
 				DE98A04D2538286A000C8938 /* Main.storyboard */,
+				DEE81F0D25495B6500DC9A46 /* menu.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -285,7 +298,8 @@
 				DE553254253B992100B2B29F /* Extensions */,
 				DE22C6F8253B7600004879F1 /* UI */,
 				DE98A0472538286A000C8938 /* AppDelegate.swift */,
-				DE0F8CAC253F21660000F682 /* BundleVersion.swift */,
+				DE2EF42D2549B18000534835 /* GoogleService-Info.plist */,
+				DEE81E8E2548852200DC9A46 /* BundleVersion.swift */,
 				DE98A0492538286A000C8938 /* SceneDelegate.swift */,
 				DE98A0552538286D000C8938 /* Info.plist */,
 			);
@@ -306,6 +320,10 @@
 				DEF14035253C446900828B74 /* Department.swift */,
 				DEF14037253C459400828B74 /* Category.swift */,
 				DE36225C253C5203004060A5 /* Item.swift */,
+				DEE81F10254988DD00DC9A46 /* Supplier.swift */,
+				DEE81F1325498F1F00DC9A46 /* Email.swift */,
+				DEE81F1725498F7B00DC9A46 /* Phone.swift */,
+				DEE81F1A25498FCC00DC9A46 /* Address.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -356,11 +374,12 @@
 			buildConfigurationList = DE98A0582538286D000C8938 /* Build configuration list for PBXNativeTarget "warehouse" */;
 			buildPhases = (
 				F13356CCD615F4FC5AF5D01D /* [CP] Check Pods Manifest.lock */,
+				DEE81EA0254888A300DC9A46 /* ShellScript */,
 				DE98A0402538286A000C8938 /* Sources */,
 				DE98A0412538286A000C8938 /* Frameworks */,
 				DE98A0422538286A000C8938 /* Resources */,
 				DC0D6BE4E0961B218CD94535 /* [CP] Embed Pods Frameworks */,
-				DE64D1F42540EF5F00E99E9C /* ShellScript */,
+				DECE65272549C3CF00CF45BC /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -409,10 +428,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE55326F253C350B00B2B29F /* EmptyStateView.xib in Resources */,
+				DE2EF42E2549B18000534835 /* GoogleService-Info.plist in Resources */,
 				DE553252253B82C600B2B29F /* MenuHeaderView.xib in Resources */,
 				DE98A0542538286D000C8938 /* LaunchScreen.storyboard in Resources */,
 				DE22C6FF253B7662004879F1 /* MenuItemCell.xib in Resources */,
 				DE98A0512538286D000C8938 /* Assets.xcassets in Resources */,
+				DEE81F0E25495B6500DC9A46 /* menu.plist in Resources */,
 				DE98A04F2538286A000C8938 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -437,9 +458,30 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-warehouse/Pods-warehouse-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DE64D1F42540EF5F00E99E9C /* ShellScript */ = {
+		DECE65272549C3CF00CF45BC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
+		DEE81EA0254888A300DC9A46 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -450,10 +492,9 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "buildPlist=${INFOPLIST_FILE}\nBundleShortVersion=$MARKETING_VERSION\nBuildVersion=$(/bin/date +%Y%m%d)\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $BuildVersion\" $buildPlist\necho \"struct BUNDLE_VERSION { static let version: String =  \\\"$BundleShortVersion.$BuildVersion\\\" }\" > src/BundleVersion.swift\n\nsed -i \"\" -e \"/userLabel=\\\"APP_VERSION\\\"/s/text=\\\"[^\\\"]*\\\"/text=\\\"Ver. $BundleShortVersion.$BuildVersion\\\"/\" \"$PROJECT_DIR/Resources/Base.lproj/LaunchScreen.storyboard\"\necho \"test\"\necho \"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "buildPlist=${INFOPLIST_FILE}\n\nDate=$(/bin/date +%Y%m%d)\nDateTime=$(/bin/date \"+%d.%m.%Y - %H:%M:%S\")\n\nDateString=$(/usr/libexec/PlistBuddy -c \"Print BuildEnvironment:DateString\" \"$buildPlist\")\nBuildNumber=$(/usr/libexec/PlistBuddy -c \"Print BuildEnvironment:BuildNumber\" \"$buildPlist\")\n\nif [ $DateString == $Date ]; then \n BuildNumber=$(($BuildNumber+1))\nelse \n BuildNumber=1\nfi\n\n/usr/libexec/PlistBuddy -c \"Add :BuildEnvironment dict\" \"$buildPlist\"\n\n/usr/libexec/PlistBuddy -c \"Add :BuildEnvironment:DateString string\" \"$buildPlist\"\n/usr/libexec/PlistBuddy -c \"Add :BuildEnvironment:BuildNumber integer\" \"$buildPlist\"\n/usr/libexec/PlistBuddy -c \"Add :BuildEnvironment:DateTime string\" \"$buildPlist\"\n\n/usr/libexec/PlistBuddy -c \"Set :BuildEnvironment:DateString $Date\" \"$buildPlist\"\n/usr/libexec/PlistBuddy -c \"Set :BuildEnvironment:DateTime $DateTime\" \"$buildPlist\"\n/usr/libexec/PlistBuddy -c \"Set :BuildEnvironment:BuildNumber $BuildNumber\" \"$buildPlist\"\n\nBundleShortVersion=$MARKETING_VERSION\nNumString=$(printf \"%03d\\n\" $BuildNumber)\nBuildVersion=$Date$NumString\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $BuildVersion\" $buildPlist\necho \"struct BUNDLE_VERSION { static let version: String =  \\\"$BundleShortVersion.$BuildVersion\\\" }\" > warehouse/BundleVersion.swift\nsed -i \"\" -e \"/userLabel=\\\"APP_VERSION\\\"/s/text=\\\"[^\\\"]*\\\"/text=\\\"Ver. $BundleShortVersion.$BuildVersion\\\"/\" \"$PROJECT_DIR/warehouse/Resources/Base.lproj/LaunchScreen.storyboard\"\n";
 		};
 		F13356CCD615F4FC5AF5D01D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -493,6 +534,7 @@
 				DEF14036253C446900828B74 /* Department.swift in Sources */,
 				DE55325C253BABDC00B2B29F /* DepartmentsViewController.swift in Sources */,
 				DE98A0482538286A000C8938 /* AppDelegate.swift in Sources */,
+				DEE81E8F2548852200DC9A46 /* BundleVersion.swift in Sources */,
 				DE6A263E25456CCD00B7795A /* AddItemsViewController.swift in Sources */,
 				DE553250253B82BC00B2B29F /* MenuHeaderView.swift in Sources */,
 				DE553258253B996500B2B29F /* UILabel+Extension.swift in Sources */,
@@ -500,6 +542,7 @@
 				DEF14038253C459400828B74 /* Category.swift in Sources */,
 				DE553271253C351B00B2B29F /* EmptyStateView.swift in Sources */,
 				DE553260253BB09400B2B29F /* SuppliersViewController.swift in Sources */,
+				DEE81F11254988DD00DC9A46 /* Supplier.swift in Sources */,
 				DEF1403D253C4A8500828B74 /* UITableView+Extension.swift in Sources */,
 				DE55325E253BAF9600B2B29F /* ItemsViewController.swift in Sources */,
 				DE22C6E0253971E1004879F1 /* LeftMenuViewController.swift in Sources */,
@@ -508,13 +551,15 @@
 				DE362261253CCE54004060A5 /* AddDepartmentsViewController.swift in Sources */,
 				DE22C6FE253B7662004879F1 /* MenuItemCell.swift in Sources */,
 				DE55325A253BA55300B2B29F /* CategoriesViewController.swift in Sources */,
+				DEE81F1425498F1F00DC9A46 /* Email.swift in Sources */,
 				DEC0DE7D2541B53B0086CBE0 /* KeyboardToolBar.swift in Sources */,
+				DEE81F1825498F7B00DC9A46 /* Phone.swift in Sources */,
 				DEC0DE872541B6770086CBE0 /* DiskStatus.swift in Sources */,
 				DE6A26642546291200B7795A /* UIView+Extension.swift in Sources */,
 				DE553262253BB0AE00B2B29F /* BanksViewController.swift in Sources */,
-				DE0F8CAD253F21660000F682 /* BundleVersion.swift in Sources */,
 				DE98A04A2538286A000C8938 /* SceneDelegate.swift in Sources */,
 				DEC0DE842541B6660086CBE0 /* ApplicationNotification.swift in Sources */,
+				DEE81F1B25498FCC00DC9A46 /* Address.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -663,6 +708,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = S4BCML6H9A;
 				INFOPLIST_FILE = warehouse/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

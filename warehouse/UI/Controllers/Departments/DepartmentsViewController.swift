@@ -68,16 +68,23 @@ class DepartmentsViewController: UIViewController {
     }
 
 
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+
+        if
+            let vc = segue.destination as? AddDepartmentsViewController,
+            let department = sender as? Department
+        {
+            vc.departmentToUpdate = department
+        }
     }
 
-    */
+
     //MARK: - Actions
     @IBAction func openMenuButtonPressed(button: UIBarButtonItem){
         self.sideMenuController?.revealMenu()
@@ -139,18 +146,30 @@ extension DepartmentsViewController : UITableViewDelegate{
         guard let datasource = self.datasource else { return }
 
         if editingStyle == .delete {
-            StorageManager.sharedInstance.getDefaultRealm { (realm) in
-                if let department = realm.objects(Department.self).first(where: { $0.id == datasource[indexPath.row].id }){
-                    realm.beginWrite()
-                    realm.delete(department.categories)
-                    realm.delete(department)
-                    do{
-                        try realm.commitWrite()
-                    }catch{
-                        realm.cancelWrite()
+            self.showAlertWithCancel(title: "Attenzione", andBody: "Vuoi eliminare il reparto selezionato?") { (done) in
+
+                if done{
+
+                    StorageManager.sharedInstance.getDefaultRealm { (realm) in
+                        if let department = realm.objects(Department.self).first(where: { $0.id == datasource[indexPath.row].id }){
+                            realm.beginWrite()
+                            realm.delete(department.categories)
+                            realm.delete(department)
+                            do{
+                                try realm.commitWrite()
+                            }catch{
+                                realm.cancelWrite()
+                            }
+                        }
                     }
                 }
             }
         }
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let datasource = self.datasource else { return }
+        let deparment = datasource[indexPath.row]
+        performSegue(withIdentifier: "segueDepartimentEntry", sender: deparment)
     }
 }
