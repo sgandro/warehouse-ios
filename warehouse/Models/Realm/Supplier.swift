@@ -20,6 +20,7 @@ class Supplier: Object{
     let emails = List<Email>()
     let addresses = List<Address>()
     let phones = List<Phone>()
+    let banks = List<Bank>()
     let items = List<Item>()
 
     override static func primaryKey() -> String? {

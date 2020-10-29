@@ -15,7 +15,6 @@ class Address: Object{
     @objc dynamic var zipCode: String = ""
     @objc dynamic var city: String = ""
     @objc dynamic var location: String = ""
-    let suppliers = LinkingObjects(fromType: Supplier.self, property: "addresses")
 
     override static func primaryKey() -> String? {
         return "id"

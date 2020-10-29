@@ -41,6 +41,10 @@
 		DEC0DE812541B62A0086CBE0 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE802541B62A0086CBE0 /* BaseViewController.swift */; };
 		DEC0DE842541B6660086CBE0 /* ApplicationNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE832541B6660086CBE0 /* ApplicationNotification.swift */; };
 		DEC0DE872541B6770086CBE0 /* DiskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE862541B6770086CBE0 /* DiskStatus.swift */; };
+		DECE6541254A9EB700CF45BC /* AddSuppliersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECE6540254A9EB700CF45BC /* AddSuppliersViewController.swift */; };
+		DECE6544254AA18B00CF45BC /* Bank.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECE6543254AA18B00CF45BC /* Bank.swift */; };
+		DECE6548254AFBF500CF45BC /* PhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECE6547254AFBF500CF45BC /* PhoneView.swift */; };
+		DECE654C254AFBFC00CF45BC /* PhoneView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DECE654B254AFBFC00CF45BC /* PhoneView.xib */; };
 		DEE81E8F2548852200DC9A46 /* BundleVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE81E8E2548852200DC9A46 /* BundleVersion.swift */; };
 		DEE81F0E25495B6500DC9A46 /* menu.plist in Resources */ = {isa = PBXBuildFile; fileRef = DEE81F0D25495B6500DC9A46 /* menu.plist */; };
 		DEE81F11254988DD00DC9A46 /* Supplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE81F10254988DD00DC9A46 /* Supplier.swift */; };
@@ -93,6 +97,10 @@
 		DEC0DE802541B62A0086CBE0 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		DEC0DE832541B6660086CBE0 /* ApplicationNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationNotification.swift; sourceTree = "<group>"; };
 		DEC0DE862541B6770086CBE0 /* DiskStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskStatus.swift; sourceTree = "<group>"; };
+		DECE6540254A9EB700CF45BC /* AddSuppliersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSuppliersViewController.swift; sourceTree = "<group>"; };
+		DECE6543254AA18B00CF45BC /* Bank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bank.swift; sourceTree = "<group>"; };
+		DECE6547254AFBF500CF45BC /* PhoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneView.swift; sourceTree = "<group>"; };
+		DECE654B254AFBFC00CF45BC /* PhoneView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhoneView.xib; sourceTree = "<group>"; };
 		DEE81E8E2548852200DC9A46 /* BundleVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleVersion.swift; sourceTree = "<group>"; };
 		DEE81F0D25495B6500DC9A46 /* menu.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = menu.plist; sourceTree = "<group>"; };
 		DEE81F10254988DD00DC9A46 /* Supplier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Supplier.swift; sourceTree = "<group>"; };
@@ -184,6 +192,7 @@
 		DE55324E253B824C00B2B29F /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
+				DECE6546254AFBBF00CF45BC /* PhoneView */,
 				DE55326D253C34C200B2B29F /* EmptyStateView */,
 				DE553253253B82D300B2B29F /* MenuHeaderView */,
 			);
@@ -241,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				DE55325F253BB09400B2B29F /* SuppliersViewController.swift */,
+				DECE6540254A9EB700CF45BC /* AddSuppliersViewController.swift */,
 			);
 			path = Suppliers;
 			sourceTree = "<group>";
@@ -306,6 +316,15 @@
 			path = warehouse;
 			sourceTree = "<group>";
 		};
+		DECE6546254AFBBF00CF45BC /* PhoneView */ = {
+			isa = PBXGroup;
+			children = (
+				DECE6547254AFBF500CF45BC /* PhoneView.swift */,
+				DECE654B254AFBFC00CF45BC /* PhoneView.xib */,
+			);
+			path = PhoneView;
+			sourceTree = "<group>";
+		};
 		DEF14033253C42E300828B74 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,6 +343,7 @@
 				DEE81F1325498F1F00DC9A46 /* Email.swift */,
 				DEE81F1725498F7B00DC9A46 /* Phone.swift */,
 				DEE81F1A25498FCC00DC9A46 /* Address.swift */,
+				DECE6543254AA18B00CF45BC /* Bank.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -430,6 +450,7 @@
 				DE55326F253C350B00B2B29F /* EmptyStateView.xib in Resources */,
 				DE2EF42E2549B18000534835 /* GoogleService-Info.plist in Resources */,
 				DE553252253B82C600B2B29F /* MenuHeaderView.xib in Resources */,
+				DECE654C254AFBFC00CF45BC /* PhoneView.xib in Resources */,
 				DE98A0542538286D000C8938 /* LaunchScreen.storyboard in Resources */,
 				DE22C6FF253B7662004879F1 /* MenuItemCell.xib in Resources */,
 				DE98A0512538286D000C8938 /* Assets.xcassets in Resources */,
@@ -538,6 +559,7 @@
 				DE6A263E25456CCD00B7795A /* AddItemsViewController.swift in Sources */,
 				DE553250253B82BC00B2B29F /* MenuHeaderView.swift in Sources */,
 				DE553258253B996500B2B29F /* UILabel+Extension.swift in Sources */,
+				DECE6548254AFBF500CF45BC /* PhoneView.swift in Sources */,
 				DE36225F253CC724004060A5 /* AddCategorieViewController.swift in Sources */,
 				DEF14038253C459400828B74 /* Category.swift in Sources */,
 				DE553271253C351B00B2B29F /* EmptyStateView.swift in Sources */,
@@ -549,12 +571,14 @@
 				DE362265253CD6F5004060A5 /* PickerTextView.swift in Sources */,
 				DE36225D253C5203004060A5 /* Item.swift in Sources */,
 				DE362261253CCE54004060A5 /* AddDepartmentsViewController.swift in Sources */,
+				DECE6541254A9EB700CF45BC /* AddSuppliersViewController.swift in Sources */,
 				DE22C6FE253B7662004879F1 /* MenuItemCell.swift in Sources */,
 				DE55325A253BA55300B2B29F /* CategoriesViewController.swift in Sources */,
 				DEE81F1425498F1F00DC9A46 /* Email.swift in Sources */,
 				DEC0DE7D2541B53B0086CBE0 /* KeyboardToolBar.swift in Sources */,
 				DEE81F1825498F7B00DC9A46 /* Phone.swift in Sources */,
 				DEC0DE872541B6770086CBE0 /* DiskStatus.swift in Sources */,
+				DECE6544254AA18B00CF45BC /* Bank.swift in Sources */,
 				DE6A26642546291200B7795A /* UIView+Extension.swift in Sources */,
 				DE553262253BB0AE00B2B29F /* BanksViewController.swift in Sources */,
 				DE98A04A2538286A000C8938 /* SceneDelegate.swift in Sources */,

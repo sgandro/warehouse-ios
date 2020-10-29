@@ -380,7 +380,7 @@ class AddItemsViewController: UIViewController {
 
     //MARK: - Action
     @IBAction func closeButtonPressed(button:UIButton){
-        performSegue(withIdentifier: "unwindToArticle", sender: self)
+        dismiss(animated: true, completion: nil)
     }
     @IBAction func saveButtonPressed(button:UIButton){
 
