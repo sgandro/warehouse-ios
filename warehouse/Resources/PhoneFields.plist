@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   Phone.plist
+   warehouse
+
+   Created by Alessandro Perna on 31/10/2020.
+   Copyright (c) 2020 ___ORGANIZATIONNAME___. All rights reserved.
+-->
+<plist version="1.0">
+<dict>
+    <key>fields</key>
+    <array>
+        <dict>
+            <key>caption</key>
+            <string>Etichetta</string>
+            <key>type</key>
+            <string>text</string>
+            <key>field</key>
+            <string>title</string>
+            <key>format</key>
+            <string>string</string>
+        </dict>
+        <dict>
+            <key>caption</key>
+            <string>Numero</string>
+            <key>type</key>
+            <string>text</string>
+            <key>field</key>
+            <string>number</string>
+            <key>format</key>
+            <string>string</string>
+        </dict>
+    </array>
+</dict>
+</plist>

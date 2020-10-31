@@ -12,15 +12,17 @@ class AddDepartmentsViewController: UIViewController {
 
     @IBOutlet weak var labelTitle:UILabel!
     @IBOutlet weak var labelDescription:UILabel!
-    @IBOutlet weak var labelCaptionDepartmentName:UILabel!
-    @IBOutlet weak var textFieldDepartmentName:UITextField!
+    @IBOutlet weak var tableView:UITableView!
 
     var departmentToUpdate:Department?
+    var department:[String:Any] = [:]
+    var datasource:[[String:Any]]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        tableSettings()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -45,10 +47,6 @@ class AddDepartmentsViewController: UIViewController {
                                         color: UIColor.secondaryLabel,
                                         align: .center)
 
-            textFieldDepartmentName.delegate = self
-            textFieldDepartmentName.returnKeyType = .next
-            textFieldDepartmentName.text = departmentToUpdate?.name
-            textFieldDepartmentName.inputAccessoryView = keyboardToolBar
 
         }else{
 
@@ -59,17 +57,23 @@ class AddDepartmentsViewController: UIViewController {
                                         color: UIColor.secondaryLabel,
                                         align: .center)
 
-            textFieldDepartmentName.delegate = self
-            textFieldDepartmentName.returnKeyType = .next
-            textFieldDepartmentName.inputAccessoryView = keyboardToolBar
-
-
         }
-        labelCaptionDepartmentName.initialize(textValue: "Reparto",
-                                              font: UIFont.systemFont(ofSize: 12, weight: .semibold),
-                                              color: UIColor.secondaryLabel,
-                                              align: .left)
 
+
+    }
+
+    //MARK: - Method
+
+    private func tableSettings(){
+
+        tableView.tableFooterView = UIView()
+        tableView.backgroundColor = UIColor.clear
+        tableView.separatorStyle = .none
+        tableView.alwaysBounceVertical = false
+        tableView.bounces = false
+
+        tableView.register(DataEntryTextFiledCell.nibName, forCellReuseIdentifier: DataEntryTextFiledCell.identifier)
+        datasource = TableConfigurator.getPlistFile(root:"fields", resourceName: "departmentFields")
 
     }
 
@@ -80,8 +84,9 @@ class AddDepartmentsViewController: UIViewController {
     }
     @IBAction func saveButtonPressed(button:UIButton){
 
-        guard let stringValue = textFieldDepartmentName.text, stringValue.isEmpty == false else {
-            requestAttention(to: textFieldDepartmentName)
+        self.view.endEditing(true)
+
+        guard let departmentName = self.department["name"] as? String else {
             return
         }
 
@@ -89,10 +94,10 @@ class AddDepartmentsViewController: UIViewController {
 
             realm.beginWrite()
             if let department = self.departmentToUpdate{
-                department.name = stringValue
+                department.name = departmentName
                 realm.add(department, update: .modified)
             }else{
-                realm.create(Department.self, value: ["name":stringValue], update: .all)
+                realm.create(Department.self, value: ["name":departmentName], update: .all)
             }
             do{
                 try realm.commitWrite()
@@ -101,7 +106,7 @@ class AddDepartmentsViewController: UIViewController {
                 print("Error:\(error.localizedDescription)")
             }
 
-            
+
         }
 
         dismiss(animated: true, completion: nil)
@@ -109,37 +114,99 @@ class AddDepartmentsViewController: UIViewController {
 
 }
 
-extension AddDepartmentsViewController:UITextFieldDelegate{
 
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        checkFields(textField)
+
+
+//MARK : - Table
+extension AddDepartmentsViewController: UITableViewDelegate, UITableViewDataSource{
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return datasource?.count ?? 0
     }
 
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        nextFieldMove()
-        return true
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let datasource = self.datasource else {
+            return UITableViewCell()
+        }
+        let field = datasource[indexPath.row]
+        if let fieldType = field["type"] as? String{
+
+            switch fieldType {
+                case "text":
+
+                    let cell = tableView.dequeueReusableCell(withIdentifier: DataEntryTextFiledCell.identifier, for: indexPath) as! DataEntryTextFiledCell
+                    cell.caption = datasource[indexPath.row]["caption"] as? String
+                    cell.delegate = self
+                    cell.indexPath = indexPath
+                    cell.fieldInfo = field
+
+                    if departmentToUpdate != nil{
+                        if
+                            let fieldName = field["field"] as? String,
+                            let fieldValue = departmentToUpdate?.value(forKey: fieldName) as? String
+                        {
+                            cell.textFieldValue.text = fieldValue
+                        }
+                    }
+                    return cell
+
+                default:
+                    fatalError()
+            }
+
+        }
+
+        return UITableViewCell()
+
+    }
+}
+
+
+//MARK: - DataEntryTextFiledCellDelegate
+extension AddDepartmentsViewController: DataEntryTextFiledCellDelegate{
+    func dataEntryTextFiledDidNext(cell: DataEntryTextFiledCell) {
+        self.view.endEditing(true)
     }
 
-    func nextFieldMove(){
-
-        let fields: [UITextField] = [textFieldDepartmentName]
-
+    func dataEntryTextFiledDidCheck(cell: DataEntryTextFiledCell) {
         if
-            let activeField: UITextField = fields.first(where: { $0.isFirstResponder }),
-            let index: Int = fields.firstIndex(of: activeField)
+            let value = cell.textFieldValue.text,
+            !value.isEmpty,
+            let fieldInfo = cell.fieldInfo,
+            let fieldName = fieldInfo["field"] as? String
         {
-            let lastIndex = (index < fields.count) ? index:(fields.count - 1)
-            let nextField: UITextField = fields[fields.index(after: lastIndex)]
-            nextField.becomeFirstResponder()
+            department[fieldName] = value.trimmingCharacters(in: CharacterSet.whitespaces)
         }
 
     }
 
-    func checkFields(_ textField: UITextField){
-
-        if textField == textFieldDepartmentName {}
-
+    func dataEntryTextFiledDidKeyboardDone(cell: DataEntryTextFiledCell) {
+        if
+            let value = cell.textFieldValue.text,
+            !value.isEmpty,
+            let fieldInfo = cell.fieldInfo,
+            let fieldName = fieldInfo["field"] as? String
+        {
+            department[fieldName] = value.trimmingCharacters(in: CharacterSet.whitespaces)
+        }
+        self.view.endEditing(true)
     }
 
+    func dataEntryTextFiledDidKeyboardCancel(cell: DataEntryTextFiledCell) {
+        self.view.endEditing(true)
+    }
+
+    func dataEntryTextFiledDidKeyboardNext(cell: DataEntryTextFiledCell) {
+        if
+            let value = cell.textFieldValue.text,
+            !value.isEmpty,
+            let fieldInfo = cell.fieldInfo,
+            let fieldName = fieldInfo["field"] as? String
+        {
+            department[fieldName] = value.trimmingCharacters(in: CharacterSet.whitespaces)
+        }
+    }
 
 }
+
+

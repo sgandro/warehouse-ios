@@ -12,19 +12,18 @@ class AddCategorieViewController: UIViewController {
 
     @IBOutlet weak var labelTitle:UILabel!
     @IBOutlet weak var labelDescription:UILabel!
-
-    @IBOutlet weak var labelCaptionCategoryName:UILabel!
-    @IBOutlet weak var textFieldCategoryName:UITextField!
-
-    @IBOutlet weak var labelCaptionDepartmentName:UILabel!
-    @IBOutlet weak var textFieldDepartmentName:PickerTextView!
+    @IBOutlet weak var tableView:UITableView!
 
     var categoryToUpdate:Category?
+    var category:[String:Any] = [:]
+    var datasource:[[String:Any]]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        tableSettings()
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -51,19 +50,6 @@ class AddCategorieViewController: UIViewController {
                                         font: UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.light),
                                         color: UIColor.secondaryLabel,
                                         align: .center)
-
-            textFieldCategoryName.delegate = self
-            textFieldCategoryName.returnKeyType = .next
-            textFieldCategoryName.text = categoryToUpdate?.name
-            textFieldCategoryName.inputAccessoryView = keyboardToolBar
-
-            textFieldDepartmentName.delegate = self
-            textFieldDepartmentName.returnKeyType = .next
-
-            StorageManager.sharedInstance.getDefaultRealm { (realm) in
-                self.textFieldDepartmentName.datasource = self.categoryToUpdate?.department.map({$0.name})
-            }
-
         }else{
 
             labelTitle.initialize(textValue: "Nuova Categoria",
@@ -75,39 +61,7 @@ class AddCategorieViewController: UIViewController {
                                         font: UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.light),
                                         color: UIColor.secondaryLabel,
                                         align: .center)
-
-            textFieldCategoryName.delegate = self
-            textFieldCategoryName.returnKeyType = .next
-            textFieldCategoryName.inputAccessoryView = keyboardToolBar
-
-            textFieldDepartmentName.delegate = self
-            textFieldDepartmentName.returnKeyType = .next
-
-            textFieldDepartmentName.placeholder = "Seleziona reparto"
-            StorageManager.sharedInstance.getDefaultRealm { (realm) in
-                self.textFieldDepartmentName.datasource = realm.objects(Department.self).map({$0.name})
-                let count = self.textFieldDepartmentName.datasource?.count ?? 0
-                if count == 0{
-                    self.showAlert(title: "Informazione", andBody: "Creare prima un reparto")
-                }
-
-            }
-
-
         }
-
-        labelCaptionCategoryName.initialize(textValue: "Categoria",
-                                            font: UIFont.systemFont(ofSize: 12, weight: .semibold),
-                                            color: UIColor.secondaryLabel,
-                                            align: .left)
-
-        labelCaptionDepartmentName.initialize(textValue: "Dipartimento",
-                                              font: UIFont.systemFont(ofSize: 12, weight: .semibold),
-                                              color: UIColor.secondaryLabel,
-                                              align: .left)
-
-
-
 
     }
 
@@ -117,20 +71,12 @@ class AddCategorieViewController: UIViewController {
     }
     @IBAction func saveButtonPressed(button:UIButton){
 
-        guard
-            let categoryName = textFieldCategoryName.text,
-            categoryName.isEmpty == false
-        else {
-            requestAttention(to: textFieldCategoryName)
+        self.view.endEditing(true)
+
+        guard let categoryName = self.category["name"] as? String else {
             return
         }
-
-        guard
-            textFieldDepartmentName.text?.isEmpty == false,
-            let departmentName = textFieldDepartmentName.selectedValue,
-            departmentName.isEmpty == false
-        else {
-            requestAttention(to: textFieldDepartmentName)
+        guard let departmentName = self.category["department"] as? String else {
             return
         }
 
@@ -157,46 +103,174 @@ class AddCategorieViewController: UIViewController {
             }
 
         }
-
-
         dismiss(animated: true, completion: nil)
+    }
+
+
+
+    //MARK: - Method
+
+    private func tableSettings(){
+
+        tableView.tableFooterView = UIView()
+        tableView.backgroundColor = UIColor.clear
+        tableView.separatorStyle = .none
+        tableView.alwaysBounceVertical = false
+        tableView.bounces = false
+
+        tableView.register(PickerDataEntryTextFiledCell.nibName, forCellReuseIdentifier: PickerDataEntryTextFiledCell.identifier)
+        tableView.register(DataEntryTextFiledCell.nibName, forCellReuseIdentifier: DataEntryTextFiledCell.identifier)
+        datasource = TableConfigurator.getPlistFile(root:"fields", resourceName: "categoryFields")
+
+    }
+
+}
+
+
+//MARK : - Table
+extension AddCategorieViewController: UITableViewDelegate, UITableViewDataSource{
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return datasource?.count ?? 0
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let datasource = self.datasource else {
+            return UITableViewCell()
+        }
+
+        let field = datasource[indexPath.row]
+        if let fieldType = field["type"] as? String{
+
+            switch fieldType {
+                case "text":
+
+                    let cell = tableView.dequeueReusableCell(withIdentifier: DataEntryTextFiledCell.identifier, for: indexPath) as! DataEntryTextFiledCell
+                    cell.caption = field["caption"] as? String
+                    cell.delegate = self
+                    cell.indexPath = indexPath
+                    cell.fieldInfo = field
+
+                    if categoryToUpdate != nil{
+                        if
+                            let fieldName = field["field"] as? String,
+                            let fieldValue = categoryToUpdate?.value(forKey: fieldName) as? String
+                        {
+                            cell.textFieldValue.text = fieldValue
+                        }
+                    }
+                    return cell
+                case "picker":
+                    let cell = tableView.dequeueReusableCell(withIdentifier: PickerDataEntryTextFiledCell.identifier, for: indexPath) as! PickerDataEntryTextFiledCell
+
+                    cell.caption = field["caption"] as? String
+                    cell.indexPath = indexPath
+                    cell.delegate = self
+                    cell.fieldInfo = field
+
+                    if categoryToUpdate != nil{
+                        if let source = field["source"] as? String{
+                            switch source {
+                                case "department":
+                                    StorageManager.sharedInstance.getDefaultRealm { (realm) in
+                                        cell.pickerTextView.datasource = self.categoryToUpdate?.department.map({$0.name})
+                                    }
+                                default:
+                                    fatalError()
+                            }
+                        }
+
+                    }else{
+                        if let source = field["source"] as? String{
+                            switch source {
+                                case "department":
+                                    StorageManager.sharedInstance.getDefaultRealm { (realm) in
+                                        cell.pickerTextView.datasource = realm.objects(Department.self).map({$0.name})
+                                        let count = cell.pickerTextView.datasource?.count ?? 0
+                                        if count == 0{
+                                            self.showAlert(title: "Informazione", andBody: "Creare prima un reparto")
+                                        }
+                                    }
+                                default:
+                                    fatalError()
+                            }
+                        }
+
+                    }
+                    return cell
+
+                default:
+                    fatalError()
+            }
+
+        }
+
+        return UITableViewCell()
+
     }
 }
 
 
-extension AddCategorieViewController:UITextFieldDelegate{
-
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        checkFields(textField)
+//MARK: - DataEntryTextFiledCellDelegate
+extension AddCategorieViewController: DataEntryTextFiledCellDelegate{
+    func dataEntryTextFiledDidNext(cell: DataEntryTextFiledCell) {
+        self.view.endEditing(true)
     }
 
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        nextFieldMove()
-        return true
-    }
-
-    func nextFieldMove(){
-
-        let fields: [UITextField] = [textFieldCategoryName,
-                                     textFieldDepartmentName]
-
+    func dataEntryTextFiledDidCheck(cell: DataEntryTextFiledCell) {
         if
-            let activeField: UITextField = fields.first(where: { $0.isFirstResponder }),
-            let index: Int = fields.firstIndex(of: activeField)
+            let value = cell.textFieldValue.text,
+            !value.isEmpty,
+            let fieldInfo = cell.fieldInfo,
+            let fieldName = fieldInfo["field"] as? String
         {
-            let lastIndex = (index < fields.count) ? index:(fields.count - 1)
-            let nextField: UITextField = fields[fields.index(after: lastIndex)]
-            nextField.becomeFirstResponder()
+            category[fieldName] = value.trimmingCharacters(in: CharacterSet.whitespaces)
         }
 
     }
 
-    func checkFields(_ textField: UITextField){
+    func dataEntryTextFiledDidKeyboardDone(cell: DataEntryTextFiledCell) {
+        if
+            let value = cell.textFieldValue.text,
+            !value.isEmpty,
+            let fieldInfo = cell.fieldInfo,
+            let fieldName = fieldInfo["field"] as? String
+        {
+            category[fieldName] = value.trimmingCharacters(in: CharacterSet.whitespaces)
+        }
+        self.view.endEditing(true)
+    }
 
-        if textField == textFieldCategoryName {}
-        if textField == textFieldDepartmentName {}
+    func dataEntryTextFiledDidKeyboardCancel(cell: DataEntryTextFiledCell) {
+        self.view.endEditing(true)
+    }
 
+    func dataEntryTextFiledDidKeyboardNext(cell: DataEntryTextFiledCell) {
+        if
+            let value = cell.textFieldValue.text,
+            !value.isEmpty,
+            let fieldInfo = cell.fieldInfo,
+            let fieldName = fieldInfo["field"] as? String
+        {
+            category[fieldName] = value.trimmingCharacters(in: CharacterSet.whitespaces)
+        }
+    }
+}
+
+
+//MARK: - PickerDataEntryTextFiledCellDelegate
+extension AddCategorieViewController: PickerDataEntryTextFiledCellDelegate{
+    func pickerDataEntryTextFiledDidSelected(cell: PickerDataEntryTextFiledCell, value: String?) {
+        if
+            let value = cell.pickerTextView.selectedValue,
+            !value.isEmpty,
+            let fieldInfo = cell.fieldInfo,
+            let fieldName = fieldInfo["field"] as? String
+        {
+            category[fieldName] = value.trimmingCharacters(in: CharacterSet.whitespaces)
+        }
     }
 
 
 }
+

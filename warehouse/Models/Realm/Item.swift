@@ -15,7 +15,7 @@ class Item: Object{
     @objc dynamic var barcode: String = ""
     @objc dynamic var price: Double = 0.0
     @objc dynamic var unitPrice: Double = 0.0
-    @objc dynamic var currency: String = ""
+    @objc dynamic var currency: String = "EUR"
     @objc dynamic var minimumStock: Int = 0
     @objc dynamic var unit: String = ""
     @objc dynamic var quantity: Int = 0

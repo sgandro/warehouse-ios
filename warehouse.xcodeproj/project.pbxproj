@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9E87FD6FDF22B76DE89CF79D /* Pods_warehouse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8198F56ABED7502C8682D1A2 /* Pods_warehouse.framework */; };
+		DE05C539254C0E5900CEF65A /* departmentFields.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE05C538254C0E5900CEF65A /* departmentFields.plist */; };
+		DE05C53C254C139D00CEF65A /* categoryFields.plist in Resources */ = {isa = PBXBuildFile; fileRef = DE05C53B254C139D00CEF65A /* categoryFields.plist */; };
 		DE22C6DE253970BC004879F1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE22C6DD253970BC004879F1 /* MainViewController.swift */; };
 		DE22C6E0253971E1004879F1 /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE22C6DF253971E1004879F1 /* LeftMenuViewController.swift */; };
 		DE22C6FE253B7662004879F1 /* MenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE22C6FC253B7662004879F1 /* MenuItemCell.swift */; };
@@ -36,6 +38,17 @@
 		DE98A04F2538286A000C8938 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE98A04D2538286A000C8938 /* Main.storyboard */; };
 		DE98A0512538286D000C8938 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE98A0502538286D000C8938 /* Assets.xcassets */; };
 		DE98A0542538286D000C8938 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE98A0522538286D000C8938 /* LaunchScreen.storyboard */; };
+		DEAF91AF254C262600452D63 /* itemFields.plist in Resources */ = {isa = PBXBuildFile; fileRef = DEAF91AE254C262600452D63 /* itemFields.plist */; };
+		DEAF91B3254CA6DF00452D63 /* SupplierFields.plist in Resources */ = {isa = PBXBuildFile; fileRef = DEAF91B2254CA6DF00452D63 /* SupplierFields.plist */; };
+		DEAF91B8254CAA9B00452D63 /* AddHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEAF91B7254CAA9B00452D63 /* AddHeaderView.xib */; };
+		DEAF91BB254CAAB500452D63 /* AddHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAF91BA254CAAB500452D63 /* AddHeaderView.swift */; };
+		DEAF91C1254CB5A600452D63 /* DataEntryPhoneCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEAF91BF254CB5A600452D63 /* DataEntryPhoneCell.xib */; };
+		DEAF91C2254CB5A600452D63 /* DataEntryPhoneCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAF91C0254CB5A600452D63 /* DataEntryPhoneCell.swift */; };
+		DEAF91C6254D578E00452D63 /* TableConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAF91C5254D578E00452D63 /* TableConfigurator.swift */; };
+		DEAF91C9254D58AC00452D63 /* PhoneFields.plist in Resources */ = {isa = PBXBuildFile; fileRef = DEAF91C8254D58AC00452D63 /* PhoneFields.plist */; };
+		DEAF91CE254D606100452D63 /* DataEntryAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEAF91CC254D606000452D63 /* DataEntryAddressCell.xib */; };
+		DEAF91CF254D606100452D63 /* DataEntryAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAF91CD254D606100452D63 /* DataEntryAddressCell.swift */; };
+		DEAF91D2254D63F200452D63 /* AddressFields.plist in Resources */ = {isa = PBXBuildFile; fileRef = DEAF91D1254D63F200452D63 /* AddressFields.plist */; };
 		DEC0DE7A25419B050086CBE0 /* BackgroundTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE7925419B050086CBE0 /* BackgroundTaskManager.swift */; };
 		DEC0DE7D2541B53B0086CBE0 /* KeyboardToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE7C2541B53B0086CBE0 /* KeyboardToolBar.swift */; };
 		DEC0DE812541B62A0086CBE0 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE802541B62A0086CBE0 /* BaseViewController.swift */; };
@@ -43,8 +56,10 @@
 		DEC0DE872541B6770086CBE0 /* DiskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE862541B6770086CBE0 /* DiskStatus.swift */; };
 		DECE6541254A9EB700CF45BC /* AddSuppliersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECE6540254A9EB700CF45BC /* AddSuppliersViewController.swift */; };
 		DECE6544254AA18B00CF45BC /* Bank.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECE6543254AA18B00CF45BC /* Bank.swift */; };
-		DECE6548254AFBF500CF45BC /* PhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECE6547254AFBF500CF45BC /* PhoneView.swift */; };
-		DECE654C254AFBFC00CF45BC /* PhoneView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DECE654B254AFBFC00CF45BC /* PhoneView.xib */; };
+		DECE6551254B39AB00CF45BC /* DataEntryTextFiledCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECE654F254B39AB00CF45BC /* DataEntryTextFiledCell.swift */; };
+		DECE6552254B39AB00CF45BC /* DataEntryTextFiledCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DECE6550254B39AB00CF45BC /* DataEntryTextFiledCell.xib */; };
+		DECE6556254BFAFB00CF45BC /* PickerDataEntryTextFiledCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECE6554254BFAFA00CF45BC /* PickerDataEntryTextFiledCell.swift */; };
+		DECE6557254BFAFB00CF45BC /* PickerDataEntryTextFiledCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DECE6555254BFAFB00CF45BC /* PickerDataEntryTextFiledCell.xib */; };
 		DEE81E8F2548852200DC9A46 /* BundleVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE81E8E2548852200DC9A46 /* BundleVersion.swift */; };
 		DEE81F0E25495B6500DC9A46 /* menu.plist in Resources */ = {isa = PBXBuildFile; fileRef = DEE81F0D25495B6500DC9A46 /* menu.plist */; };
 		DEE81F11254988DD00DC9A46 /* Supplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE81F10254988DD00DC9A46 /* Supplier.swift */; };
@@ -55,11 +70,19 @@
 		DEF14038253C459400828B74 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF14037253C459400828B74 /* Category.swift */; };
 		DEF1403B253C484F00828B74 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF1403A253C484F00828B74 /* StorageManager.swift */; };
 		DEF1403D253C4A8500828B74 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF1403C253C4A8500828B74 /* UITableView+Extension.swift */; };
+		DEF8641F254D6ECB00EC859F /* DataEntryEmailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEF8641D254D6ECB00EC859F /* DataEntryEmailCell.xib */; };
+		DEF86420254D6ECB00EC859F /* DataEntryEmailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF8641E254D6ECB00EC859F /* DataEntryEmailCell.swift */; };
+		DEF86423254D703C00EC859F /* EmailFields.plist in Resources */ = {isa = PBXBuildFile; fileRef = DEF86422254D703C00EC859F /* EmailFields.plist */; };
+		DEF86428254D768A00EC859F /* DataEntryBankCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEF86426254D768900EC859F /* DataEntryBankCell.xib */; };
+		DEF86429254D768A00EC859F /* DataEntryBankCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF86427254D768900EC859F /* DataEntryBankCell.swift */; };
+		DEF8642C254D78AC00EC859F /* BankFields.plist in Resources */ = {isa = PBXBuildFile; fileRef = DEF8642B254D78AC00EC859F /* BankFields.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2829617CB943B588CAC033AD /* Pods-warehouse.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-warehouse.release.xcconfig"; path = "Target Support Files/Pods-warehouse/Pods-warehouse.release.xcconfig"; sourceTree = "<group>"; };
 		8198F56ABED7502C8682D1A2 /* Pods_warehouse.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_warehouse.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE05C538254C0E5900CEF65A /* departmentFields.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = departmentFields.plist; sourceTree = "<group>"; };
+		DE05C53B254C139D00CEF65A /* categoryFields.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = categoryFields.plist; sourceTree = "<group>"; };
 		DE22C6B125382A18004879F1 /* AlmaFramework_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AlmaFramework_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE22C6DD253970BC004879F1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		DE22C6DF253971E1004879F1 /* LeftMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
@@ -92,6 +115,17 @@
 		DE98A0502538286D000C8938 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DE98A0532538286D000C8938 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE98A0552538286D000C8938 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DEAF91AE254C262600452D63 /* itemFields.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = itemFields.plist; sourceTree = "<group>"; };
+		DEAF91B2254CA6DF00452D63 /* SupplierFields.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SupplierFields.plist; sourceTree = "<group>"; };
+		DEAF91B7254CAA9B00452D63 /* AddHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddHeaderView.xib; sourceTree = "<group>"; };
+		DEAF91BA254CAAB500452D63 /* AddHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHeaderView.swift; sourceTree = "<group>"; };
+		DEAF91BF254CB5A600452D63 /* DataEntryPhoneCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataEntryPhoneCell.xib; sourceTree = "<group>"; };
+		DEAF91C0254CB5A600452D63 /* DataEntryPhoneCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataEntryPhoneCell.swift; sourceTree = "<group>"; };
+		DEAF91C5254D578E00452D63 /* TableConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableConfigurator.swift; sourceTree = "<group>"; };
+		DEAF91C8254D58AC00452D63 /* PhoneFields.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PhoneFields.plist; sourceTree = "<group>"; };
+		DEAF91CC254D606000452D63 /* DataEntryAddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataEntryAddressCell.xib; sourceTree = "<group>"; };
+		DEAF91CD254D606100452D63 /* DataEntryAddressCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataEntryAddressCell.swift; sourceTree = "<group>"; };
+		DEAF91D1254D63F200452D63 /* AddressFields.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AddressFields.plist; sourceTree = "<group>"; };
 		DEC0DE7925419B050086CBE0 /* BackgroundTaskManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundTaskManager.swift; sourceTree = "<group>"; };
 		DEC0DE7C2541B53B0086CBE0 /* KeyboardToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardToolBar.swift; sourceTree = "<group>"; };
 		DEC0DE802541B62A0086CBE0 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -99,8 +133,10 @@
 		DEC0DE862541B6770086CBE0 /* DiskStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskStatus.swift; sourceTree = "<group>"; };
 		DECE6540254A9EB700CF45BC /* AddSuppliersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSuppliersViewController.swift; sourceTree = "<group>"; };
 		DECE6543254AA18B00CF45BC /* Bank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bank.swift; sourceTree = "<group>"; };
-		DECE6547254AFBF500CF45BC /* PhoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneView.swift; sourceTree = "<group>"; };
-		DECE654B254AFBFC00CF45BC /* PhoneView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhoneView.xib; sourceTree = "<group>"; };
+		DECE654F254B39AB00CF45BC /* DataEntryTextFiledCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataEntryTextFiledCell.swift; sourceTree = "<group>"; };
+		DECE6550254B39AB00CF45BC /* DataEntryTextFiledCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DataEntryTextFiledCell.xib; sourceTree = "<group>"; };
+		DECE6554254BFAFA00CF45BC /* PickerDataEntryTextFiledCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerDataEntryTextFiledCell.swift; sourceTree = "<group>"; };
+		DECE6555254BFAFB00CF45BC /* PickerDataEntryTextFiledCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickerDataEntryTextFiledCell.xib; sourceTree = "<group>"; };
 		DEE81E8E2548852200DC9A46 /* BundleVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleVersion.swift; sourceTree = "<group>"; };
 		DEE81F0D25495B6500DC9A46 /* menu.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = menu.plist; sourceTree = "<group>"; };
 		DEE81F10254988DD00DC9A46 /* Supplier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Supplier.swift; sourceTree = "<group>"; };
@@ -111,6 +147,12 @@
 		DEF14037253C459400828B74 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		DEF1403A253C484F00828B74 /* StorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		DEF1403C253C4A8500828B74 /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
+		DEF8641D254D6ECB00EC859F /* DataEntryEmailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataEntryEmailCell.xib; sourceTree = "<group>"; };
+		DEF8641E254D6ECB00EC859F /* DataEntryEmailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataEntryEmailCell.swift; sourceTree = "<group>"; };
+		DEF86422254D703C00EC859F /* EmailFields.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EmailFields.plist; sourceTree = "<group>"; };
+		DEF86426254D768900EC859F /* DataEntryBankCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataEntryBankCell.xib; sourceTree = "<group>"; };
+		DEF86427254D768900EC859F /* DataEntryBankCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataEntryBankCell.swift; sourceTree = "<group>"; };
+		DEF8642B254D78AC00EC859F /* BankFields.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BankFields.plist; sourceTree = "<group>"; };
 		F541AAFA2A61C5103EB611ED /* Pods-warehouse.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-warehouse.debug.xcconfig"; path = "Target Support Files/Pods-warehouse/Pods-warehouse.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -156,6 +198,7 @@
 		DE22C6F9253B7605004879F1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				DECE654E254B394500CF45BC /* Cells */,
 				DE55324E253B824C00B2B29F /* Xibs */,
 				DEF14046253C4D5700828B74 /* Menu */,
 				DEF14047253C4D6D00828B74 /* Main */,
@@ -176,6 +219,14 @@
 				DE98A0522538286D000C8938 /* LaunchScreen.storyboard */,
 				DE98A04D2538286A000C8938 /* Main.storyboard */,
 				DEE81F0D25495B6500DC9A46 /* menu.plist */,
+				DE05C53B254C139D00CEF65A /* categoryFields.plist */,
+				DE05C538254C0E5900CEF65A /* departmentFields.plist */,
+				DEAF91AE254C262600452D63 /* itemFields.plist */,
+				DEAF91B2254CA6DF00452D63 /* SupplierFields.plist */,
+				DEAF91C8254D58AC00452D63 /* PhoneFields.plist */,
+				DEF86422254D703C00EC859F /* EmailFields.plist */,
+				DEF8642B254D78AC00EC859F /* BankFields.plist */,
+				DEAF91D1254D63F200452D63 /* AddressFields.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -192,7 +243,7 @@
 		DE55324E253B824C00B2B29F /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
-				DECE6546254AFBBF00CF45BC /* PhoneView */,
+				DEAF91B6254CAA7100452D63 /* AddHeaderView */,
 				DE55326D253C34C200B2B29F /* EmptyStateView */,
 				DE553253253B82D300B2B29F /* MenuHeaderView */,
 			);
@@ -316,13 +367,32 @@
 			path = warehouse;
 			sourceTree = "<group>";
 		};
-		DECE6546254AFBBF00CF45BC /* PhoneView */ = {
+		DEAF91B6254CAA7100452D63 /* AddHeaderView */ = {
 			isa = PBXGroup;
 			children = (
-				DECE6547254AFBF500CF45BC /* PhoneView.swift */,
-				DECE654B254AFBFC00CF45BC /* PhoneView.xib */,
+				DEAF91B7254CAA9B00452D63 /* AddHeaderView.xib */,
+				DEAF91BA254CAAB500452D63 /* AddHeaderView.swift */,
 			);
-			path = PhoneView;
+			path = AddHeaderView;
+			sourceTree = "<group>";
+		};
+		DECE654E254B394500CF45BC /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				DEF86427254D768900EC859F /* DataEntryBankCell.swift */,
+				DEF86426254D768900EC859F /* DataEntryBankCell.xib */,
+				DEF8641E254D6ECB00EC859F /* DataEntryEmailCell.swift */,
+				DEF8641D254D6ECB00EC859F /* DataEntryEmailCell.xib */,
+				DEAF91CD254D606100452D63 /* DataEntryAddressCell.swift */,
+				DEAF91CC254D606000452D63 /* DataEntryAddressCell.xib */,
+				DECE6554254BFAFA00CF45BC /* PickerDataEntryTextFiledCell.swift */,
+				DECE6555254BFAFB00CF45BC /* PickerDataEntryTextFiledCell.xib */,
+				DECE654F254B39AB00CF45BC /* DataEntryTextFiledCell.swift */,
+				DECE6550254B39AB00CF45BC /* DataEntryTextFiledCell.xib */,
+				DEAF91C0254CB5A600452D63 /* DataEntryPhoneCell.swift */,
+				DEAF91BF254CB5A600452D63 /* DataEntryPhoneCell.xib */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		DEF14033253C42E300828B74 /* Models */ = {
@@ -365,6 +435,7 @@
 				DEC0DE7925419B050086CBE0 /* BackgroundTaskManager.swift */,
 				DEC0DE7C2541B53B0086CBE0 /* KeyboardToolBar.swift */,
 				DE362264253CD6F5004060A5 /* PickerTextView.swift */,
+				DEAF91C5254D578E00452D63 /* TableConfigurator.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -448,13 +519,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE55326F253C350B00B2B29F /* EmptyStateView.xib in Resources */,
+				DEAF91D2254D63F200452D63 /* AddressFields.plist in Resources */,
 				DE2EF42E2549B18000534835 /* GoogleService-Info.plist in Resources */,
+				DEF8641F254D6ECB00EC859F /* DataEntryEmailCell.xib in Resources */,
+				DEAF91AF254C262600452D63 /* itemFields.plist in Resources */,
+				DEAF91CE254D606100452D63 /* DataEntryAddressCell.xib in Resources */,
+				DEAF91B8254CAA9B00452D63 /* AddHeaderView.xib in Resources */,
 				DE553252253B82C600B2B29F /* MenuHeaderView.xib in Resources */,
-				DECE654C254AFBFC00CF45BC /* PhoneView.xib in Resources */,
+				DEF86428254D768A00EC859F /* DataEntryBankCell.xib in Resources */,
 				DE98A0542538286D000C8938 /* LaunchScreen.storyboard in Resources */,
 				DE22C6FF253B7662004879F1 /* MenuItemCell.xib in Resources */,
+				DEAF91C9254D58AC00452D63 /* PhoneFields.plist in Resources */,
 				DE98A0512538286D000C8938 /* Assets.xcassets in Resources */,
+				DE05C539254C0E5900CEF65A /* departmentFields.plist in Resources */,
+				DECE6557254BFAFB00CF45BC /* PickerDataEntryTextFiledCell.xib in Resources */,
 				DEE81F0E25495B6500DC9A46 /* menu.plist in Resources */,
+				DECE6552254B39AB00CF45BC /* DataEntryTextFiledCell.xib in Resources */,
+				DEF86423254D703C00EC859F /* EmailFields.plist in Resources */,
+				DEAF91B3254CA6DF00452D63 /* SupplierFields.plist in Resources */,
+				DEF8642C254D78AC00EC859F /* BankFields.plist in Resources */,
+				DEAF91C1254CB5A600452D63 /* DataEntryPhoneCell.xib in Resources */,
+				DE05C53C254C139D00CEF65A /* categoryFields.plist in Resources */,
 				DE98A04F2538286A000C8938 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -547,6 +632,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE362267253CE47B004060A5 /* UIViewController+Extension.swift in Sources */,
+				DEAF91C6254D578E00452D63 /* TableConfigurator.swift in Sources */,
 				DEF1403B253C484F00828B74 /* StorageManager.swift in Sources */,
 				DE553264253BB13600B2B29F /* ClientsViewController.swift in Sources */,
 				DEC0DE7A25419B050086CBE0 /* BackgroundTaskManager.swift in Sources */,
@@ -554,21 +640,23 @@
 				DE22C6DE253970BC004879F1 /* MainViewController.swift in Sources */,
 				DEF14036253C446900828B74 /* Department.swift in Sources */,
 				DE55325C253BABDC00B2B29F /* DepartmentsViewController.swift in Sources */,
+				DECE6551254B39AB00CF45BC /* DataEntryTextFiledCell.swift in Sources */,
 				DE98A0482538286A000C8938 /* AppDelegate.swift in Sources */,
 				DEE81E8F2548852200DC9A46 /* BundleVersion.swift in Sources */,
 				DE6A263E25456CCD00B7795A /* AddItemsViewController.swift in Sources */,
 				DE553250253B82BC00B2B29F /* MenuHeaderView.swift in Sources */,
 				DE553258253B996500B2B29F /* UILabel+Extension.swift in Sources */,
-				DECE6548254AFBF500CF45BC /* PhoneView.swift in Sources */,
 				DE36225F253CC724004060A5 /* AddCategorieViewController.swift in Sources */,
 				DEF14038253C459400828B74 /* Category.swift in Sources */,
 				DE553271253C351B00B2B29F /* EmptyStateView.swift in Sources */,
 				DE553260253BB09400B2B29F /* SuppliersViewController.swift in Sources */,
+				DEF86420254D6ECB00EC859F /* DataEntryEmailCell.swift in Sources */,
 				DEE81F11254988DD00DC9A46 /* Supplier.swift in Sources */,
 				DEF1403D253C4A8500828B74 /* UITableView+Extension.swift in Sources */,
 				DE55325E253BAF9600B2B29F /* ItemsViewController.swift in Sources */,
 				DE22C6E0253971E1004879F1 /* LeftMenuViewController.swift in Sources */,
 				DE362265253CD6F5004060A5 /* PickerTextView.swift in Sources */,
+				DECE6556254BFAFB00CF45BC /* PickerDataEntryTextFiledCell.swift in Sources */,
 				DE36225D253C5203004060A5 /* Item.swift in Sources */,
 				DE362261253CCE54004060A5 /* AddDepartmentsViewController.swift in Sources */,
 				DECE6541254A9EB700CF45BC /* AddSuppliersViewController.swift in Sources */,
@@ -579,11 +667,15 @@
 				DEE81F1825498F7B00DC9A46 /* Phone.swift in Sources */,
 				DEC0DE872541B6770086CBE0 /* DiskStatus.swift in Sources */,
 				DECE6544254AA18B00CF45BC /* Bank.swift in Sources */,
+				DEF86429254D768A00EC859F /* DataEntryBankCell.swift in Sources */,
 				DE6A26642546291200B7795A /* UIView+Extension.swift in Sources */,
+				DEAF91BB254CAAB500452D63 /* AddHeaderView.swift in Sources */,
+				DEAF91CF254D606100452D63 /* DataEntryAddressCell.swift in Sources */,
 				DE553262253BB0AE00B2B29F /* BanksViewController.swift in Sources */,
 				DE98A04A2538286A000C8938 /* SceneDelegate.swift in Sources */,
 				DEC0DE842541B6660086CBE0 /* ApplicationNotification.swift in Sources */,
 				DEE81F1B25498FCC00DC9A46 /* Address.swift in Sources */,
+				DEAF91C2254CB5A600452D63 /* DataEntryPhoneCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

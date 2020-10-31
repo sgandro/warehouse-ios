@@ -5,11 +5,11 @@
 	<key>BuildEnvironment</key>
 	<dict>
 		<key>BuildNumber</key>
-		<integer>29</integer>
+		<integer>42</integer>
 		<key>DateString</key>
-		<string>20201029</string>
+		<string>20201031</string>
 		<key>DateTime</key>
-		<string>29.10.2020 - 17:38:06</string>
+		<string>31.10.2020 - 12:04:28</string>
 	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
@@ -28,7 +28,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
-	<string>20201029029</string>
+	<string>20201031042</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIApplicationSceneManifest</key>

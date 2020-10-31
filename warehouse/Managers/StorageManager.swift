@@ -56,7 +56,10 @@ class StorageManager {
         
         var config = Realm.Configuration()
         
-        config.schemaVersion = 1
+        config.schemaVersion = 1 // prima versione
+        config.schemaVersion = 2 // Fornitori
+
+
         print("Realm Database *** file url \(config.fileURL!)")
         print("Realm Database *** schema version \(config.schemaVersion)")
 
@@ -75,73 +78,14 @@ class StorageManager {
         
         config.migrationBlock = {(migration, oldSchemaVersion) in
             print("Realm Database *** \(#function) migration...")
-//            if oldSchemaVersion < 2 {
-//
-//                migration.enumerateObjects(ofType: History.className()) { (oldObject, newObject) in
-//                    if oldObject?.objectSchema.properties.contains(where: {$0.name == "idService"}) == true{
-//                        newObject?.setValue("", forKey: "idService")
-//                    }
-//                }
-//            }
-//            if oldSchemaVersion < 3 {
-//
-//                migration.enumerateObjects(ofType: Customer.className()) { (oldObject, newObject) in
-//                    if oldObject?.objectSchema.properties.contains(where: {$0.name == "note"}) == true{
-//                        newObject?.setValue("", forKey: "note")
-//                    }
-//                }
-//
-//            }
-//            if oldSchemaVersion < 4 {
-//
-//                migration.enumerateObjects(ofType: Appointment.className()) { (oldObject, newObject) in
-//                    if oldObject?.objectSchema.properties.contains(where: {$0.name == "images"}) == true{
-//                        newObject?.setValue(List<Image>(), forKey: "images")
-//                    }
-//                }
-//
-//            }
-//            if oldSchemaVersion < 5 {
-//
-//                migration.enumerateObjects(ofType: Image.className()) { (oldObject, newObject) in
-//                    if oldObject?.objectSchema.properties.contains(where: {$0.name == "customer"}) == true{
-//
-//                    }
-//                }
-//
-//            }
-//            if oldSchemaVersion < 6 {
-//
-//                migration.enumerateObjects(ofType: Service.className()) { (oldObject, newObject) in
-//                    if oldObject?.objectSchema.properties.contains(where: {$0.name == "time"}) == true{
-//                        newObject?.setValue(0, forKey: "time")
-//                    }
-//                }
-//
-//            }
-//            if oldSchemaVersion < 7 {
-//
-//                migration.enumerateObjects(ofType: History.className()) { (oldObject, newObject) in
-//                    if oldObject?.objectSchema.properties.contains(where: {$0.name == "operatore"}) == true{
-//                        newObject?.setValue(0, forKey: "operatore")
-//                    }
-//                }
-//
-//            }
-//            if oldSchemaVersion < 8 {
-//
-//                migration.enumerateObjects(ofType: History.className()) { (oldObject, newObject) in
-//                    if oldObject?.objectSchema.properties.contains(where: {$0.name == "time"}) == true{
-//                        newObject?.setValue(30, forKey: "time")
-//                    }
-//                }
-//
-//
-//            }
+            if oldSchemaVersion < 2 {
 
-
-            
-
+                migration.enumerateObjects(ofType: Item.className()) { (oldObject, newObject) in
+                    if oldObject?.objectSchema.properties.contains(where: {$0.name == "currency"}) == true{
+                        newObject?.setValue("EUR", forKey: "currency")
+                    }
+                }
+            }
             
         }
         Realm.Configuration.defaultConfiguration = config
@@ -201,7 +145,7 @@ class StorageManager {
         }
 
         
-        config.schemaVersion = 1
+        config.schemaVersion = 2
         Realm.Configuration.defaultConfiguration = config
         
         do{

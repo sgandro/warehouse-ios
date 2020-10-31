@@ -51,29 +51,12 @@ class LeftMenuViewController: UIViewController {
         tableView.register(MenuItemCell.nibName, forCellReuseIdentifier: MenuItemCell.identifier)
 
     }
-    private func getMenuFromPlist()->[[String:Any]]?{
-
-        guard
-            let path = Bundle.main.path(forResource: "menu", ofType: "plist", inDirectory: nil)
-        else { return nil }
-
-        let url = URL(fileURLWithPath: path)
-        let data = try! Data(contentsOf: url)
-
-        guard
-            let plist = try! PropertyListSerialization.propertyList(from: data,
-                                                                      options: .mutableContainers,
-                                                                      format: nil) as? [String:Any]
-        else { return nil }
-
-        return plist["menu"] as? [[String:Any]]
-
-    }
+    
 
 
     private func menuItemSettings(){
 
-        if let menu = getMenuFromPlist(){
+        if let menu = TableConfigurator.getPlistFile(root:"menu",resourceName: "menu"){
 
             menu.forEach { (item) in
 

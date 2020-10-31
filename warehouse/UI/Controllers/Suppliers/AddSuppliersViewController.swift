@@ -12,41 +12,20 @@ class AddSuppliersViewController: UIViewController {
 
     @IBOutlet weak var labelTitle:UILabel!
     @IBOutlet weak var labelDescription:UILabel!
+    @IBOutlet weak var tableView:UITableView!
 
-    @IBOutlet weak var labelCaptionBusinessName:UILabel!
-    @IBOutlet weak var textFieldBusinessName:UITextField!
-
-    @IBOutlet weak var labelCaptionTitle:UILabel!
-    @IBOutlet weak var textFieldTitle:UITextField!
-
-    @IBOutlet weak var labelCaptionName:UILabel!
-    @IBOutlet weak var textFieldName:UITextField!
-
-    @IBOutlet weak var labelCaptionSurname:UILabel!
-    @IBOutlet weak var textFieldSurname:UITextField!
-
-    @IBOutlet weak var labelCaptionVatNumber:UILabel!
-    @IBOutlet weak var textFieldVatNumber:UITextField!
-
-    @IBOutlet weak var labelCaptionFiscalCode:UILabel!
-    @IBOutlet weak var textFieldFiscalCode:UITextField!
-
-    @IBOutlet weak var scrollView:UIScrollView!
-    @IBOutlet weak var containerView:UIView!
-
-    @IBOutlet weak var labelCaptionPhoneNumber:UILabel!
-    @IBOutlet weak var labelCaptionAddressNumber:UILabel!
-    @IBOutlet weak var labelCaptionEmailNumber:UILabel!
-    @IBOutlet weak var labelCaptionBankNumber:UILabel!
-
-    @IBOutlet weak var stackViewPhone:UIStackView!
-    @IBOutlet weak var stackViewAddress:UIStackView!
-    @IBOutlet weak var stackViewEmail:UIStackView!
-    @IBOutlet weak var stackViewBank:UIStackView!
-
-
+    var itemToUpdate:Item?
+    var item:[String:Any] = [:]
+    var datasource:[[String:Any]]?
+    var phoneConfigurtorTable:[[String:Any]]?
+    var addressConfigurtorTable:[[String:Any]]?
+    var emailsConfigurtorTable:[[String:Any]]?
+    var banksConfigurtorTable:[[String:Any]]?
+    var phones:[Phone] = [Phone]()
+    var addresses:[Address] = [Address]()
+    var emails:[Email] = [Email]()
+    var banks:[Bank] = [Bank]()
     var supplierToUpdate:Supplier?
-    private let keyboardToolBar = KeyboardToolBar()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,14 +33,14 @@ class AddSuppliersViewController: UIViewController {
         isModalInPresentation = true
 
         // Do any additional setup after loading the view.
-        registerForKeyboardNotifications()
+        tableSettings()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        let keyboardToolBar = KeyboardToolBar()
         keyboardToolBar.nextButtonPressed = {
-            self.nextFieldMove()
         }
         keyboardToolBar.doneButtonPressed = {
             self.view.endEditing(true)
@@ -80,38 +59,6 @@ class AddSuppliersViewController: UIViewController {
                                         align: .center)
 
 
-            textFieldBusinessName.delegate = self
-            textFieldBusinessName.returnKeyType = .next
-            textFieldBusinessName.text = supplierToUpdate?.businessName
-            textFieldBusinessName.inputAccessoryView = keyboardToolBar
-
-            textFieldTitle.delegate = self
-            textFieldTitle.returnKeyType = .next
-            textFieldTitle.text = supplierToUpdate?.title
-            textFieldTitle.inputAccessoryView = keyboardToolBar
-
-            textFieldName.delegate = self
-            textFieldName.returnKeyType = .next
-            textFieldName.text = supplierToUpdate?.name
-            textFieldName.inputAccessoryView = keyboardToolBar
-
-            textFieldSurname.delegate = self
-            textFieldSurname.returnKeyType = .next
-            textFieldSurname.text = supplierToUpdate?.surname
-            textFieldSurname.inputAccessoryView = keyboardToolBar
-
-            textFieldVatNumber.delegate = self
-            textFieldVatNumber.returnKeyType = .next
-            textFieldVatNumber.text = supplierToUpdate?.vatNumber
-            textFieldVatNumber.inputAccessoryView = keyboardToolBar
-
-            textFieldFiscalCode.delegate = self
-            textFieldFiscalCode.returnKeyType = .next
-            textFieldFiscalCode.text = supplierToUpdate?.fiscalCode
-            textFieldFiscalCode.inputAccessoryView = keyboardToolBar
-
-
-
         }else{
             labelTitle.initialize(textValue: "Nuovo Fornitore", font: UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.bold), color: UIColor.darkGray, align: .center)
 
@@ -120,89 +67,36 @@ class AddSuppliersViewController: UIViewController {
                                         color: UIColor.secondaryLabel,
                                         align: .center)
 
-            textFieldBusinessName.delegate = self
-            textFieldBusinessName.returnKeyType = .next
-            textFieldBusinessName.inputAccessoryView = keyboardToolBar
-
-            textFieldTitle.delegate = self
-            textFieldTitle.returnKeyType = .next
-            textFieldTitle.inputAccessoryView = keyboardToolBar
-
-            textFieldName.delegate = self
-            textFieldName.returnKeyType = .next
-            textFieldName.inputAccessoryView = keyboardToolBar
-
-            textFieldSurname.delegate = self
-            textFieldSurname.returnKeyType = .next
-            textFieldSurname.inputAccessoryView = keyboardToolBar
-
-            textFieldVatNumber.delegate = self
-            textFieldVatNumber.returnKeyType = .next
-            textFieldVatNumber.inputAccessoryView = keyboardToolBar
-
-            textFieldFiscalCode.delegate = self
-            textFieldFiscalCode.returnKeyType = .next
-            textFieldFiscalCode.inputAccessoryView = keyboardToolBar
-
-
-
         }
-
-        labelCaptionBusinessName.initialize(textValue: "Ragione sociale",
-                                    font: UIFont.systemFont(ofSize: 12, weight: .semibold),
-                                    color: UIColor.secondaryLabel,
-                                    align: .left)
-
-        labelCaptionTitle.initialize(textValue: "Titolo",
-                                    font: UIFont.systemFont(ofSize: 12, weight: .semibold),
-                                    color: UIColor.secondaryLabel,
-                                    align: .left)
-
-        labelCaptionName.initialize(textValue: "Nome",
-                                    font: UIFont.systemFont(ofSize: 12, weight: .semibold),
-                                    color: UIColor.secondaryLabel,
-                                    align: .left)
-
-        labelCaptionSurname.initialize(textValue: "Cognome",
-                                    font: UIFont.systemFont(ofSize: 12, weight: .semibold),
-                                    color: UIColor.secondaryLabel,
-                                    align: .left)
-
-        labelCaptionVatNumber.initialize(textValue: "Partita I.V.A",
-                                    font: UIFont.systemFont(ofSize: 12, weight: .semibold),
-                                    color: UIColor.secondaryLabel,
-                                    align: .left)
-
-        labelCaptionFiscalCode.initialize(textValue: "Codice Fiscale",
-                                    font: UIFont.systemFont(ofSize: 12, weight: .semibold),
-                                    color: UIColor.secondaryLabel,
-                                    align: .left)
-
-        labelCaptionPhoneNumber.initialize(textValue: "Telefono",
-                                    font: UIFont.systemFont(ofSize: 12, weight: .semibold),
-                                    color: UIColor.secondaryLabel,
-                                    align: .left)
-
-        labelCaptionAddressNumber.initialize(textValue: "Indirizzo",
-                                    font: UIFont.systemFont(ofSize: 12, weight: .semibold),
-                                    color: UIColor.secondaryLabel,
-                                    align: .left)
-
-        labelCaptionEmailNumber.initialize(textValue: "Email",
-                                    font: UIFont.systemFont(ofSize: 12, weight: .semibold),
-                                    color: UIColor.secondaryLabel,
-                                    align: .left)
-
-        labelCaptionBankNumber.initialize(textValue: "Banca",
-                                    font: UIFont.systemFont(ofSize: 12, weight: .semibold),
-                                    color: UIColor.secondaryLabel,
-                                    align: .left)
-
 
     }
 
 
-    //MARK: - functions
+    //MARK: - Method
+
+    private func tableSettings(){
+
+        tableView.tableFooterView = UIView()
+        tableView.backgroundColor = UIColor.clear
+        tableView.separatorStyle = .none
+        tableView.alwaysBounceVertical = false
+        tableView.bounces = false
+
+        tableView.register(PickerDataEntryTextFiledCell.nibName, forCellReuseIdentifier: PickerDataEntryTextFiledCell.identifier)
+        tableView.register(DataEntryTextFiledCell.nibName, forCellReuseIdentifier: DataEntryTextFiledCell.identifier)
+        tableView.register(DataEntryPhoneCell.nibName, forCellReuseIdentifier: DataEntryPhoneCell.identifier)
+        tableView.register(DataEntryAddressCell.nibName, forCellReuseIdentifier: DataEntryAddressCell.identifier)
+        tableView.register(DataEntryEmailCell.nibName, forCellReuseIdentifier: DataEntryEmailCell.identifier)
+        tableView.register(DataEntryBankCell.nibName, forCellReuseIdentifier: DataEntryBankCell.identifier)
+
+        datasource = TableConfigurator.getPlistFile(root:"fields", resourceName: "SupplierFields")
+        phoneConfigurtorTable = TableConfigurator.getPlistFile(root: "fields", resourceName: "PhoneFields")
+        addressConfigurtorTable = TableConfigurator.getPlistFile(root: "fields", resourceName: "AddressFields")
+        emailsConfigurtorTable = TableConfigurator.getPlistFile(root: "fields", resourceName: "EmailFields")
+        banksConfigurtorTable = TableConfigurator.getPlistFile(root: "fields", resourceName: "BankFields")
+
+
+    }
 
     //MARK: - Action
     @IBAction func closeButtonPressed(button:UIButton){
@@ -210,232 +104,406 @@ class AddSuppliersViewController: UIViewController {
     }
     @IBAction func saveButtonPressed(button:UIButton){
 
-        guard
-            let businessName = textFieldBusinessName.text?.trimmingCharacters(in: .whitespaces),
-            businessName.isEmpty == false
-        else {
-            requestAttention(to: textFieldBusinessName)
-            return
-        }
 
-        guard
-            let title = textFieldTitle.text?.trimmingCharacters(in: .whitespaces),
-            title.isEmpty == false
-        else {
-            requestAttention(to: textFieldTitle)
-            return
-        }
-
-        guard
-            let name = textFieldName.text?.trimmingCharacters(in: .whitespaces),
-            name.isEmpty == false
-        else {
-            requestAttention(to: textFieldName)
-            return
-        }
-
-        guard
-            let surname = textFieldSurname.text?.trimmingCharacters(in: .whitespaces),
-            surname.isEmpty == false
-        else {
-            requestAttention(to: textFieldSurname)
-            return
-        }
-
-        guard
-            let vatNumber = textFieldVatNumber.text?.trimmingCharacters(in: .whitespaces),
-            vatNumber.isEmpty == false
-        else {
-            requestAttention(to: textFieldVatNumber)
-            return
-        }
-
-        guard
-            let fiscalCode = textFieldFiscalCode.text?.trimmingCharacters(in: .whitespaces),
-            fiscalCode.isEmpty == false
-        else {
-            requestAttention(to: textFieldFiscalCode)
-            return
-        }
-
-
-        StorageManager.sharedInstance.getDefaultRealm { (realm) in
-
-            realm.beginWrite()
-
-            if let supplierToUpdate = self.supplierToUpdate{
-
-                supplierToUpdate.businessName = businessName
-                supplierToUpdate.title = title
-                supplierToUpdate.name = name
-                supplierToUpdate.surname = surname
-                supplierToUpdate.vatNumber = vatNumber
-                supplierToUpdate.fiscalCode = fiscalCode
-
-                realm.add(supplierToUpdate, update: .modified)
-
-            }else{
-
-                let supplier:[String:Any] = ["businessName":businessName,
-                                             "title":title,
-                                             "name":name,
-                                             "surname":surname,
-                                             "vatNumber":vatNumber,
-                                             "fiscalCode":fiscalCode]
-
-                realm.create(Item.self, value: supplier, update: .all)
-            }
-            do{
-                try realm.commitWrite()
-            }catch{
-                realm.cancelWrite()
-                print("Error:\(error.localizedDescription)")
-            }
-
-
-        }
+//        StorageManager.sharedInstance.getDefaultRealm { (realm) in
+//
+//            realm.beginWrite()
+//
+//            if let supplierToUpdate = self.supplierToUpdate{
+//
+//                supplierToUpdate.businessName = businessName
+//                supplierToUpdate.title = title
+//                supplierToUpdate.name = name
+//                supplierToUpdate.surname = surname
+//                supplierToUpdate.vatNumber = vatNumber
+//                supplierToUpdate.fiscalCode = fiscalCode
+//
+//                realm.add(supplierToUpdate, update: .modified)
+//
+//            }else{
+//
+//                let supplier:[String:Any] = ["businessName":businessName,
+//                                             "title":title,
+//                                             "name":name,
+//                                             "surname":surname,
+//                                             "vatNumber":vatNumber,
+//                                             "fiscalCode":fiscalCode]
+//
+//                realm.create(Item.self, value: supplier, update: .all)
+//            }
+//            do{
+//                try realm.commitWrite()
+//            }catch{
+//                realm.cancelWrite()
+//                print("Error:\(error.localizedDescription)")
+//            }
+//
+//
+//        }
 
         dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func addNewPhoneButtonPressed(button:UIButton){
-        print(#function)
-        let phoneView = PhoneView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 120))
-        phoneView.delegate = self
-        phoneView.tag = 1
-        stackViewPhone.spacing = 2
-        stackViewPhone.addArrangedSubview(phoneView)
-//        var contentSize = self.scrollView.contentSize
-//        contentSize.height += 120
-//        self.scrollView.contentSize = contentSize
-//        self.view.layoutIfNeeded()
+}
 
+//MARK : - Table
+extension AddSuppliersViewController: UITableViewDelegate, UITableViewDataSource{
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 6
     }
-
-    //MARK: - keyboard
-
-    func registerForKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(onKeyboardAppear(_:)),
-                                               name: UIResponder.keyboardDidShowNotification,
-                                               object: nil)
-
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(onKeyboardDisappear(_:)),
-                                               name: UIResponder.keyboardWillChangeFrameNotification,
-                                               object: nil)
-
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(onKeyboardDisappear(_:)),
-                                               name: UIResponder.keyboardDidHideNotification,
-                                               object: nil)
-    }
-
-    // Don't forget to unregister when done
-    deinit {
-        NotificationCenter.default.removeObserver(self,
-                                                  name: UIResponder.keyboardDidShowNotification,
-                                                  object: nil)
-
-        NotificationCenter.default.removeObserver(self,
-                                                  name: UIResponder.keyboardWillChangeFrameNotification,
-                                                  object: nil)
-
-        NotificationCenter.default.removeObserver(self,
-                                                  name: UIResponder.keyboardDidHideNotification,
-                                                  object: nil)
-    }
-
-    @objc func onKeyboardAppear(_ notification: NSNotification) {
-        let info = notification.userInfo!
-        let rect = info[UIResponder.keyboardFrameBeginUserInfoKey] as! CGRect
-        let kbSize = rect.size
-
-        let insets = UIEdgeInsets(top: 0, left: 0, bottom: kbSize.height + keyboardToolBar.frame.height, right: 0)
-        scrollView.contentInset = insets
-        scrollView.scrollIndicatorInsets = insets
-
-        // If active text field is hidden by keyboard, scroll it so it's visible
-        // Your application might not need or want this behavior.
-        var aRect = self.containerView.frame;
-        aRect.size.height -= kbSize.height + keyboardToolBar.frame.height;
-
-
-        let activeField: UITextField? = [textFieldBusinessName,
-                                         textFieldTitle,
-                                         textFieldName,
-                                         textFieldSurname,
-                                         textFieldVatNumber,
-                                         textFieldFiscalCode].first { $0.isFirstResponder }
-
-        if let activeField = activeField {
-            if !aRect.contains(activeField.frame.origin) {
-                let scrollPoint = CGPoint(x: 0, y: activeField.frame.origin.y-kbSize.height)
-                scrollView.setContentOffset(scrollPoint, animated: true)
-            }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+            case 0: //Supplier
+                return datasource?.count ?? 0
+            case 1: //Phones
+                return phones.count
+            case 2: //Emails
+                return emails.count
+            case 3: //Addresses
+                return addresses.count
+            case 4: //Banks
+                return banks.count
+            case 5: //Items
+                return 0
+            default:
+                fatalError()
         }
     }
 
-    @objc func onKeyboardDisappear(_ notification: NSNotification) {
-        scrollView.contentInset = UIEdgeInsets.zero
-        scrollView.scrollIndicatorInsets = UIEdgeInsets.zero
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let datasource = self.datasource else {
+            return UITableViewCell()
+        }
+
+        switch indexPath.section {
+            case 0:
+
+                let field = datasource[indexPath.row]
+                if let fieldType = field["type"] as? String{
+
+                    switch fieldType {
+                        case "text":
+
+                            let cell = tableView.dequeueReusableCell(withIdentifier: DataEntryTextFiledCell.identifier, for: indexPath) as! DataEntryTextFiledCell
+                            cell.caption = field["caption"] as? String
+                            cell.delegate = self
+                            cell.indexPath = indexPath
+                            cell.fieldInfo = field
+
+                            if itemToUpdate != nil{
+                                if
+                                    let fieldName = field["field"] as? String,
+                                    let fieldValue = itemToUpdate?.value(forKey: fieldName) as? String
+                                {
+                                    cell.textFieldValue.text = fieldValue
+                                }
+                            }
+
+                            return cell
+                        default:
+                            fatalError()
+                    }
+                }
+
+                break
+            case 1://Phones
+
+                let cell = tableView.dequeueReusableCell(withIdentifier: DataEntryPhoneCell.identifier, for: indexPath) as! DataEntryPhoneCell
+                cell.captionTitle = phoneConfigurtorTable?[0]["caption"] as? String
+                cell.captionNumber = phoneConfigurtorTable?[1]["caption"] as? String
+                cell.delegate = self
+                cell.indexPath = indexPath
+                return cell
+
+            case 2://Emails
+
+                let cell = tableView.dequeueReusableCell(withIdentifier: DataEntryEmailCell.identifier, for: indexPath) as! DataEntryEmailCell
+                cell.captionType = emailsConfigurtorTable?[0]["caption"] as? String
+                cell.captionAddress = emailsConfigurtorTable?[1]["caption"] as? String
+                cell.delegate = self
+                cell.indexPath = indexPath
+                return cell
+
+            case 3://Addresses
+                let cell = tableView.dequeueReusableCell(withIdentifier: DataEntryAddressCell.identifier, for: indexPath) as! DataEntryAddressCell
+                cell.captionType = addressConfigurtorTable?[0]["caption"] as? String
+                cell.captionAddress = addressConfigurtorTable?[1]["caption"] as? String
+                cell.captionZipCode = addressConfigurtorTable?[2]["caption"] as? String
+                cell.captionCity = addressConfigurtorTable?[3]["caption"] as? String
+                cell.captionLocation = addressConfigurtorTable?[4]["caption"] as? String
+                cell.delegate = self
+                cell.indexPath = indexPath
+                return cell
+
+            case 4://Banks
+                let cell = tableView.dequeueReusableCell(withIdentifier: DataEntryBankCell.identifier, for: indexPath) as! DataEntryBankCell
+                cell.captionName = banksConfigurtorTable?[0]["caption"] as? String
+                cell.captionIban = banksConfigurtorTable?[1]["caption"] as? String
+                cell.captionSwiftCode = banksConfigurtorTable?[2]["caption"] as? String
+                cell.delegate = self
+                cell.indexPath = indexPath
+                return cell
+            case 5://Items
+                return UITableViewCell()
+            default:
+                return UITableViewCell()
+        }
+
+
+        return UITableViewCell()
     }
 
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+
+        let addHeaderView = AddHeaderView()
+
+        switch section {
+            case 0:
+                break
+            case 1://Phones
+                addHeaderView.labelCaption.text = "Telefono"
+                addHeaderView.delegate = self
+                addHeaderView.field = ["type":"phone"]
+                break
+            case 2://Emails
+                addHeaderView.labelCaption.text = "Email"
+                addHeaderView.delegate = self
+                addHeaderView.field = ["type":"email"]
+                break
+            case 3://Addresses
+                addHeaderView.labelCaption.text = "Indirizzo"
+                addHeaderView.delegate = self
+                addHeaderView.field = ["type":"address"]
+                break
+            case 4://Banks
+                addHeaderView.labelCaption.text = "Banca"
+                addHeaderView.delegate = self
+                addHeaderView.field = ["type":"bank"]
+                break
+            case 5://Items
+                addHeaderView.labelCaption.text = "Aritcoli"
+                addHeaderView.delegate = self
+                addHeaderView.field = ["type":"item"]
+                break
+
+            default:
+                fatalError()
+        }
+        return addHeaderView
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+
+        switch section {
+            case 0:
+                return 0
+            case 1://Phones
+                return AddHeaderView.hight
+            case 2://Emails
+                return AddHeaderView.hight
+            case 3://Addresses
+                return AddHeaderView.hight
+            case 4://Banks
+                return AddHeaderView.hight
+            case 5://Items
+                return AddHeaderView.hight
+            default:
+                return AddHeaderView.hight
+        }
+
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+
+        switch indexPath.section {
+            case 0:
+                return DataEntryTextFiledCell.size.height
+            case 1://Phones
+                return DataEntryPhoneCell.size.height
+            case 2://Emails
+                return DataEntryEmailCell.size.height
+            case 3://Addresses
+                return DataEntryAddressCell.size.height
+            case 4://Banks
+                return DataEntryBankCell.size.height
+            case 5://Items
+                return 0
+            default:
+                return 0
+        }
+
+    }
 
 
 }
 
-//MARK: - Field
-extension AddSuppliersViewController:UITextFieldDelegate{
 
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        checkFields(textField)
+//MARK: - DataEntryTextFiledCellDelegate
+extension AddSuppliersViewController: DataEntryTextFiledCellDelegate{
+    func dataEntryTextFiledDidNext(cell: DataEntryTextFiledCell) {
+        self.view.endEditing(true)
     }
 
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        nextFieldMove()
-        return true
+    func dataEntryTextFiledDidCheck(cell: DataEntryTextFiledCell) {
+        if
+            let value = cell.textFieldValue.text,
+            !value.isEmpty,
+            let fieldInfo = cell.fieldInfo,
+            let fieldName = fieldInfo["field"] as? String
+        {
+            item[fieldName] = value.trimmingCharacters(in: CharacterSet.whitespaces)
+        }
     }
 
-    func nextFieldMove(){
+    func dataEntryTextFiledDidKeyboardDone(cell: DataEntryTextFiledCell) {
+        if
+            let value = cell.textFieldValue.text,
+            !value.isEmpty,
+            let fieldInfo = cell.fieldInfo,
+            let fieldName = fieldInfo["field"] as? String
+        {
+            item[fieldName] = value.trimmingCharacters(in: CharacterSet.whitespaces)
+        }
 
-        let fields: [UITextField] = [textFieldBusinessName,
-                                     textFieldTitle,
-                                     textFieldName,
-                                     textFieldSurname,
-                                     textFieldVatNumber,
-                                     textFieldFiscalCode]
+        self.view.endEditing(true)
+    }
+
+    func dataEntryTextFiledDidKeyboardCancel(cell: DataEntryTextFiledCell) {
+        self.view.endEditing(true)
+    }
+
+    func dataEntryTextFiledDidKeyboardNext(cell: DataEntryTextFiledCell) {
+
 
         if
-            let activeField: UITextField = fields.first(where: { $0.isFirstResponder }),
-            let index: Int = fields.firstIndex(of: activeField)
+            let value = cell.textFieldValue.text,
+            !value.isEmpty,
+            let fieldInfo = cell.fieldInfo,
+            let fieldName = fieldInfo["field"] as? String
         {
-            let lastIndex = (index < (fields.count - 1)) ? index:(fields.count - 2)
-            let nextField: UITextField = fields[fields.index(after: lastIndex)]
-            nextField.becomeFirstResponder()
+            item[fieldName] = value.trimmingCharacters(in: CharacterSet.whitespaces)
         }
+    }
+}
+
+//MARK: - Header
+extension AddSuppliersViewController: AddHeaderViewDelegte{
+    func addHeaderViewDidButtonPressed(field: [String : Any]?) {
+        print("field:\(String(describing: field))")
+        if let fieldName = field?["type"] as? String{
+
+            if fieldName == "phone"{
+                let indexPath = IndexPath(row: phones.count, section: 1)
+                phones.append(Phone())
+                tableView.insertRows(at: [indexPath], with: .automatic)
+            }
+            if fieldName == "email"{
+                let indexPath = IndexPath(row: emails.count, section: 2)
+                emails.append(Email())
+                tableView.insertRows(at: [indexPath], with: .automatic)
+            }
+            if fieldName == "address"{
+                let indexPath = IndexPath(row: addresses.count, section: 3)
+                addresses.append(Address())
+                tableView.insertRows(at: [indexPath], with: .automatic)
+            }
+            if fieldName == "bank"{
+                let indexPath = IndexPath(row: banks.count, section: 4)
+                banks.append(Bank())
+                tableView.insertRows(at: [indexPath], with: .automatic)
+            }
+
+        }
+    }
+}
+
+//MARK: - DataEntryPhoneCellDelegate
+extension AddSuppliersViewController: DataEntryPhoneCellDelegate{
+    func dataEntryPhoneCellDidNext(cell: DataEntryPhoneCell) {
+
+    }
+    
+    func dataEntryPhoneCellDidCheck(cell: DataEntryPhoneCell) {
+
+    }
+    
+    func dataEntryPhoneCellDidKeyboardDone(cell: DataEntryPhoneCell) {
+
+    }
+    
+    func dataEntryPhoneCellDidKeyboardCancel(cell: DataEntryPhoneCell) {
+
+    }
+    
+    func dataEntryPhoneCellDidKeyboardNext(cell: DataEntryPhoneCell) {
+
+    }
+    
+
+}
+
+//MARK: - DataEntryAddressCellDelegate
+extension AddSuppliersViewController: DataEntryAddressCellDelegate{
+    func dataEntryAddressCellDidNext(cell: DataEntryAddressCell) {
 
     }
 
-    func checkFields(_ textField: UITextField){
+    func dataEntryAddressCellDidCheck(cell: DataEntryAddressCell) {
 
-        if textField == textFieldBusinessName {}
-        if textField == textFieldTitle {}
-        if textField == textFieldName {}
-        if textField == textFieldSurname {}
-        if textField == textFieldVatNumber {}
-        if textField == textFieldFiscalCode {}
+    }
+
+    func dataEntryAddressCellDidKeyboardDone(cell: DataEntryAddressCell) {
+
+    }
+
+    func dataEntryAddressCellDidKeyboardCancel(cell: DataEntryAddressCell) {
+
+    }
+
+    func dataEntryAddressCellDidKeyboardNext(cell: DataEntryAddressCell) {
+        
+    }
+}
+
+//MARK: - DataEntryEmailCellDelegate
+extension AddSuppliersViewController: DataEntryEmailCellDelegate{
+    func dataEntryEmailCellDidNext(cell: DataEntryEmailCell) {
+
+    }
+
+    func dataEntryEmailCellDidCheck(cell: DataEntryEmailCell) {
+
+    }
+
+    func dataEntryEmailCellDidKeyboardDone(cell: DataEntryEmailCell) {
+
+    }
+
+    func dataEntryEmailCellDidKeyboardCancel(cell: DataEntryEmailCell) {
+
+    }
+
+    func dataEntryEmailCellDidKeyboardNext(cell: DataEntryEmailCell) {
 
     }
 
 }
-//MARK: -  Phone
-extension AddSuppliersViewController:PhoneViewDelegate{
-    func phoneDataEntryDidDone(view: UIView, phone: [String : Any]) {
 
+//MARK: - DataEntryBankCellDelegate
+extension AddSuppliersViewController: DataEntryBankCellDelegate{
+    func dataEntryBankCellDidNext(cell: DataEntryBankCell) {
     }
 
+    func dataEntryBankCellDidCheck(cell: DataEntryBankCell) {
+    }
 
+    func dataEntryBankCellDidKeyboardDone(cell: DataEntryBankCell) {
+    }
+
+    func dataEntryBankCellDidKeyboardCancel(cell: DataEntryBankCell) {
+    }
+
+    func dataEntryBankCellDidKeyboardNext(cell: DataEntryBankCell) {
+    }
 
 
 }

@@ -10,16 +10,22 @@ import UIKit
 class PickerTextView: UITextField {
 
     private let pickerView = UIPickerView()
-    var pickerItemSelected:((_ done:Bool)->Void)?
+    var pickerItemSelected:((_ done:Bool, _ value:String?)->Void)?
     var datasource:[String]?{
         didSet{
             pickerView.reloadComponent(0)
             if datasource?.count == 1{
                 self.text = datasource?.first
                 self.isEnabled = false
-            }
-            if datasource == nil{
+                pickerItemSelected?(true, datasource?.first)
+            }else if datasource?.count == 0{
+                self.text = nil
                 self.isEnabled = false
+                pickerItemSelected?(false, nil)
+            }else{
+                self.text = nil
+                self.isEnabled = false
+                pickerItemSelected?(false, nil)
             }
         }
     }
@@ -30,12 +36,20 @@ class PickerTextView: UITextField {
     override func awakeFromNib() {
         super.awakeFromNib()
 
+        UIBarButtonItem.appearance().setTitleTextAttributes(
+        [
+            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14, weight: .semibold),
+            NSAttributedString.Key.foregroundColor : UIColor.label,
+        ], for: .normal)
+
+
         self.inputView = self.pickerView
         self.pickerView.delegate = self
         let toolBar = UIToolbar(frame: CGRect(x: 0.0, y: 0.0, width: self.frame.size.width, height: 44.0))
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let cancel = UIBarButtonItem(title: "Chiudi", style: .plain, target: nil, action: #selector(tapCancel))
         let done = UIBarButtonItem(title: "Fatto", style: .plain, target: nil, action: #selector(tapDone))
+
         toolBar.setItems([cancel, flexible, done], animated: false)
         self.inputAccessoryView = toolBar
 
@@ -53,14 +67,14 @@ class PickerTextView: UITextField {
         //salva il risultato
         guard let datasource = self.datasource else {
             self.text = nil
-            pickerItemSelected?(false)
+            pickerItemSelected?(false, nil)
             return
         }
 
         let row = pickerView.selectedRow(inComponent: 0)
         self.text = datasource[row]
         self.resignFirstResponder()
-        pickerItemSelected?(true)
+        pickerItemSelected?(true, datasource[row])
     }
 
 
