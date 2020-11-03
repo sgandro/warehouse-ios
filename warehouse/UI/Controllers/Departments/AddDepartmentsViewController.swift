@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-class AddDepartmentsViewController: UIViewController {
+class AddDepartmentsViewController: BaseTableViewController {
 
     @IBOutlet weak var labelTitle:UILabel!
     @IBOutlet weak var labelDescription:UILabel!
@@ -20,6 +20,8 @@ class AddDepartmentsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        isModalInPresentation = true
+        isKeyboardNotificationEnabled = true
 
         // Do any additional setup after loading the view.
         tableSettings()
@@ -143,9 +145,27 @@ extension AddDepartmentsViewController: UITableViewDelegate, UITableViewDataSour
                     if departmentToUpdate != nil{
                         if
                             let fieldName = field["field"] as? String,
-                            let fieldValue = departmentToUpdate?.value(forKey: fieldName) as? String
+                            let fieldFormat = field["format"] as? String
                         {
-                            cell.textFieldValue.text = fieldValue
+                            switch fieldFormat {
+                                case "string":
+                                    cell.textFieldValue.text = departmentToUpdate?.value(forKey: fieldName) as? String
+                                    cell.applayFieldFormat()
+                                case "currency","percent":
+                                    let doubleValue = (departmentToUpdate?.value(forKey: fieldName) as? Double) ?? 0.0
+                                    cell.textFieldValue.text = "\(doubleValue)"
+                                    cell.applayFieldFormat()
+                                case "integer":
+                                    let intValue = (departmentToUpdate?.value(forKey: fieldName) as? Int) ?? 0
+                                    cell.textFieldValue.text = "\(intValue)"
+                                    cell.applayFieldFormat()
+                                default:
+                                    fatalError()
+                            }
+                        }
+                    }else{
+                        if  let fieldName = field["source"] as? String{
+                            cell.textFieldValue.text = department[fieldName] as? String
                         }
                     }
                     return cell
@@ -169,26 +189,11 @@ extension AddDepartmentsViewController: DataEntryTextFiledCellDelegate{
     }
 
     func dataEntryTextFiledDidCheck(cell: DataEntryTextFiledCell) {
-        if
-            let value = cell.textFieldValue.text,
-            !value.isEmpty,
-            let fieldInfo = cell.fieldInfo,
-            let fieldName = fieldInfo["field"] as? String
-        {
-            department[fieldName] = value.trimmingCharacters(in: CharacterSet.whitespaces)
-        }
-
+        getTextFieldCell(cell: cell)
     }
 
     func dataEntryTextFiledDidKeyboardDone(cell: DataEntryTextFiledCell) {
-        if
-            let value = cell.textFieldValue.text,
-            !value.isEmpty,
-            let fieldInfo = cell.fieldInfo,
-            let fieldName = fieldInfo["field"] as? String
-        {
-            department[fieldName] = value.trimmingCharacters(in: CharacterSet.whitespaces)
-        }
+        getTextFieldCell(cell: cell)
         self.view.endEditing(true)
     }
 
@@ -197,6 +202,11 @@ extension AddDepartmentsViewController: DataEntryTextFiledCellDelegate{
     }
 
     func dataEntryTextFiledDidKeyboardNext(cell: DataEntryTextFiledCell) {
+        getTextFieldCell(cell: cell)
+    }
+
+
+    private func getTextFieldCell(cell: DataEntryTextFiledCell){
         if
             let value = cell.textFieldValue.text,
             !value.isEmpty,

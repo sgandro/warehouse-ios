@@ -9,7 +9,7 @@ import UIKit
 import SideMenuSwift
 import RealmSwift
 
-class ItemsViewController: UIViewController {
+class ItemsViewController: BaseTableViewController {
 
     @IBOutlet weak var tableView:UITableView!
     @IBOutlet weak var searchBar:UISearchBar!
@@ -50,6 +50,8 @@ class ItemsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        isModalInPresentation = true
+        isKeyboardNotificationEnabled = true
         tableSettings()
     }
     override func viewDidAppear(_ animated: Bool) {

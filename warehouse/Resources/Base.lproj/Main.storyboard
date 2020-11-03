@@ -148,7 +148,7 @@
                         <viewLayoutGuide key="safeArea" id="W7h-xJ-Avd"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="W7h-xJ-Avd" firstAttribute="bottom" secondItem="SOF-af-jkB" secondAttribute="bottom" id="4Uz-9b-bRY"/>
+                            <constraint firstItem="W7h-xJ-Avd" firstAttribute="bottom" secondItem="SOF-af-jkB" secondAttribute="bottom" identifier="bottomTable" id="4Uz-9b-bRY"/>
                             <constraint firstItem="W7h-xJ-Avd" firstAttribute="trailing" secondItem="SOF-af-jkB" secondAttribute="trailing" id="ByX-sD-miJ"/>
                             <constraint firstItem="lFN-ns-ACP" firstAttribute="leading" secondItem="W7h-xJ-Avd" secondAttribute="leading" id="EfI-13-EkW"/>
                             <constraint firstItem="lFN-ns-ACP" firstAttribute="trailing" secondItem="W7h-xJ-Avd" secondAttribute="trailing" id="YZ1-1G-LcU"/>
@@ -327,6 +327,32 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Vsc-46-Oin">
                                 <rect key="frame" x="0.0" y="196" width="414" height="666"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="defaultCell" textLabel="4iO-e2-dfu" detailTextLabel="tsr-u5-pgi" style="IBUITableViewCellStyleSubtitle" id="PYq-j7-UZY">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="55.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PYq-j7-UZY" id="iV1-zq-JAi">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="55.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4iO-e2-dfu">
+                                                    <rect key="frame" x="20" y="10" width="33" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tsr-u5-pgi">
+                                                    <rect key="frame" x="20" y="31.5" width="44" height="14.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="8oe-Qz-Ufu" id="pyS-am-jf2"/>
                                     <outlet property="delegate" destination="8oe-Qz-Ufu" id="tTr-1U-nLR"/>
@@ -336,7 +362,7 @@
                         <viewLayoutGuide key="safeArea" id="go5-sC-e68"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="go5-sC-e68" firstAttribute="bottom" secondItem="Vsc-46-Oin" secondAttribute="bottom" id="Ahi-3r-eUS"/>
+                            <constraint firstItem="go5-sC-e68" firstAttribute="bottom" secondItem="Vsc-46-Oin" secondAttribute="bottom" identifier="bottomTable" id="Ahi-3r-eUS"/>
                             <constraint firstItem="uNZ-uZ-q3X" firstAttribute="top" secondItem="go5-sC-e68" secondAttribute="top" id="Bk9-jU-096"/>
                             <constraint firstItem="Vsc-46-Oin" firstAttribute="top" secondItem="uNZ-uZ-q3X" secondAttribute="bottom" id="NW6-9F-Nz3"/>
                             <constraint firstItem="go5-sC-e68" firstAttribute="trailing" secondItem="Vsc-46-Oin" secondAttribute="trailing" id="cUa-Mv-xiz"/>
@@ -355,7 +381,7 @@
                         <barButtonItem key="rightBarButtonItem" image="add-button" id="BNI-cz-Xk3">
                             <color key="tintColor" systemColor="labelColor"/>
                             <connections>
-                                <segue destination="Gve-CR-Y5l" kind="presentation" id="6vL-p8-ZPO"/>
+                                <segue destination="Gve-CR-Y5l" kind="presentation" identifier="segueSupplierEntry" id="6vL-p8-ZPO"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -420,7 +446,7 @@
                         <constraints>
                             <constraint firstItem="MPZ-eh-1AA" firstAttribute="leading" secondItem="LDg-On-2VY" secondAttribute="leading" id="GXp-7X-0a5"/>
                             <constraint firstItem="MPZ-eh-1AA" firstAttribute="trailing" secondItem="LDg-On-2VY" secondAttribute="trailing" id="Pgh-Y8-r7W"/>
-                            <constraint firstItem="LDg-On-2VY" firstAttribute="bottom" secondItem="NFm-FC-fdJ" secondAttribute="bottom" id="XPk-gK-mzZ"/>
+                            <constraint firstItem="LDg-On-2VY" firstAttribute="bottom" secondItem="NFm-FC-fdJ" secondAttribute="bottom" identifier="bottomTable" id="XPk-gK-mzZ"/>
                             <constraint firstItem="NFm-FC-fdJ" firstAttribute="top" secondItem="MPZ-eh-1AA" secondAttribute="bottom" id="Zqv-JI-Tqr"/>
                             <constraint firstItem="LDg-On-2VY" firstAttribute="trailing" secondItem="NFm-FC-fdJ" secondAttribute="trailing" id="iIn-3Z-o3I"/>
                             <constraint firstItem="MPZ-eh-1AA" firstAttribute="top" secondItem="LDg-On-2VY" secondAttribute="top" id="ngj-Dc-YQl"/>
@@ -444,11 +470,9 @@
                     <connections>
                         <outlet property="searchBar" destination="MPZ-eh-1AA" id="Qpg-WV-Q7e"/>
                         <outlet property="tableView" destination="NFm-FC-fdJ" id="GyE-CJ-qI0"/>
-                        <segue destination="SKR-ap-Oao" kind="unwind" identifier="unwindToArticle" unwindAction="unwind:" id="Pbd-JH-VgH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ky4-zb-Mt5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="SKR-ap-Oao" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1280" y="-1848"/>
         </scene>
@@ -488,7 +512,7 @@
                         <constraints>
                             <constraint firstItem="GXg-bx-djF" firstAttribute="top" secondItem="TuE-RL-VmC" secondAttribute="bottom" id="1Ke-sE-me8"/>
                             <constraint firstItem="TuE-RL-VmC" firstAttribute="leading" secondItem="5zP-vS-wqS" secondAttribute="leading" id="auU-Du-jh4"/>
-                            <constraint firstItem="5zP-vS-wqS" firstAttribute="bottom" secondItem="GXg-bx-djF" secondAttribute="bottom" id="bOT-fu-jxK"/>
+                            <constraint firstItem="5zP-vS-wqS" firstAttribute="bottom" secondItem="GXg-bx-djF" secondAttribute="bottom" identifier="bottomTable" id="bOT-fu-jxK"/>
                             <constraint firstItem="5zP-vS-wqS" firstAttribute="trailing" secondItem="GXg-bx-djF" secondAttribute="trailing" id="bwE-v9-voV"/>
                             <constraint firstItem="TuE-RL-VmC" firstAttribute="top" secondItem="5zP-vS-wqS" secondAttribute="top" id="kSp-I6-giQ"/>
                             <constraint firstItem="GXg-bx-djF" firstAttribute="leading" secondItem="5zP-vS-wqS" secondAttribute="leading" id="sBE-Qx-TqL"/>
@@ -619,7 +643,7 @@
                             <constraint firstItem="htX-9N-LXs" firstAttribute="top" secondItem="Mdj-lx-k7f" secondAttribute="top" id="SnI-7k-ZBp"/>
                             <constraint firstItem="htX-9N-LXs" firstAttribute="leading" secondItem="Mdj-lx-k7f" secondAttribute="leading" id="TTx-sO-4Jj"/>
                             <constraint firstItem="Mdj-lx-k7f" firstAttribute="trailing" secondItem="gZ3-Rg-Gu0" secondAttribute="trailing" id="Wcx-Sm-jvJ"/>
-                            <constraint firstItem="Mdj-lx-k7f" firstAttribute="bottom" secondItem="gZ3-Rg-Gu0" secondAttribute="bottom" id="zXk-eD-eZB"/>
+                            <constraint firstItem="Mdj-lx-k7f" firstAttribute="bottom" secondItem="gZ3-Rg-Gu0" secondAttribute="bottom" identifier="bottomTable" id="zXk-eD-eZB"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Banche" id="zBa-JT-B6D">
@@ -795,7 +819,7 @@
                             <constraint firstItem="oFR-RZ-DHF" firstAttribute="top" secondItem="s40-P3-Erk" secondAttribute="bottom" constant="40" id="aLH-M8-giv"/>
                             <constraint firstItem="mtB-eg-UeL" firstAttribute="trailing" secondItem="oFR-RZ-DHF" secondAttribute="trailing" id="jM1-uk-vSj"/>
                             <constraint firstItem="oFR-RZ-DHF" firstAttribute="leading" secondItem="mtB-eg-UeL" secondAttribute="leading" id="kXn-iE-uPb"/>
-                            <constraint firstItem="mtB-eg-UeL" firstAttribute="bottom" secondItem="oFR-RZ-DHF" secondAttribute="bottom" id="r1L-zy-HQM"/>
+                            <constraint firstItem="mtB-eg-UeL" firstAttribute="bottom" secondItem="oFR-RZ-DHF" secondAttribute="bottom" identifier="bottomTable" id="r1L-zy-HQM"/>
                             <constraint firstItem="s40-P3-Erk" firstAttribute="leading" secondItem="pFM-qT-yz2" secondAttribute="trailing" constant="10" id="zm9-XW-ZaH"/>
                         </constraints>
                     </view>
@@ -884,13 +908,13 @@
                             <constraint firstItem="Iga-k1-Wkt" firstAttribute="leading" secondItem="7Qm-PR-Mft" secondAttribute="leading" constant="20" id="3zR-SQ-7P7"/>
                             <constraint firstItem="Iga-k1-Wkt" firstAttribute="top" secondItem="7Qm-PR-Mft" secondAttribute="top" constant="20" id="EAO-xf-7dY"/>
                             <constraint firstItem="AIy-Xe-TO1" firstAttribute="trailing" secondItem="7Qm-PR-Mft" secondAttribute="trailing" id="ERO-Pw-mcI"/>
+                            <constraint firstItem="AIy-Xe-TO1" firstAttribute="bottom" secondItem="7Qm-PR-Mft" secondAttribute="bottom" identifier="bottomTable" id="FRU-dr-w6m"/>
                             <constraint firstItem="7Qm-PR-Mft" firstAttribute="trailing" secondItem="e0C-qR-V6Z" secondAttribute="trailing" constant="20" id="LLe-2o-7Z0"/>
                             <constraint firstItem="XrI-iJ-3TD" firstAttribute="top" secondItem="7Qm-PR-Mft" secondAttribute="top" constant="20" id="VIS-mB-PPg"/>
                             <constraint firstItem="AIy-Xe-TO1" firstAttribute="top" secondItem="Iga-k1-Wkt" secondAttribute="bottom" constant="40" id="WDH-On-eG2"/>
                             <constraint firstItem="e0C-qR-V6Z" firstAttribute="leading" secondItem="XrI-iJ-3TD" secondAttribute="trailing" constant="10" id="bDf-Vq-z5H"/>
                             <constraint firstItem="e0C-qR-V6Z" firstAttribute="top" secondItem="7Qm-PR-Mft" secondAttribute="top" constant="20" id="cZf-fm-iSD"/>
                             <constraint firstItem="AIy-Xe-TO1" firstAttribute="leading" secondItem="7Qm-PR-Mft" secondAttribute="leading" id="hRi-SI-dCK"/>
-                            <constraint firstItem="AIy-Xe-TO1" firstAttribute="bottom" secondItem="7Qm-PR-Mft" secondAttribute="bottom" id="pAJ-ex-jyI"/>
                             <constraint firstItem="XrI-iJ-3TD" firstAttribute="leading" secondItem="Iga-k1-Wkt" secondAttribute="trailing" constant="10" id="zFV-Ri-d2x"/>
                         </constraints>
                     </view>
@@ -899,11 +923,9 @@
                         <outlet property="labelDescription" destination="2aD-Yo-i3m" id="Szm-Qg-XLO"/>
                         <outlet property="labelTitle" destination="XrI-iJ-3TD" id="uPF-Ut-bbd"/>
                         <outlet property="tableView" destination="AIy-Xe-TO1" id="2Ph-0T-1NB"/>
-                        <segue destination="Smw-eE-wUB" kind="unwind" identifier="unwindToArticle" unwindAction="unwind:" id="CYn-Q9-OuN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egw-cC-4dC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="Smw-eE-wUB" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1970" y="-1848"/>
         </scene>
@@ -989,7 +1011,7 @@
                             <constraint firstItem="SAA-Ap-DMK" firstAttribute="leading" secondItem="wAZ-g1-Utf" secondAttribute="leading" id="gVl-gp-zwI"/>
                             <constraint firstItem="4rC-2G-mET" firstAttribute="leading" secondItem="wAZ-g1-Utf" secondAttribute="leading" constant="20" id="khu-Zo-Oj6"/>
                             <constraint firstItem="IEw-M1-Odo" firstAttribute="leading" secondItem="SQ5-Jx-1U0" secondAttribute="trailing" constant="10" id="nIU-OT-gEB"/>
-                            <constraint firstItem="SAA-Ap-DMK" firstAttribute="bottom" secondItem="wAZ-g1-Utf" secondAttribute="bottom" id="siW-oY-71K"/>
+                            <constraint firstItem="SAA-Ap-DMK" firstAttribute="bottom" secondItem="wAZ-g1-Utf" secondAttribute="bottom" identifier="bottomTable" id="siW-oY-71K"/>
                         </constraints>
                     </view>
                     <size key="freeformSize" width="414" height="896"/>
@@ -997,11 +1019,9 @@
                         <outlet property="labelDescription" destination="Lny-x1-OuO" id="b6E-ei-jgd"/>
                         <outlet property="labelTitle" destination="SQ5-Jx-1U0" id="vw4-2D-vYS"/>
                         <outlet property="tableView" destination="SAA-Ap-DMK" id="Dh0-wp-OFE"/>
-                        <segue destination="SAz-2L-TC7" kind="unwind" identifier="unwindToArticle" unwindAction="unwind:" id="iRd-NT-KTk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Px-Vq-Nay" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="SAz-2L-TC7" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1970" y="-2544"/>
         </scene>

@@ -9,7 +9,7 @@ import UIKit
 import SideMenuSwift
 import RealmSwift
 
-class SuppliersViewController: UIViewController {
+class SuppliersViewController: BaseTableViewController {
 
     @IBOutlet weak var tableView:UITableView!
     @IBOutlet weak var searchBar:UISearchBar!
@@ -50,9 +50,25 @@ class SuppliersViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        isModalInPresentation = true
+        isKeyboardNotificationEnabled = true
         tableSettings()
     }
-    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadContent()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        notificationToken?.invalidate()
+    }
+
+    deinit {
+        notificationToken?.invalidate()
+    }
+
+
 
 
     // MARK: - Navigation
@@ -104,7 +120,8 @@ class SuppliersViewController: UIViewController {
 }
 
 //MARK: - Table datasource
-extension SuppliersViewController : UITableViewDataSource{
+extension SuppliersViewController : UITableViewDataSource, UITableViewDelegate{
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let datasource = self.datasource else {
             tableView.backgroundView = emptyStateView
@@ -121,20 +138,13 @@ extension SuppliersViewController : UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let datasource = self.datasource else { return UITableViewCell() }
 
-//        let category = datasource[indexPath.row].categories.first
-//        let department = category?.department.first
-//
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
-//        cell.textLabel?.text = datasource[indexPath.row].name
-//        cell.detailTextLabel?.text = "\(category?.name ?? "") - \(department?.name ?? "")"
-//        cell.accessoryType = .disclosureIndicator
-//        return cell
-        return UITableViewCell()
-    }
-}
 
-//MARK: - Table delegate
-extension SuppliersViewController : UITableViewDelegate{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
+        cell.textLabel?.text = datasource[indexPath.row].businessName
+        cell.detailTextLabel?.text = "\(datasource[indexPath.row].title) - \(datasource[indexPath.row].name), \(datasource[indexPath.row].surname)"
+        cell.accessoryType = .disclosureIndicator
+        return cell
+    }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard let datasource = self.datasource else { return }

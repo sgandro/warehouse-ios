@@ -13,7 +13,6 @@ class PickerTextView: UITextField {
     var pickerItemSelected:((_ done:Bool, _ value:String?)->Void)?
     var datasource:[String]?{
         didSet{
-            pickerView.reloadComponent(0)
             if datasource?.count == 1{
                 self.text = datasource?.first
                 self.isEnabled = false
@@ -24,9 +23,10 @@ class PickerTextView: UITextField {
                 pickerItemSelected?(false, nil)
             }else{
                 self.text = nil
-                self.isEnabled = false
-                pickerItemSelected?(false, nil)
+                self.isEnabled = true
+                pickerItemSelected?(true, datasource?.first)
             }
+            pickerView.reloadComponent(0)
         }
     }
     var selectedValue:String?{

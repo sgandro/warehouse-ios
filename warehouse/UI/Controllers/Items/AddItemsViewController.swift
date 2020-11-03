@@ -8,14 +8,18 @@
 import UIKit
 import RealmSwift
 
-class AddItemsViewController: UIViewController {
+class AddItemsViewController: BaseTableViewController {
 
     @IBOutlet weak var labelTitle:UILabel!
     @IBOutlet weak var labelDescription:UILabel!
     @IBOutlet weak var tableView:UITableView!
 
     var itemToUpdate:Item?
-    var item:[String:Any] = [:]
+    var item:[String:Any] = [:]{
+        didSet{
+            print("item:\n\(item)\n*******")
+        }
+    }
     var datasource:[[String:Any]]?
 
     private var category:Category?
@@ -26,7 +30,7 @@ class AddItemsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         isModalInPresentation = true
-
+        isKeyboardNotificationEnabled = true
         // Do any additional setup after loading the view.
         loadCategories()
         loadDepartiments()
@@ -71,6 +75,7 @@ class AddItemsViewController: UIViewController {
 
     }
 
+
     //MARK: - Method
 
     private func tableSettings(){
@@ -89,34 +94,26 @@ class AddItemsViewController: UIViewController {
 
     func loadCategories(){
         StorageManager.sharedInstance.getDefaultRealm { (realm) in
-            if let departimentName = self.department?.name{
-                self.categories = realm.objects(Category.self).filter("ANY department.name == %@", departimentName)
-            }else{
-                self.categories = realm.objects(Category.self)
-            }
-            let count = self.categories?.count ?? 0
-            if count == 0{
-                self.showAlert(title: "Informazione", andBody: "Creare prima una categoria")
-            }
+            self.categories = realm.objects(Category.self)
+        }
+        let count = self.categories?.count ?? 0
+        if count == 0{
+            self.showAlert(title: "Informazione", andBody: "Creare prima una categoria")
         }
     }
 
     func loadDepartiments(){
         StorageManager.sharedInstance.getDefaultRealm { (realm) in
-            if let categoryName = self.category?.name{
-                self.departments = realm.objects(Department.self).filter("ANY categories.name == %@", categoryName)
-            }else{
-                self.departments = realm.objects(Department.self)
-            }
+            self.departments = realm.objects(Department.self)
+        }
 
-            let count = self.departments?.count ?? 0
-            if count == 0{
-                self.showAlert(title: "Informazione", andBody: "Creare prima un reparto")
-            }
-
+        let count = self.departments?.count ?? 0
+        if count == 0{
+            self.showAlert(title: "Informazione", andBody: "Creare prima un reparto")
         }
 
     }
+
 
     //MARK: - Action
     @IBAction func closeButtonPressed(button:UIButton){
@@ -134,18 +131,38 @@ class AddItemsViewController: UIViewController {
                 realm.beginWrite()
 
                 if let itemToUpdate = self.itemToUpdate{
+                    if let name = self.item["name"] as? String {
+                        itemToUpdate.name = name
+                    }
+                    if let serialNumber = self.item["serialNumber"] as? String {
+                        itemToUpdate.serialNumber = serialNumber
+                    }
+                    if let barcode = self.item["barcode"] as? String {
+                        itemToUpdate.barcode = barcode
+                    }
+                    if let price = self.item["price"] as? Double {
+                        itemToUpdate.price = price
+                    }
+                    if let unitPrice = self.item["unitPrice"] as? Double {
+                        itemToUpdate.unitPrice = unitPrice
+                    }
+                    if let unit = self.item["unit"] as? String {
+                        itemToUpdate.unit = unit
+                    }
+                    if let quantity = self.item["quantity"] as? Int {
+                        itemToUpdate.quantity = quantity
+                    }
+                    if let vat = self.item["vat"] as? Double {
+                        itemToUpdate.vat = vat
+                    }
+                    if let note = self.item["note"] as? String {
+                        itemToUpdate.note = note
+                    }
+                    if let minimumStock = self.item["minimumStock"] as? Int {
+                        itemToUpdate.minimumStock = minimumStock
+                    }
 
-                    itemToUpdate.name = self.item["name"] as? String ?? ""
-                    itemToUpdate.serialNumber = self.item["serialNumber"] as? String ?? ""
-                    itemToUpdate.barcode = self.item["barcode"] as? String ?? ""
-                    itemToUpdate.price = self.item["price"] as? Double ?? 0.0
-                    itemToUpdate.unitPrice = self.item["unitPrice"] as? Double ?? 0.0
-                    itemToUpdate.unit = self.item["unit"] as? String ?? ""
-                    itemToUpdate.quantity = self.item["quantity"] as? Int ?? 0
-                    itemToUpdate.vat = self.item["vat"] as? Double ?? 0.0
-                    itemToUpdate.note = self.item["note"] as? String ?? ""
-                    itemToUpdate.minimumStock = self.item["minimumStock"] as? Int ?? 0
-                    realm.add(category, update: .modified)
+                    realm.add(itemToUpdate, update: .modified)
 
                 }else{
 
@@ -202,9 +219,43 @@ extension AddItemsViewController: UITableViewDelegate, UITableViewDataSource{
                     if itemToUpdate != nil{
                         if
                             let fieldName = field["field"] as? String,
-                            let fieldValue = itemToUpdate?.value(forKey: fieldName) as? String
+                            let fieldFormat = field["format"] as? String
                         {
-                            cell.textFieldValue.text = fieldValue
+                            switch fieldFormat {
+                                case "string":
+                                    cell.textFieldValue.text = itemToUpdate?.value(forKey: fieldName) as? String
+                                    cell.applayFieldFormat()
+                                case "currency","percent":
+                                    let doubleValue = (itemToUpdate?.value(forKey: fieldName) as? Double) ?? 0.0
+                                    cell.textFieldValue.text = "\(doubleValue)"
+                                    cell.applayFieldFormat()
+                                case "integer":
+                                    let intValue = (itemToUpdate?.value(forKey: fieldName) as? Int) ?? 0
+                                    cell.textFieldValue.text = "\(intValue)"
+                                    cell.applayFieldFormat()
+                                default:
+                                    fatalError()
+                            }
+                        }
+                    }else{
+                        if
+                            let fieldName = field["field"] as? String,
+                            let fieldFormat = field["format"] as? String
+                        {
+                            switch fieldFormat {
+                                case "string":
+                                    cell.textFieldValue.text = item[fieldName] as? String
+                                case "currency","percent":
+                                    let doubleValue = (item[fieldName] as? Double) ?? 0.0
+                                    cell.textFieldValue.text = "\(doubleValue)"
+                                    cell.applayFieldFormat()
+                                case "integer":
+                                    let intValue = (item[fieldName] as? Int) ?? 0
+                                    cell.textFieldValue.text = "\(intValue)"
+                                    cell.applayFieldFormat()
+                                default:
+                                    fatalError()
+                            }
                         }
                     }
 
@@ -217,6 +268,7 @@ extension AddItemsViewController: UITableViewDelegate, UITableViewDataSource{
                     cell.indexPath = indexPath
                     cell.delegate = self
                     cell.fieldInfo = field
+                    cell.delegate = self
 
                     if itemToUpdate != nil{
 
@@ -268,26 +320,11 @@ extension AddItemsViewController: DataEntryTextFiledCellDelegate{
     }
 
     func dataEntryTextFiledDidCheck(cell: DataEntryTextFiledCell) {
-        if
-            let value = cell.textFieldValue.text,
-            !value.isEmpty,
-            let fieldInfo = cell.fieldInfo,
-            let fieldName = fieldInfo["field"] as? String
-        {
-            item[fieldName] = value.trimmingCharacters(in: CharacterSet.whitespaces)
-        }
+        getEntryTextField(cell: cell)
     }
 
     func dataEntryTextFiledDidKeyboardDone(cell: DataEntryTextFiledCell) {
-        if
-            let value = cell.textFieldValue.text,
-            !value.isEmpty,
-            let fieldInfo = cell.fieldInfo,
-            let fieldName = fieldInfo["field"] as? String
-        {
-            item[fieldName] = value.trimmingCharacters(in: CharacterSet.whitespaces)
-        }
-
+        getEntryTextField(cell: cell)
         self.view.endEditing(true)
     }
 
@@ -296,16 +333,52 @@ extension AddItemsViewController: DataEntryTextFiledCellDelegate{
     }
 
     func dataEntryTextFiledDidKeyboardNext(cell: DataEntryTextFiledCell) {
-
+        getEntryTextField(cell: cell)
+        guard let count = datasource?.count else {
+            return
+        }
+        var indexPath = cell.indexPath
+        if  indexPath != nil{
+            if indexPath!.row < (count - 1){
+                indexPath!.row = indexPath!.row + 1
+                tableView.selectRow(at: indexPath!, animated: true, scrollPosition: .top)
+            }
+        }
         
+    }
+
+    private func getEntryTextField(cell: DataEntryTextFiledCell){
+
+        let formatter = NumberFormatter()
+        formatter.locale = Locale(identifier: "it_IT")
+        formatter.minimumIntegerDigits = 1
+        formatter.maximumIntegerDigits = 2
+
         if
             let value = cell.textFieldValue.text,
             !value.isEmpty,
             let fieldInfo = cell.fieldInfo,
-            let fieldName = fieldInfo["field"] as? String
+            let fieldName = fieldInfo["field"] as? String,
+            let format = fieldInfo["format"] as? String
         {
-            item[fieldName] = value.trimmingCharacters(in: CharacterSet.whitespaces)
+
+            switch format {
+                case "string":
+                    item[fieldName] = value.trimmingCharacters(in: CharacterSet.whitespaces)
+                case "currency":
+                    formatter.numberStyle = .currency
+                    item[fieldName] = formatter.number(from: value)?.doubleValue
+                case "percent":
+                    formatter.numberStyle = .percent
+                    item[fieldName] = formatter.number(from: value)?.doubleValue
+                case "integer":
+                    formatter.numberStyle = .none
+                    item[fieldName] = formatter.number(from: value)?.intValue
+                default:
+                    fatalError()
+            }
         }
+
     }
 }
 
@@ -318,21 +391,47 @@ extension AddItemsViewController: PickerDataEntryTextFiledCellDelegate{
             let selectedValue = cell.pickerTextView.selectedValue,
             !selectedValue.isEmpty,
             let fieldInfo = cell.fieldInfo,
-            let fieldName = fieldInfo["field"] as? String
+            let fieldName = fieldInfo["source"] as? String
         {
             item[fieldName] = selectedValue.trimmingCharacters(in: CharacterSet.whitespaces)
             if fieldName == "department"{
                 StorageManager.sharedInstance.getDefaultRealm { (realm) in
                     self.department = realm.objects(Department.self).first(where: {$0.name == value!})
-                    self.loadDepartiments()
-                    self.tableView.reloadRows(at: [cell.indexPath!], with: .automatic)
+                    if let departimentName = self.department?.name{
+                        self.categories = realm.objects(Category.self).filter("ANY department.name == %@", departimentName)
+                        if var indexPath = cell.indexPath {
+                            indexPath.row += 1
+                            if
+                                let cell = self.tableView.cellForRow(at: indexPath) as? PickerDataEntryTextFiledCell,
+                                let selectedValue = cell.pickerTextView.selectedValue,
+                                selectedValue.isEmpty
+                            {
+                                // se la categoria non è valorizzata allora ricarico i dati
+                                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+
+                            }
+                        }
+                    }
                 }
             }
             if fieldName == "category"{
                 StorageManager.sharedInstance.getDefaultRealm { (realm) in
                     self.category = realm.objects(Category.self).first(where: {$0.name == value!})
-                    self.loadCategories()
-                    self.tableView.reloadRows(at: [cell.indexPath!], with: .automatic)
+                    if let categoryName = self.category?.name{
+                        self.departments = realm.objects(Department.self).filter("ANY categories.name == %@", categoryName)
+                        if var indexPath = cell.indexPath {
+                            indexPath.row -= 1
+                            if
+                                let cell = self.tableView.cellForRow(at: indexPath) as? PickerDataEntryTextFiledCell,
+                                let selectedValue = cell.pickerTextView.selectedValue,
+                                selectedValue.isEmpty
+                            {
+                                // se i dipartimenti non è valorizzata allora ricarico i dati
+                                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                            }
+                        }
+
+                    }
                 }
             }
         }

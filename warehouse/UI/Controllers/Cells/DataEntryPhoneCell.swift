@@ -34,6 +34,8 @@ class DataEntryPhoneCell: UITableViewCell {
         }
     }
 
+    
+
     var delegate: DataEntryPhoneCellDelegate?
     var indexPath:IndexPath?
     var fieldInfo:[String:Any]?

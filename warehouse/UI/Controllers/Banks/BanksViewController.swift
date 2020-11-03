@@ -8,7 +8,7 @@
 import UIKit
 import SideMenuSwift
 
-class BanksViewController: UIViewController {
+class BanksViewController: BaseTableViewController {
 
     @IBOutlet weak var tableView:UITableView!
     @IBOutlet weak var searchBar:UISearchBar!

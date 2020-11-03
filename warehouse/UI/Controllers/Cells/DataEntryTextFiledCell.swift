@@ -85,22 +85,59 @@ class DataEntryTextFiledCell: UITableViewCell {
         keyboardToolBar.cancelButtonPressed = {
             self.delegate?.dataEntryTextFiledDidKeyboardCancel(cell: self)
         }
-
         textFieldValue.inputAccessoryView = keyboardToolBar
 
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        if selected{
+            self.textFieldValue.becomeFirstResponder()
+        }
+    }
 
-        // Configure the view for the selected state
+    override func prepareForReuse() {
+        textFieldValue.text = nil
+        labelCaption.text = nil
     }
     
+    func applayFieldFormat(){
+        self.checkField(textField: textFieldValue)
+    }
+
+
 }
 
 extension DataEntryTextFiledCell: UITextFieldDelegate{
 
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        checkField(textField:textField)
+    }
     func textFieldDidEndEditing(_ textField: UITextField) {
+
+        checkField(textField:textField)
+        delegate?.dataEntryTextFiledDidCheck(cell: self)
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        delegate?.dataEntryTextFiledDidNext(cell: self)
+        return true
+    }
+
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        if !string.isEmpty{
+//            delegate?.dataEntryTextFiledDidCheck(cell: self)
+//        }
+//        return true
+//    }
+
+//    func textFieldDidChangeSelection(_ textField: UITextField) {
+//        checkField(textField: textField)
+//        delegate?.dataEntryTextFiledDidCheck(cell: self)
+//    }
+
+
+    private func checkField(textField:UITextField){
 
         guard let format = self.fieldInfo?["format"] as? String else {
             return
@@ -123,7 +160,11 @@ extension DataEntryTextFiledCell: UITextFieldDelegate{
                     let text = textField.text,
                     let doubleValue = Double(text)
                 {
-                    textField.text = formatter.string(from: NSNumber(value: doubleValue / 100.0))
+                    if doubleValue < 1{
+                        textField.text = formatter.string(from: NSNumber(value: doubleValue))
+                    }else{
+                        textField.text = formatter.string(from: NSNumber(value: doubleValue / 100.0))
+                    }
                 }else{
                     //TODO: Gestione validazione
                 }
@@ -143,21 +184,6 @@ extension DataEntryTextFiledCell: UITextFieldDelegate{
             default:
                 labelCaption.text = caption
         }
-        delegate?.dataEntryTextFiledDidCheck(cell: self)
     }
-
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        delegate?.dataEntryTextFiledDidNext(cell: self)
-        return true
-    }
-
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        print("string:\(string)")
-        if !string.isEmpty{
-            delegate?.dataEntryTextFiledDidCheck(cell: self)
-        }
-        return true
-    }
-
 
 }

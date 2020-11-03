@@ -31,6 +31,7 @@
 		DE553264253BB13600B2B29F /* ClientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE553263253BB13600B2B29F /* ClientsViewController.swift */; };
 		DE55326F253C350B00B2B29F /* EmptyStateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE55326E253C350B00B2B29F /* EmptyStateView.xib */; };
 		DE553271253C351B00B2B29F /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE553270253C351B00B2B29F /* EmptyStateView.swift */; };
+		DE633E0E254F4E35009B8609 /* KeyboardNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE633E0D254F4E35009B8609 /* KeyboardNotifications.swift */; };
 		DE6A263E25456CCD00B7795A /* AddItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6A263D25456CCD00B7795A /* AddItemsViewController.swift */; };
 		DE6A26642546291200B7795A /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6A26632546291200B7795A /* UIView+Extension.swift */; };
 		DE98A0482538286A000C8938 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE98A0472538286A000C8938 /* AppDelegate.swift */; };
@@ -51,8 +52,7 @@
 		DEAF91D2254D63F200452D63 /* AddressFields.plist in Resources */ = {isa = PBXBuildFile; fileRef = DEAF91D1254D63F200452D63 /* AddressFields.plist */; };
 		DEC0DE7A25419B050086CBE0 /* BackgroundTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE7925419B050086CBE0 /* BackgroundTaskManager.swift */; };
 		DEC0DE7D2541B53B0086CBE0 /* KeyboardToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE7C2541B53B0086CBE0 /* KeyboardToolBar.swift */; };
-		DEC0DE812541B62A0086CBE0 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE802541B62A0086CBE0 /* BaseViewController.swift */; };
-		DEC0DE842541B6660086CBE0 /* ApplicationNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE832541B6660086CBE0 /* ApplicationNotification.swift */; };
+		DEC0DE842541B6660086CBE0 /* ApplicationNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE832541B6660086CBE0 /* ApplicationNotifications.swift */; };
 		DEC0DE872541B6770086CBE0 /* DiskStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE862541B6770086CBE0 /* DiskStatus.swift */; };
 		DECE6541254A9EB700CF45BC /* AddSuppliersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECE6540254A9EB700CF45BC /* AddSuppliersViewController.swift */; };
 		DECE6544254AA18B00CF45BC /* Bank.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECE6543254AA18B00CF45BC /* Bank.swift */; };
@@ -76,6 +76,7 @@
 		DEF86428254D768A00EC859F /* DataEntryBankCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEF86426254D768900EC859F /* DataEntryBankCell.xib */; };
 		DEF86429254D768A00EC859F /* DataEntryBankCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF86427254D768900EC859F /* DataEntryBankCell.swift */; };
 		DEF8642C254D78AC00EC859F /* BankFields.plist in Resources */ = {isa = PBXBuildFile; fileRef = DEF8642B254D78AC00EC859F /* BankFields.plist */; };
+		DEF8642F254F48BC00EC859F /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF8642E254F48BC00EC859F /* BaseTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +106,7 @@
 		DE553263253BB13600B2B29F /* ClientsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientsViewController.swift; sourceTree = "<group>"; };
 		DE55326E253C350B00B2B29F /* EmptyStateView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyStateView.xib; sourceTree = "<group>"; };
 		DE553270253C351B00B2B29F /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		DE633E0D254F4E35009B8609 /* KeyboardNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardNotifications.swift; sourceTree = "<group>"; };
 		DE6A263D25456CCD00B7795A /* AddItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemsViewController.swift; sourceTree = "<group>"; };
 		DE6A26472546264C00B7795A /* AlmaFramework_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AlmaFramework_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE6A26632546291200B7795A /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -128,8 +130,7 @@
 		DEAF91D1254D63F200452D63 /* AddressFields.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AddressFields.plist; sourceTree = "<group>"; };
 		DEC0DE7925419B050086CBE0 /* BackgroundTaskManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundTaskManager.swift; sourceTree = "<group>"; };
 		DEC0DE7C2541B53B0086CBE0 /* KeyboardToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardToolBar.swift; sourceTree = "<group>"; };
-		DEC0DE802541B62A0086CBE0 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		DEC0DE832541B6660086CBE0 /* ApplicationNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationNotification.swift; sourceTree = "<group>"; };
+		DEC0DE832541B6660086CBE0 /* ApplicationNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationNotifications.swift; sourceTree = "<group>"; };
 		DEC0DE862541B6770086CBE0 /* DiskStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskStatus.swift; sourceTree = "<group>"; };
 		DECE6540254A9EB700CF45BC /* AddSuppliersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSuppliersViewController.swift; sourceTree = "<group>"; };
 		DECE6543254AA18B00CF45BC /* Bank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bank.swift; sourceTree = "<group>"; };
@@ -153,6 +154,7 @@
 		DEF86426254D768900EC859F /* DataEntryBankCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataEntryBankCell.xib; sourceTree = "<group>"; };
 		DEF86427254D768900EC859F /* DataEntryBankCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataEntryBankCell.swift; sourceTree = "<group>"; };
 		DEF8642B254D78AC00EC859F /* BankFields.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BankFields.plist; sourceTree = "<group>"; };
+		DEF8642E254F48BC00EC859F /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		F541AAFA2A61C5103EB611ED /* Pods-warehouse.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-warehouse.debug.xcconfig"; path = "Target Support Files/Pods-warehouse/Pods-warehouse.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -208,6 +210,7 @@
 				DE553268253C2D9A00B2B29F /* Suppliers */,
 				DE553269253C2DA500B2B29F /* Banks */,
 				DE55326A253C2DB100B2B29F /* Clients */,
+				DEF8642E254F48BC00EC859F /* BaseTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -430,8 +433,8 @@
 			isa = PBXGroup;
 			children = (
 				DEC0DE862541B6770086CBE0 /* DiskStatus.swift */,
-				DEC0DE832541B6660086CBE0 /* ApplicationNotification.swift */,
-				DEC0DE802541B62A0086CBE0 /* BaseViewController.swift */,
+				DEC0DE832541B6660086CBE0 /* ApplicationNotifications.swift */,
+				DE633E0D254F4E35009B8609 /* KeyboardNotifications.swift */,
 				DEC0DE7925419B050086CBE0 /* BackgroundTaskManager.swift */,
 				DEC0DE7C2541B53B0086CBE0 /* KeyboardToolBar.swift */,
 				DE362264253CD6F5004060A5 /* PickerTextView.swift */,
@@ -634,9 +637,9 @@
 				DE362267253CE47B004060A5 /* UIViewController+Extension.swift in Sources */,
 				DEAF91C6254D578E00452D63 /* TableConfigurator.swift in Sources */,
 				DEF1403B253C484F00828B74 /* StorageManager.swift in Sources */,
+				DEF8642F254F48BC00EC859F /* BaseTableViewController.swift in Sources */,
 				DE553264253BB13600B2B29F /* ClientsViewController.swift in Sources */,
 				DEC0DE7A25419B050086CBE0 /* BackgroundTaskManager.swift in Sources */,
-				DEC0DE812541B62A0086CBE0 /* BaseViewController.swift in Sources */,
 				DE22C6DE253970BC004879F1 /* MainViewController.swift in Sources */,
 				DEF14036253C446900828B74 /* Department.swift in Sources */,
 				DE55325C253BABDC00B2B29F /* DepartmentsViewController.swift in Sources */,
@@ -673,9 +676,10 @@
 				DEAF91CF254D606100452D63 /* DataEntryAddressCell.swift in Sources */,
 				DE553262253BB0AE00B2B29F /* BanksViewController.swift in Sources */,
 				DE98A04A2538286A000C8938 /* SceneDelegate.swift in Sources */,
-				DEC0DE842541B6660086CBE0 /* ApplicationNotification.swift in Sources */,
+				DEC0DE842541B6660086CBE0 /* ApplicationNotifications.swift in Sources */,
 				DEE81F1B25498FCC00DC9A46 /* Address.swift in Sources */,
 				DEAF91C2254CB5A600452D63 /* DataEntryPhoneCell.swift in Sources */,
+				DE633E0E254F4E35009B8609 /* KeyboardNotifications.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

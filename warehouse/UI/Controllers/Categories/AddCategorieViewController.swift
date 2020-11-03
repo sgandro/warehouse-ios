@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-class AddCategorieViewController: UIViewController {
+class AddCategorieViewController: BaseTableViewController {
 
     @IBOutlet weak var labelTitle:UILabel!
     @IBOutlet weak var labelDescription:UILabel!
@@ -20,6 +20,8 @@ class AddCategorieViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        isModalInPresentation = true
+        isKeyboardNotificationEnabled = true
 
         // Do any additional setup after loading the view.
         tableSettings()
@@ -146,6 +148,7 @@ extension AddCategorieViewController: UITableViewDelegate, UITableViewDataSource
                 case "text":
 
                     let cell = tableView.dequeueReusableCell(withIdentifier: DataEntryTextFiledCell.identifier, for: indexPath) as! DataEntryTextFiledCell
+
                     cell.caption = field["caption"] as? String
                     cell.delegate = self
                     cell.indexPath = indexPath
@@ -154,13 +157,32 @@ extension AddCategorieViewController: UITableViewDelegate, UITableViewDataSource
                     if categoryToUpdate != nil{
                         if
                             let fieldName = field["field"] as? String,
-                            let fieldValue = categoryToUpdate?.value(forKey: fieldName) as? String
+                            let fieldFormat = field["format"] as? String
                         {
-                            cell.textFieldValue.text = fieldValue
+                            switch fieldFormat {
+                                case "string":
+                                    cell.textFieldValue.text = categoryToUpdate?.value(forKey: fieldName) as? String
+                                    cell.applayFieldFormat()
+                                case "currency","percent":
+                                    let doubleValue = (categoryToUpdate?.value(forKey: fieldName) as? Double) ?? 0.0
+                                    cell.textFieldValue.text = "\(doubleValue)"
+                                    cell.applayFieldFormat()
+                                case "integer":
+                                    let intValue = (categoryToUpdate?.value(forKey: fieldName) as? Int) ?? 0
+                                    cell.textFieldValue.text = "\(intValue)"
+                                    cell.applayFieldFormat()
+                                default:
+                                    fatalError()
+                            }
+                        }
+                    }else{
+                        if  let fieldName = field["source"] as? String{
+                            cell.textFieldValue.text = category[fieldName] as? String
                         }
                     }
                     return cell
                 case "picker":
+                    
                     let cell = tableView.dequeueReusableCell(withIdentifier: PickerDataEntryTextFiledCell.identifier, for: indexPath) as! PickerDataEntryTextFiledCell
 
                     cell.caption = field["caption"] as? String
@@ -218,26 +240,11 @@ extension AddCategorieViewController: DataEntryTextFiledCellDelegate{
     }
 
     func dataEntryTextFiledDidCheck(cell: DataEntryTextFiledCell) {
-        if
-            let value = cell.textFieldValue.text,
-            !value.isEmpty,
-            let fieldInfo = cell.fieldInfo,
-            let fieldName = fieldInfo["field"] as? String
-        {
-            category[fieldName] = value.trimmingCharacters(in: CharacterSet.whitespaces)
-        }
-
+        getTextFieldCell(cell: cell)
     }
 
     func dataEntryTextFiledDidKeyboardDone(cell: DataEntryTextFiledCell) {
-        if
-            let value = cell.textFieldValue.text,
-            !value.isEmpty,
-            let fieldInfo = cell.fieldInfo,
-            let fieldName = fieldInfo["field"] as? String
-        {
-            category[fieldName] = value.trimmingCharacters(in: CharacterSet.whitespaces)
-        }
+        getTextFieldCell(cell: cell)
         self.view.endEditing(true)
     }
 
@@ -246,6 +253,9 @@ extension AddCategorieViewController: DataEntryTextFiledCellDelegate{
     }
 
     func dataEntryTextFiledDidKeyboardNext(cell: DataEntryTextFiledCell) {
+
+    }
+    private func getTextFieldCell(cell: DataEntryTextFiledCell){
         if
             let value = cell.textFieldValue.text,
             !value.isEmpty,
@@ -265,7 +275,7 @@ extension AddCategorieViewController: PickerDataEntryTextFiledCellDelegate{
             let value = cell.pickerTextView.selectedValue,
             !value.isEmpty,
             let fieldInfo = cell.fieldInfo,
-            let fieldName = fieldInfo["field"] as? String
+            let fieldName = fieldInfo["source"] as? String
         {
             category[fieldName] = value.trimmingCharacters(in: CharacterSet.whitespaces)
         }

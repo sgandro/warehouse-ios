@@ -8,7 +8,7 @@
 import UIKit
 import SideMenuSwift
 
-class ClientsViewController: UIViewController {
+class ClientsViewController: BaseTableViewController {
 
     @IBOutlet weak var tableView:UITableView!
     @IBOutlet weak var searchBar:UISearchBar!

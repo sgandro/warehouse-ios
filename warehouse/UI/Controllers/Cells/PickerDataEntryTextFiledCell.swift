@@ -71,6 +71,11 @@ class PickerDataEntryTextFiledCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+
+    override func prepareForReuse() {
+        pickerTextView.text = nil
+        labelCaption.text = nil
+    }
     
 }
 

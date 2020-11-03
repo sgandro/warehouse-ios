@@ -8,32 +8,37 @@
 import UIKit
 import RealmSwift
 
-class AddSuppliersViewController: UIViewController {
+class AddSuppliersViewController: BaseTableViewController {
 
     @IBOutlet weak var labelTitle:UILabel!
     @IBOutlet weak var labelDescription:UILabel!
     @IBOutlet weak var tableView:UITableView!
 
-    var itemToUpdate:Item?
-    var item:[String:Any] = [:]
     var datasource:[[String:Any]]?
     var phoneConfigurtorTable:[[String:Any]]?
     var addressConfigurtorTable:[[String:Any]]?
     var emailsConfigurtorTable:[[String:Any]]?
     var banksConfigurtorTable:[[String:Any]]?
-    var phones:[Phone] = [Phone]()
-    var addresses:[Address] = [Address]()
-    var emails:[Email] = [Email]()
-    var banks:[Bank] = [Bank]()
+    var phones:List<Phone> = List<Phone>()
+    var addresses:List<Address> = List<Address>()
+    var emails:List<Email> = List<Email>()
+    var banks:List<Bank> = List<Bank>()
     var supplierToUpdate:Supplier?
+    var supplier:[String:Any] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         isModalInPresentation = true
+        isKeyboardNotificationEnabled = true
 
         // Do any additional setup after loading the view.
         tableSettings()
+        loadBanks()
+        loadEmails()
+        loadPhones()
+        loadAddress()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,48 +103,75 @@ class AddSuppliersViewController: UIViewController {
 
     }
 
+    private func loadBanks(){
+        self.banks = self.supplierToUpdate?.banks ?? List<Bank>()
+    }
+    
+    private func loadEmails(){
+        self.emails = self.supplierToUpdate?.emails ?? List<Email>()
+    }
+
+    private func loadPhones(){
+        self.phones = self.supplierToUpdate?.phones ?? List<Phone>()
+    }
+
+    private func loadAddress(){
+        self.addresses = self.supplierToUpdate?.addresses ?? List<Address>()
+    }
+
+
     //MARK: - Action
     @IBAction func closeButtonPressed(button:UIButton){
-        performSegue(withIdentifier: "unwindToArticle", sender: self)
+        dismiss(animated: true, completion: nil)
     }
     @IBAction func saveButtonPressed(button:UIButton){
 
 
-//        StorageManager.sharedInstance.getDefaultRealm { (realm) in
-//
-//            realm.beginWrite()
-//
-//            if let supplierToUpdate = self.supplierToUpdate{
-//
-//                supplierToUpdate.businessName = businessName
-//                supplierToUpdate.title = title
-//                supplierToUpdate.name = name
-//                supplierToUpdate.surname = surname
-//                supplierToUpdate.vatNumber = vatNumber
-//                supplierToUpdate.fiscalCode = fiscalCode
-//
-//                realm.add(supplierToUpdate, update: .modified)
-//
-//            }else{
-//
-//                let supplier:[String:Any] = ["businessName":businessName,
-//                                             "title":title,
-//                                             "name":name,
-//                                             "surname":surname,
-//                                             "vatNumber":vatNumber,
-//                                             "fiscalCode":fiscalCode]
-//
-//                realm.create(Item.self, value: supplier, update: .all)
-//            }
-//            do{
-//                try realm.commitWrite()
-//            }catch{
-//                realm.cancelWrite()
-//                print("Error:\(error.localizedDescription)")
-//            }
-//
-//
-//        }
+        StorageManager.sharedInstance.getDefaultRealm { (realm) in
+
+            realm.beginWrite()
+
+            if let supplierToUpdate = self.supplierToUpdate{
+
+                if let businessName = self.supplier["businessName"] as? String {
+                    supplierToUpdate.businessName = businessName
+                }
+                if let title = self.supplier["title"] as? String {
+                    supplierToUpdate.title = title
+                }
+                if let name = self.supplier["name"] as? String {
+                    supplierToUpdate.name = name
+                }
+                if let surname = self.supplier["surname"] as? String {
+                    supplierToUpdate.surname = surname
+                }
+                if let vatNumber = self.supplier["vatNumber"] as? String {
+                    supplierToUpdate.vatNumber = vatNumber
+                }
+                if let fiscalCode = self.supplier["fiscalCode"] as? String {
+                    supplierToUpdate.fiscalCode = fiscalCode
+                }
+
+                realm.add(supplierToUpdate, update: .modified)
+
+            }else{
+
+                let newSupplier = realm.create(Supplier.self, value: self.supplier, update: .all)
+                newSupplier.phones.append(objectsIn: self.phones)
+                newSupplier.addresses.append(objectsIn: self.addresses)
+                newSupplier.emails.append(objectsIn: self.emails)
+                newSupplier.banks.append(objectsIn: self.banks)
+
+            }
+            do{
+                try realm.commitWrite()
+            }catch{
+                realm.cancelWrite()
+                print("Error:\(error.localizedDescription)")
+            }
+
+
+        }
 
         dismiss(animated: true, completion: nil)
     }
@@ -191,12 +223,47 @@ extension AddSuppliersViewController: UITableViewDelegate, UITableViewDataSource
                             cell.indexPath = indexPath
                             cell.fieldInfo = field
 
-                            if itemToUpdate != nil{
+                            if supplierToUpdate != nil{
+
                                 if
                                     let fieldName = field["field"] as? String,
-                                    let fieldValue = itemToUpdate?.value(forKey: fieldName) as? String
+                                    let fieldFormat = field["format"] as? String
                                 {
-                                    cell.textFieldValue.text = fieldValue
+                                    switch fieldFormat {
+                                        case "string":
+                                            cell.textFieldValue.text = supplierToUpdate?.value(forKey: fieldName) as? String
+                                            cell.applayFieldFormat()
+                                        case "currency","percent":
+                                            let doubleValue = (supplierToUpdate?.value(forKey: fieldName) as? Double) ?? 0.0
+                                            cell.textFieldValue.text = "\(doubleValue)"
+                                            cell.applayFieldFormat()
+                                        case "integer":
+                                            let intValue = (supplierToUpdate?.value(forKey: fieldName) as? Int) ?? 0
+                                            cell.textFieldValue.text = "\(intValue)"
+                                            cell.applayFieldFormat()
+                                        default:
+                                            fatalError()
+                                    }
+                                }
+                            }else{
+                                if
+                                    let fieldName = field["field"] as? String,
+                                    let fieldFormat = field["format"] as? String
+                                {
+                                    switch fieldFormat {
+                                        case "string":
+                                            cell.textFieldValue.text = supplier[fieldName] as? String
+                                        case "currency","percent":
+                                            let doubleValue = (supplier[fieldName] as? Double) ?? 0.0
+                                            cell.textFieldValue.text = "\(doubleValue)"
+                                            cell.applayFieldFormat()
+                                        case "integer":
+                                            let intValue = (supplier[fieldName] as? Int) ?? 0
+                                            cell.textFieldValue.text = "\(intValue)"
+                                            cell.applayFieldFormat()
+                                        default:
+                                            fatalError()
+                                    }
                                 }
                             }
 
@@ -211,7 +278,9 @@ extension AddSuppliersViewController: UITableViewDelegate, UITableViewDataSource
 
                 let cell = tableView.dequeueReusableCell(withIdentifier: DataEntryPhoneCell.identifier, for: indexPath) as! DataEntryPhoneCell
                 cell.captionTitle = phoneConfigurtorTable?[0]["caption"] as? String
+                cell.textTitleField.text = self.phones[indexPath.row].type
                 cell.captionNumber = phoneConfigurtorTable?[1]["caption"] as? String
+                cell.textNumberField.text = self.phones[indexPath.row].number
                 cell.delegate = self
                 cell.indexPath = indexPath
                 return cell
@@ -220,30 +289,43 @@ extension AddSuppliersViewController: UITableViewDelegate, UITableViewDataSource
 
                 let cell = tableView.dequeueReusableCell(withIdentifier: DataEntryEmailCell.identifier, for: indexPath) as! DataEntryEmailCell
                 cell.captionType = emailsConfigurtorTable?[0]["caption"] as? String
+                cell.textTypeField.text = self.emails[indexPath.row].type
                 cell.captionAddress = emailsConfigurtorTable?[1]["caption"] as? String
+                cell.textAddressField.text = self.emails[indexPath.row].address
                 cell.delegate = self
                 cell.indexPath = indexPath
                 return cell
 
             case 3://Addresses
+
                 let cell = tableView.dequeueReusableCell(withIdentifier: DataEntryAddressCell.identifier, for: indexPath) as! DataEntryAddressCell
                 cell.captionType = addressConfigurtorTable?[0]["caption"] as? String
+                cell.textTypeField.text = self.addresses[indexPath.row].type
                 cell.captionAddress = addressConfigurtorTable?[1]["caption"] as? String
+                cell.textAddressField.text = self.addresses[indexPath.row].address
                 cell.captionZipCode = addressConfigurtorTable?[2]["caption"] as? String
+                cell.textZipCodeField.text = self.addresses[indexPath.row].zipCode
                 cell.captionCity = addressConfigurtorTable?[3]["caption"] as? String
+                cell.textCityField.text = self.addresses[indexPath.row].city
                 cell.captionLocation = addressConfigurtorTable?[4]["caption"] as? String
+                cell.textLocationField.text = self.addresses[indexPath.row].location
                 cell.delegate = self
                 cell.indexPath = indexPath
                 return cell
 
             case 4://Banks
+
                 let cell = tableView.dequeueReusableCell(withIdentifier: DataEntryBankCell.identifier, for: indexPath) as! DataEntryBankCell
                 cell.captionName = banksConfigurtorTable?[0]["caption"] as? String
+                cell.textNameField.text = self.banks[indexPath.row].name
                 cell.captionIban = banksConfigurtorTable?[1]["caption"] as? String
+                cell.textIbanField.text = self.banks[indexPath.row].iban
                 cell.captionSwiftCode = banksConfigurtorTable?[2]["caption"] as? String
+                cell.textSwiftField.text = self.banks[indexPath.row].swift
                 cell.delegate = self
                 cell.indexPath = indexPath
                 return cell
+
             case 5://Items
                 return UITableViewCell()
             default:
@@ -337,53 +419,6 @@ extension AddSuppliersViewController: UITableViewDelegate, UITableViewDataSource
 }
 
 
-//MARK: - DataEntryTextFiledCellDelegate
-extension AddSuppliersViewController: DataEntryTextFiledCellDelegate{
-    func dataEntryTextFiledDidNext(cell: DataEntryTextFiledCell) {
-        self.view.endEditing(true)
-    }
-
-    func dataEntryTextFiledDidCheck(cell: DataEntryTextFiledCell) {
-        if
-            let value = cell.textFieldValue.text,
-            !value.isEmpty,
-            let fieldInfo = cell.fieldInfo,
-            let fieldName = fieldInfo["field"] as? String
-        {
-            item[fieldName] = value.trimmingCharacters(in: CharacterSet.whitespaces)
-        }
-    }
-
-    func dataEntryTextFiledDidKeyboardDone(cell: DataEntryTextFiledCell) {
-        if
-            let value = cell.textFieldValue.text,
-            !value.isEmpty,
-            let fieldInfo = cell.fieldInfo,
-            let fieldName = fieldInfo["field"] as? String
-        {
-            item[fieldName] = value.trimmingCharacters(in: CharacterSet.whitespaces)
-        }
-
-        self.view.endEditing(true)
-    }
-
-    func dataEntryTextFiledDidKeyboardCancel(cell: DataEntryTextFiledCell) {
-        self.view.endEditing(true)
-    }
-
-    func dataEntryTextFiledDidKeyboardNext(cell: DataEntryTextFiledCell) {
-
-
-        if
-            let value = cell.textFieldValue.text,
-            !value.isEmpty,
-            let fieldInfo = cell.fieldInfo,
-            let fieldName = fieldInfo["field"] as? String
-        {
-            item[fieldName] = value.trimmingCharacters(in: CharacterSet.whitespaces)
-        }
-    }
-}
 
 //MARK: - Header
 extension AddSuppliersViewController: AddHeaderViewDelegte{
@@ -416,26 +451,105 @@ extension AddSuppliersViewController: AddHeaderViewDelegte{
     }
 }
 
+//MARK: - DataEntryTextFiledCellDelegate
+extension AddSuppliersViewController: DataEntryTextFiledCellDelegate{
+    func dataEntryTextFiledDidNext(cell: DataEntryTextFiledCell) {
+        self.view.endEditing(true)
+    }
+
+    func dataEntryTextFiledDidCheck(cell: DataEntryTextFiledCell) {
+        getEntryTextField(cell: cell)
+    }
+
+    func dataEntryTextFiledDidKeyboardDone(cell: DataEntryTextFiledCell) {
+        getEntryTextField(cell: cell)
+        self.view.endEditing(true)
+    }
+
+    func dataEntryTextFiledDidKeyboardCancel(cell: DataEntryTextFiledCell) {
+        self.view.endEditing(true)
+    }
+
+    func dataEntryTextFiledDidKeyboardNext(cell: DataEntryTextFiledCell) {
+        getEntryTextField(cell: cell)
+        guard let count = datasource?.count else {
+            return
+        }
+        var indexPath = cell.indexPath
+        if  indexPath != nil{
+            if indexPath!.row < (count - 1){
+                indexPath!.row = indexPath!.row + 1
+                tableView.selectRow(at: indexPath!, animated: true, scrollPosition: .top)
+            }
+        }
+
+    }
+
+    private func getEntryTextField(cell: DataEntryTextFiledCell){
+        if
+            let value = cell.textFieldValue.text,
+            !value.isEmpty,
+            let fieldInfo = cell.fieldInfo,
+            let fieldName = fieldInfo["field"] as? String
+        {
+            supplier[fieldName] = value.trimmingCharacters(in: CharacterSet.whitespaces)
+        }
+    }
+}
+
 //MARK: - DataEntryPhoneCellDelegate
 extension AddSuppliersViewController: DataEntryPhoneCellDelegate{
     func dataEntryPhoneCellDidNext(cell: DataEntryPhoneCell) {
-
+        self.view.endEditing(true)
     }
     
     func dataEntryPhoneCellDidCheck(cell: DataEntryPhoneCell) {
-
+        getPhoneCell(cell: cell)
     }
     
     func dataEntryPhoneCellDidKeyboardDone(cell: DataEntryPhoneCell) {
-
+        getPhoneCell(cell: cell)
+        self.view.endEditing(true)
     }
     
     func dataEntryPhoneCellDidKeyboardCancel(cell: DataEntryPhoneCell) {
-
+        self.view.endEditing(true)
     }
     
     func dataEntryPhoneCellDidKeyboardNext(cell: DataEntryPhoneCell) {
+        getPhoneCell(cell: cell)
+        guard let count = datasource?.count else {
+            return
+        }
+        var indexPath = cell.indexPath
+        if  indexPath != nil{
+            if indexPath!.row < (count - 1){
+                indexPath!.row = indexPath!.row + 1
+                tableView.selectRow(at: indexPath!, animated: true, scrollPosition: .top)
+            }
+        }
 
+    }
+
+    private func getPhoneCell(cell: DataEntryPhoneCell){
+        guard
+            let indexPath = cell.indexPath
+        else { return }
+
+        let phone = phones[indexPath.row]
+        if
+            let value = cell.textTitleField.text,
+            !value.isEmpty
+        {
+            phone.type = value.trimmingCharacters(in: CharacterSet.whitespaces)
+        }
+        if
+            let value = cell.textNumberField.text,
+            !value.isEmpty
+        {
+            phone.number = value.trimmingCharacters(in: CharacterSet.whitespaces)
+        }
+        phones.replace(index: indexPath.row, object: phone)
     }
     
 
@@ -444,66 +558,196 @@ extension AddSuppliersViewController: DataEntryPhoneCellDelegate{
 //MARK: - DataEntryAddressCellDelegate
 extension AddSuppliersViewController: DataEntryAddressCellDelegate{
     func dataEntryAddressCellDidNext(cell: DataEntryAddressCell) {
-
+        self.view.endEditing(true)
     }
 
     func dataEntryAddressCellDidCheck(cell: DataEntryAddressCell) {
-
+        getAddressCell(cell: cell)
     }
 
     func dataEntryAddressCellDidKeyboardDone(cell: DataEntryAddressCell) {
-
+        getAddressCell(cell: cell)
+        self.view.endEditing(true)
     }
 
     func dataEntryAddressCellDidKeyboardCancel(cell: DataEntryAddressCell) {
-
+        self.view.endEditing(true)
     }
 
     func dataEntryAddressCellDidKeyboardNext(cell: DataEntryAddressCell) {
-        
+        getAddressCell(cell: cell)
+        guard let count = datasource?.count else {
+            return
+        }
+        var indexPath = cell.indexPath
+        if  indexPath != nil{
+            if indexPath!.row < (count - 1){
+                indexPath!.row = indexPath!.row + 1
+                tableView.selectRow(at: indexPath!, animated: true, scrollPosition: .top)
+            }
+        }
+
     }
+
+    private func getAddressCell(cell: DataEntryAddressCell){
+        guard
+            let indexPath = cell.indexPath
+        else { return }
+
+        let address = addresses[indexPath.row]
+        if
+            let value = cell.textTypeField.text,
+            !value.isEmpty
+        {
+            address.type = value.trimmingCharacters(in: CharacterSet.whitespaces)
+        }
+        if
+            let value = cell.textLocationField.text,
+            !value.isEmpty
+        {
+            address.location = value.trimmingCharacters(in: CharacterSet.whitespaces)
+        }
+        if
+            let value = cell.textCityField.text,
+            !value.isEmpty
+        {
+            address.city = value.trimmingCharacters(in: CharacterSet.whitespaces)
+        }
+        if
+            let value = cell.textZipCodeField.text,
+            !value.isEmpty
+        {
+            address.zipCode = value.trimmingCharacters(in: CharacterSet.whitespaces)
+        }
+        if
+            let value = cell.textAddressField.text,
+            !value.isEmpty
+        {
+            address.address = value.trimmingCharacters(in: CharacterSet.whitespaces)
+        }
+        addresses.replace(index: indexPath.row, object: address)
+    }
+
 }
 
 //MARK: - DataEntryEmailCellDelegate
 extension AddSuppliersViewController: DataEntryEmailCellDelegate{
     func dataEntryEmailCellDidNext(cell: DataEntryEmailCell) {
-
+        self.view.endEditing(true)
     }
 
     func dataEntryEmailCellDidCheck(cell: DataEntryEmailCell) {
-
+        getEmailCell(cell: cell)
     }
 
     func dataEntryEmailCellDidKeyboardDone(cell: DataEntryEmailCell) {
+        getEmailCell(cell: cell)
+        self.view.endEditing(true)
 
     }
 
     func dataEntryEmailCellDidKeyboardCancel(cell: DataEntryEmailCell) {
-
+        self.view.endEditing(true)
     }
 
     func dataEntryEmailCellDidKeyboardNext(cell: DataEntryEmailCell) {
+        getEmailCell(cell: cell)
+        guard let count = datasource?.count else {
+            return
+        }
+        var indexPath = cell.indexPath
+        if  indexPath != nil{
+            if indexPath!.row < (count - 1){
+                indexPath!.row = indexPath!.row + 1
+                tableView.selectRow(at: indexPath!, animated: true, scrollPosition: .top)
+            }
+        }
 
     }
 
+    private func getEmailCell(cell: DataEntryEmailCell){
+        guard
+            let indexPath = cell.indexPath
+        else { return }
+
+        let email = emails[indexPath.row]
+        if
+            let value = cell.textTypeField.text,
+            !value.isEmpty
+        {
+            email.type = value.trimmingCharacters(in: CharacterSet.whitespaces)
+        }
+        if
+            let value = cell.textAddressField.text,
+            !value.isEmpty
+        {
+            email.address = value.trimmingCharacters(in: CharacterSet.whitespaces)
+        }
+        emails.replace(index: indexPath.row, object: email)
+    }
 }
 
 //MARK: - DataEntryBankCellDelegate
 extension AddSuppliersViewController: DataEntryBankCellDelegate{
     func dataEntryBankCellDidNext(cell: DataEntryBankCell) {
+        self.view.endEditing(true)
     }
 
     func dataEntryBankCellDidCheck(cell: DataEntryBankCell) {
+        getBankCell(cell: cell)
     }
 
     func dataEntryBankCellDidKeyboardDone(cell: DataEntryBankCell) {
+        getBankCell(cell: cell)
+        self.view.endEditing(true)
     }
 
     func dataEntryBankCellDidKeyboardCancel(cell: DataEntryBankCell) {
+        self.view.endEditing(true)
     }
 
     func dataEntryBankCellDidKeyboardNext(cell: DataEntryBankCell) {
+        getBankCell(cell: cell)
+        guard let count = datasource?.count else {
+            return
+        }
+        var indexPath = cell.indexPath
+        if  indexPath != nil{
+            if indexPath!.row < (count - 1){
+                indexPath!.row = indexPath!.row + 1
+                tableView.selectRow(at: indexPath!, animated: true, scrollPosition: .top)
+            }
+        }
     }
+
+
+    private func getBankCell(cell: DataEntryBankCell){
+        guard
+            let indexPath = cell.indexPath
+        else { return }
+
+        let bank = banks[indexPath.row]
+        if
+            let value = cell.textNameField.text,
+            !value.isEmpty
+        {
+            bank.name = value.trimmingCharacters(in: CharacterSet.whitespaces)
+        }
+        if
+            let value = cell.textIbanField.text,
+            !value.isEmpty
+        {
+            bank.iban = value.trimmingCharacters(in: CharacterSet.whitespaces)
+        }
+        if
+            let value = cell.textSwiftField.text,
+            !value.isEmpty
+        {
+            bank.swift = value.trimmingCharacters(in: CharacterSet.whitespaces)
+        }
+        banks.replace(index: indexPath.row, object: bank)
+    }
+
 
 
 }

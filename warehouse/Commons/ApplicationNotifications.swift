@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-open class ApplicationNotification{
+open class ApplicationNotifications{
     
     var foreground:((_ notification: Notification)->Void)?
     var background:((_ notification: Notification)->Void)?
