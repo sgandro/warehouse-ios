@@ -19,11 +19,11 @@ class Item: Object{
     @objc dynamic var minimumStock: Int = 0
     @objc dynamic var unit: String = ""
     @objc dynamic var quantity: Int = 0
+    @objc dynamic var inOrder: Int = 0
     @objc dynamic var vat: Double = 0.0
     @objc dynamic var note: String = ""
 
     let categories = LinkingObjects(fromType: Category.self, property: "items")
-    let suppliers = LinkingObjects(fromType: Supplier.self, property: "items")
 
     override static func primaryKey() -> String? {
         return "id"

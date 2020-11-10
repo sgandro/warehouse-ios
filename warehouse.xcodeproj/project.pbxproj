@@ -31,9 +31,19 @@
 		DE553264253BB13600B2B29F /* ClientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE553263253BB13600B2B29F /* ClientsViewController.swift */; };
 		DE55326F253C350B00B2B29F /* EmptyStateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE55326E253C350B00B2B29F /* EmptyStateView.xib */; };
 		DE553271253C351B00B2B29F /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE553270253C351B00B2B29F /* EmptyStateView.swift */; };
+		DE59B0822555F875003B4448 /* ItemForOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE59B0812555F875003B4448 /* ItemForOrderViewController.swift */; };
+		DE59B08825568D96003B4448 /* ItemForOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE59B08625568D96003B4448 /* ItemForOrderCell.swift */; };
+		DE59B08925568D96003B4448 /* ItemForOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE59B08725568D96003B4448 /* ItemForOrderCell.xib */; };
 		DE633E0E254F4E35009B8609 /* KeyboardNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE633E0D254F4E35009B8609 /* KeyboardNotifications.swift */; };
 		DE6A263E25456CCD00B7795A /* AddItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6A263D25456CCD00B7795A /* AddItemsViewController.swift */; };
 		DE6A26642546291200B7795A /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6A26632546291200B7795A /* UIView+Extension.swift */; };
+		DE7CC12F255535CB00A0DFA4 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7CC12E255535CB00A0DFA4 /* Order.swift */; };
+		DE7CC1322555390700A0DFA4 /* AFDate+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7CC1312555390700A0DFA4 /* AFDate+Extension.swift */; };
+		DE90E24B25516DD40046E704 /* OrderBigCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90E24925516DD40046E704 /* OrderBigCell.swift */; };
+		DE90E24C25516DD40046E704 /* OrderBigCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE90E24A25516DD40046E704 /* OrderBigCell.xib */; };
+		DE90E25025516ECC0046E704 /* PlusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90E24E25516ECC0046E704 /* PlusCell.swift */; };
+		DE90E25125516ECC0046E704 /* PlusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE90E24F25516ECC0046E704 /* PlusCell.xib */; };
+		DE90E2552551794C0046E704 /* NewOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE90E2542551794C0046E704 /* NewOrderViewController.swift */; };
 		DE98A0482538286A000C8938 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE98A0472538286A000C8938 /* AppDelegate.swift */; };
 		DE98A04A2538286A000C8938 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE98A0492538286A000C8938 /* SceneDelegate.swift */; };
 		DE98A04F2538286A000C8938 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE98A04D2538286A000C8938 /* Main.storyboard */; };
@@ -50,6 +60,7 @@
 		DEAF91CE254D606100452D63 /* DataEntryAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DEAF91CC254D606000452D63 /* DataEntryAddressCell.xib */; };
 		DEAF91CF254D606100452D63 /* DataEntryAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAF91CD254D606100452D63 /* DataEntryAddressCell.swift */; };
 		DEAF91D2254D63F200452D63 /* AddressFields.plist in Resources */ = {isa = PBXBuildFile; fileRef = DEAF91D1254D63F200452D63 /* AddressFields.plist */; };
+		DEB1ACB52552E69F004D2AD9 /* UICollectionView+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB1ACB42552E69F004D2AD9 /* UICollectionView+Realm.swift */; };
 		DEC0DE7A25419B050086CBE0 /* BackgroundTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE7925419B050086CBE0 /* BackgroundTaskManager.swift */; };
 		DEC0DE7D2541B53B0086CBE0 /* KeyboardToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE7C2541B53B0086CBE0 /* KeyboardToolBar.swift */; };
 		DEC0DE842541B6660086CBE0 /* ApplicationNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC0DE832541B6660086CBE0 /* ApplicationNotifications.swift */; };
@@ -106,10 +117,20 @@
 		DE553263253BB13600B2B29F /* ClientsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientsViewController.swift; sourceTree = "<group>"; };
 		DE55326E253C350B00B2B29F /* EmptyStateView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyStateView.xib; sourceTree = "<group>"; };
 		DE553270253C351B00B2B29F /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		DE59B0812555F875003B4448 /* ItemForOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemForOrderViewController.swift; sourceTree = "<group>"; };
+		DE59B08625568D96003B4448 /* ItemForOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemForOrderCell.swift; sourceTree = "<group>"; };
+		DE59B08725568D96003B4448 /* ItemForOrderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemForOrderCell.xib; sourceTree = "<group>"; };
 		DE633E0D254F4E35009B8609 /* KeyboardNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardNotifications.swift; sourceTree = "<group>"; };
 		DE6A263D25456CCD00B7795A /* AddItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemsViewController.swift; sourceTree = "<group>"; };
 		DE6A26472546264C00B7795A /* AlmaFramework_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AlmaFramework_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE6A26632546291200B7795A /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		DE7CC12E255535CB00A0DFA4 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		DE7CC1312555390700A0DFA4 /* AFDate+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AFDate+Extension.swift"; sourceTree = "<group>"; };
+		DE90E24925516DD40046E704 /* OrderBigCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBigCell.swift; sourceTree = "<group>"; };
+		DE90E24A25516DD40046E704 /* OrderBigCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderBigCell.xib; sourceTree = "<group>"; };
+		DE90E24E25516ECC0046E704 /* PlusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusCell.swift; sourceTree = "<group>"; };
+		DE90E24F25516ECC0046E704 /* PlusCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlusCell.xib; sourceTree = "<group>"; };
+		DE90E2542551794C0046E704 /* NewOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewOrderViewController.swift; sourceTree = "<group>"; };
 		DE98A0442538286A000C8938 /* warehouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = warehouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE98A0472538286A000C8938 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE98A0492538286A000C8938 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -128,6 +149,7 @@
 		DEAF91CC254D606000452D63 /* DataEntryAddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataEntryAddressCell.xib; sourceTree = "<group>"; };
 		DEAF91CD254D606100452D63 /* DataEntryAddressCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataEntryAddressCell.swift; sourceTree = "<group>"; };
 		DEAF91D1254D63F200452D63 /* AddressFields.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AddressFields.plist; sourceTree = "<group>"; };
+		DEB1ACB42552E69F004D2AD9 /* UICollectionView+Realm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Realm.swift"; sourceTree = "<group>"; };
 		DEC0DE7925419B050086CBE0 /* BackgroundTaskManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundTaskManager.swift; sourceTree = "<group>"; };
 		DEC0DE7C2541B53B0086CBE0 /* KeyboardToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardToolBar.swift; sourceTree = "<group>"; };
 		DEC0DE832541B6660086CBE0 /* ApplicationNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationNotifications.swift; sourceTree = "<group>"; };
@@ -210,6 +232,7 @@
 				DE553268253C2D9A00B2B29F /* Suppliers */,
 				DE553269253C2DA500B2B29F /* Banks */,
 				DE55326A253C2DB100B2B29F /* Clients */,
+				DE90E253255179300046E704 /* Order */,
 				DEF8642E254F48BC00EC859F /* BaseTableViewController.swift */,
 			);
 			path = Controllers;
@@ -265,7 +288,9 @@
 		DE553254253B992100B2B29F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				DE7CC1312555390700A0DFA4 /* AFDate+Extension.swift */,
 				DEF1403C253C4A8500828B74 /* UITableView+Extension.swift */,
+				DEB1ACB42552E69F004D2AD9 /* UICollectionView+Realm.swift */,
 				DE553257253B996500B2B29F /* UILabel+Extension.swift */,
 				DE362266253CE47B004060A5 /* UIViewController+Extension.swift */,
 				DE6A26632546291200B7795A /* UIView+Extension.swift */,
@@ -332,6 +357,36 @@
 				DE553270253C351B00B2B29F /* EmptyStateView.swift */,
 			);
 			path = EmptyStateView;
+			sourceTree = "<group>";
+		};
+		DE59B08525568D60003B4448 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				DE59B08625568D96003B4448 /* ItemForOrderCell.swift */,
+				DE59B08725568D96003B4448 /* ItemForOrderCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		DE90E24825516DA70046E704 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				DE90E24925516DD40046E704 /* OrderBigCell.swift */,
+				DE90E24A25516DD40046E704 /* OrderBigCell.xib */,
+				DE90E24E25516ECC0046E704 /* PlusCell.swift */,
+				DE90E24F25516ECC0046E704 /* PlusCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		DE90E253255179300046E704 /* Order */ = {
+			isa = PBXGroup;
+			children = (
+				DE59B08525568D60003B4448 /* Cells */,
+				DE90E2542551794C0046E704 /* NewOrderViewController.swift */,
+				DE59B0812555F875003B4448 /* ItemForOrderViewController.swift */,
+			);
+			path = Order;
 			sourceTree = "<group>";
 		};
 		DE98A03B2538286A000C8938 = {
@@ -417,6 +472,7 @@
 				DEE81F1725498F7B00DC9A46 /* Phone.swift */,
 				DEE81F1A25498FCC00DC9A46 /* Address.swift */,
 				DECE6543254AA18B00CF45BC /* Bank.swift */,
+				DE7CC12E255535CB00A0DFA4 /* Order.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -455,6 +511,7 @@
 		DEF14047253C4D6D00828B74 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				DE90E24825516DA70046E704 /* Cells */,
 				DE22C6DD253970BC004879F1 /* MainViewController.swift */,
 			);
 			path = Main;
@@ -528,12 +585,15 @@
 				DEAF91AF254C262600452D63 /* itemFields.plist in Resources */,
 				DEAF91CE254D606100452D63 /* DataEntryAddressCell.xib in Resources */,
 				DEAF91B8254CAA9B00452D63 /* AddHeaderView.xib in Resources */,
+				DE90E24C25516DD40046E704 /* OrderBigCell.xib in Resources */,
 				DE553252253B82C600B2B29F /* MenuHeaderView.xib in Resources */,
+				DE90E25125516ECC0046E704 /* PlusCell.xib in Resources */,
 				DEF86428254D768A00EC859F /* DataEntryBankCell.xib in Resources */,
 				DE98A0542538286D000C8938 /* LaunchScreen.storyboard in Resources */,
 				DE22C6FF253B7662004879F1 /* MenuItemCell.xib in Resources */,
 				DEAF91C9254D58AC00452D63 /* PhoneFields.plist in Resources */,
 				DE98A0512538286D000C8938 /* Assets.xcassets in Resources */,
+				DE59B08925568D96003B4448 /* ItemForOrderCell.xib in Resources */,
 				DE05C539254C0E5900CEF65A /* departmentFields.plist in Resources */,
 				DECE6557254BFAFB00CF45BC /* PickerDataEntryTextFiledCell.xib in Resources */,
 				DEE81F0E25495B6500DC9A46 /* menu.plist in Resources */,
@@ -640,10 +700,13 @@
 				DEF8642F254F48BC00EC859F /* BaseTableViewController.swift in Sources */,
 				DE553264253BB13600B2B29F /* ClientsViewController.swift in Sources */,
 				DEC0DE7A25419B050086CBE0 /* BackgroundTaskManager.swift in Sources */,
+				DE7CC12F255535CB00A0DFA4 /* Order.swift in Sources */,
 				DE22C6DE253970BC004879F1 /* MainViewController.swift in Sources */,
+				DE59B0822555F875003B4448 /* ItemForOrderViewController.swift in Sources */,
 				DEF14036253C446900828B74 /* Department.swift in Sources */,
 				DE55325C253BABDC00B2B29F /* DepartmentsViewController.swift in Sources */,
 				DECE6551254B39AB00CF45BC /* DataEntryTextFiledCell.swift in Sources */,
+				DEB1ACB52552E69F004D2AD9 /* UICollectionView+Realm.swift in Sources */,
 				DE98A0482538286A000C8938 /* AppDelegate.swift in Sources */,
 				DEE81E8F2548852200DC9A46 /* BundleVersion.swift in Sources */,
 				DE6A263E25456CCD00B7795A /* AddItemsViewController.swift in Sources */,
@@ -654,6 +717,7 @@
 				DE553271253C351B00B2B29F /* EmptyStateView.swift in Sources */,
 				DE553260253BB09400B2B29F /* SuppliersViewController.swift in Sources */,
 				DEF86420254D6ECB00EC859F /* DataEntryEmailCell.swift in Sources */,
+				DE7CC1322555390700A0DFA4 /* AFDate+Extension.swift in Sources */,
 				DEE81F11254988DD00DC9A46 /* Supplier.swift in Sources */,
 				DEF1403D253C4A8500828B74 /* UITableView+Extension.swift in Sources */,
 				DE55325E253BAF9600B2B29F /* ItemsViewController.swift in Sources */,
@@ -666,6 +730,7 @@
 				DE22C6FE253B7662004879F1 /* MenuItemCell.swift in Sources */,
 				DE55325A253BA55300B2B29F /* CategoriesViewController.swift in Sources */,
 				DEE81F1425498F1F00DC9A46 /* Email.swift in Sources */,
+				DE90E2552551794C0046E704 /* NewOrderViewController.swift in Sources */,
 				DEC0DE7D2541B53B0086CBE0 /* KeyboardToolBar.swift in Sources */,
 				DEE81F1825498F7B00DC9A46 /* Phone.swift in Sources */,
 				DEC0DE872541B6770086CBE0 /* DiskStatus.swift in Sources */,
@@ -674,10 +739,13 @@
 				DE6A26642546291200B7795A /* UIView+Extension.swift in Sources */,
 				DEAF91BB254CAAB500452D63 /* AddHeaderView.swift in Sources */,
 				DEAF91CF254D606100452D63 /* DataEntryAddressCell.swift in Sources */,
+				DE59B08825568D96003B4448 /* ItemForOrderCell.swift in Sources */,
 				DE553262253BB0AE00B2B29F /* BanksViewController.swift in Sources */,
 				DE98A04A2538286A000C8938 /* SceneDelegate.swift in Sources */,
+				DE90E24B25516DD40046E704 /* OrderBigCell.swift in Sources */,
 				DEC0DE842541B6660086CBE0 /* ApplicationNotifications.swift in Sources */,
 				DEE81F1B25498FCC00DC9A46 /* Address.swift in Sources */,
+				DE90E25025516ECC0046E704 /* PlusCell.swift in Sources */,
 				DEAF91C2254CB5A600452D63 /* DataEntryPhoneCell.swift in Sources */,
 				DE633E0E254F4E35009B8609 /* KeyboardNotifications.swift in Sources */,
 			);

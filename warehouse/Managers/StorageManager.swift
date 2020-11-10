@@ -15,7 +15,9 @@ class StorageManager {
         let instance = StorageManager()
         return instance
     }()
-    
+
+    private var realm:Realm?
+
     var realmFileSize:Int64 {
         
         let byteFormatter = ByteCountFormatter()
@@ -58,6 +60,9 @@ class StorageManager {
         
         config.schemaVersion = 1 // prima versione
         config.schemaVersion = 2 // Fornitori
+        config.schemaVersion = 3 // Correlazioni
+        config.schemaVersion = 4 // Order
+        config.schemaVersion = 5 // inOrder field is added in Item
 
 
         print("Realm Database *** file url \(config.fileURL!)")
@@ -100,6 +105,47 @@ class StorageManager {
 
     }
 
+    func beginRealmSession(){
+
+        if self.realm != nil{
+            if self.realm!.isInWriteTransaction == false{
+                self.realm!.beginWrite()
+                print("begin Realm Session")
+            }
+        }else{
+            self.realm = try! Realm()
+            self.realm!.beginWrite()
+            print("begin Realm Session")
+        }
+
+    }
+
+    func cancelRealmSession(){
+
+        if self.realm != nil {
+            if self.realm!.isInWriteTransaction == true{
+                self.realm!.cancelWrite()
+                print("cancel Realm Session")
+            }
+            self.realm = nil
+        }
+    }
+    func commitRealmSession(){
+
+        if self.realm != nil {
+            if self.realm!.isInWriteTransaction == true{
+                do{
+                    try self.realm!.commitWrite()
+                    print("commit Realm Session")
+                    self.realm = nil
+                }catch{
+                    print("commit Realm Session error: \(error.localizedDescription)")
+                    self.realm = nil
+                }
+            }
+        }
+
+    }
 
     
     func getDefaultRealm(block: @escaping (Realm) -> ()) {
@@ -145,7 +191,7 @@ class StorageManager {
         }
 
         
-        config.schemaVersion = 2
+        config.schemaVersion = 5
         Realm.Configuration.defaultConfiguration = config
         
         do{
@@ -157,5 +203,6 @@ class StorageManager {
         }
 
     }
+
 
 }

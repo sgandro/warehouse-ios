@@ -13,6 +13,26 @@
         <array>
             <dict>
                 <key>caption</key>
+                <string>Dipartimento</string>
+                <key>type</key>
+                <string>picker</string>
+                <key>source</key>
+                <string>department</string>
+                <key>format</key>
+                <string>string</string>
+            </dict>
+            <dict>
+                <key>caption</key>
+                <string>Categoria</string>
+                <key>type</key>
+                <string>picker</string>
+                <key>source</key>
+                <string>category</string>
+                <key>format</key>
+                <string>string</string>
+            </dict>
+            <dict>
+                <key>caption</key>
                 <string>Ragione Sociale</string>
                 <key>type</key>
                 <string>text</string>

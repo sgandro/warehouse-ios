@@ -21,7 +21,7 @@ class Supplier: Object{
     let addresses = List<Address>()
     let phones = List<Phone>()
     let banks = List<Bank>()
-    let items = List<Item>()
+    let categories = LinkingObjects(fromType: Category.self, property: "suppliers")
 
     override static func primaryKey() -> String? {
         return "id"

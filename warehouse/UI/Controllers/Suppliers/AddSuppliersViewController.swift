@@ -26,14 +26,20 @@ class AddSuppliersViewController: BaseTableViewController {
     var supplierToUpdate:Supplier?
     var supplier:[String:Any] = [:]
 
+    var category:Category?
+    private var department:Department?
+    private var categories:Results<Category>?
+    private var departments:Results<Department>?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        isModalInPresentation = true
         isKeyboardNotificationEnabled = true
 
         // Do any additional setup after loading the view.
         tableSettings()
+        loadCategories()
+        loadDepartiments()
         loadBanks()
         loadEmails()
         loadPhones()
@@ -56,7 +62,10 @@ class AddSuppliersViewController: BaseTableViewController {
 
         if supplierToUpdate != nil{
 
-            labelTitle.initialize(textValue: "Modifica Fornitore", font: UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.bold), color: UIColor.darkGray, align: .center)
+            labelTitle.initialize(textValue: "Modifica Fornitore",
+                                  font: UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.bold),
+                                  color: UIColor.darkGray,
+                                  align: .center)
 
             labelDescription.initialize(textValue: "Puoi modificare il fornitore, ma non puoi modificare il reparto di appartenenza",
                                         font: UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.light),
@@ -74,6 +83,18 @@ class AddSuppliersViewController: BaseTableViewController {
 
         }
 
+    }
+
+    override func keyboardWillShowNotification(notification: Notification, rect: CGRect) {
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: rect.height, right: 0)
+    }
+
+    override func keyboardWillChangeFrameNotification(notification: Notification, rect: CGRect) {
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: rect.height, right: 0)
+    }
+
+    override func keyboardWillHideNotification(notification: Notification, rect: CGRect) {
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: rect.height, right: 0)
     }
 
 
@@ -103,6 +124,39 @@ class AddSuppliersViewController: BaseTableViewController {
 
     }
 
+    private func loadCategories(){
+        StorageManager.sharedInstance.getDefaultRealm { (realm) in
+
+            if let categoryId = self.category?.id{
+                self.categories = realm.objects(Category.self).filter("id = %@",categoryId)
+            }else{
+                self.categories = realm.objects(Category.self)
+            }
+
+            let count = self.categories?.count ?? 0
+            if count == 0{
+                self.showAlert(title: "Informazione", andBody: "Creare prima una categoria")
+            }
+        }
+
+    }
+
+    private func loadDepartiments(){
+        StorageManager.sharedInstance.getDefaultRealm { (realm) in
+
+            if let categoryId = self.category?.id{
+                self.departments = realm.objects(Department.self).filter("ANY categories.id = %@",categoryId)
+            }else{
+                self.departments = realm.objects(Department.self)
+            }
+            let count = self.departments?.count ?? 0
+            if count == 0{
+                self.showAlert(title: "Informazione", andBody: "Creare prima un reparto")
+            }
+        }
+
+    }
+
     private func loadBanks(){
         self.banks = self.supplierToUpdate?.banks ?? List<Bank>()
     }
@@ -129,45 +183,53 @@ class AddSuppliersViewController: BaseTableViewController {
 
         StorageManager.sharedInstance.getDefaultRealm { (realm) in
 
-            realm.beginWrite()
+            if
+                let categoryName = self.supplier["category"] as? String,
+                let category = realm.objects(Category.self).first(where: {$0.name == categoryName})
+            {
 
-            if let supplierToUpdate = self.supplierToUpdate{
+                realm.beginWrite()
 
-                if let businessName = self.supplier["businessName"] as? String {
-                    supplierToUpdate.businessName = businessName
+                if let supplierToUpdate = self.supplierToUpdate{
+
+                    if let businessName = self.supplier["businessName"] as? String {
+                        supplierToUpdate.businessName = businessName
+                    }
+                    if let title = self.supplier["title"] as? String {
+                        supplierToUpdate.title = title
+                    }
+                    if let name = self.supplier["name"] as? String {
+                        supplierToUpdate.name = name
+                    }
+                    if let surname = self.supplier["surname"] as? String {
+                        supplierToUpdate.surname = surname
+                    }
+                    if let vatNumber = self.supplier["vatNumber"] as? String {
+                        supplierToUpdate.vatNumber = vatNumber
+                    }
+                    if let fiscalCode = self.supplier["fiscalCode"] as? String {
+                        supplierToUpdate.fiscalCode = fiscalCode
+                    }
+
+                    realm.add(supplierToUpdate, update: .modified)
+
+                }else{
+
+                    let newSupplier = realm.create(Supplier.self, value: self.supplier, update: .all)
+                    newSupplier.phones.append(objectsIn: self.phones)
+                    newSupplier.addresses.append(objectsIn: self.addresses)
+                    newSupplier.emails.append(objectsIn: self.emails)
+                    newSupplier.banks.append(objectsIn: self.banks)
+                    category.suppliers.append(newSupplier)
+
                 }
-                if let title = self.supplier["title"] as? String {
-                    supplierToUpdate.title = title
-                }
-                if let name = self.supplier["name"] as? String {
-                    supplierToUpdate.name = name
-                }
-                if let surname = self.supplier["surname"] as? String {
-                    supplierToUpdate.surname = surname
-                }
-                if let vatNumber = self.supplier["vatNumber"] as? String {
-                    supplierToUpdate.vatNumber = vatNumber
-                }
-                if let fiscalCode = self.supplier["fiscalCode"] as? String {
-                    supplierToUpdate.fiscalCode = fiscalCode
+                do{
+                    try realm.commitWrite()
+                }catch{
+                    realm.cancelWrite()
+                    print("Error:\(error.localizedDescription)")
                 }
 
-                realm.add(supplierToUpdate, update: .modified)
-
-            }else{
-
-                let newSupplier = realm.create(Supplier.self, value: self.supplier, update: .all)
-                newSupplier.phones.append(objectsIn: self.phones)
-                newSupplier.addresses.append(objectsIn: self.addresses)
-                newSupplier.emails.append(objectsIn: self.emails)
-                newSupplier.banks.append(objectsIn: self.banks)
-
-            }
-            do{
-                try realm.commitWrite()
-            }catch{
-                realm.cancelWrite()
-                print("Error:\(error.localizedDescription)")
             }
 
 
@@ -268,6 +330,50 @@ extension AddSuppliersViewController: UITableViewDelegate, UITableViewDataSource
                             }
 
                             return cell
+                        case "picker":
+
+                            let cell = tableView.dequeueReusableCell(withIdentifier: PickerDataEntryTextFiledCell.identifier, for: indexPath) as! PickerDataEntryTextFiledCell
+
+                            cell.caption = field["caption"] as? String
+                            cell.indexPath = indexPath
+                            cell.delegate = self
+                            cell.fieldInfo = field
+                            cell.delegate = self
+
+                            if supplierToUpdate != nil{
+
+                                if let source = field["source"] as? String{
+
+                                    switch source {
+                                        case "department":
+                                            if let departmentName = self.supplierToUpdate?.categories.first?.department.first?.name{
+                                                cell.pickerTextView.datasource = [departmentName]
+                                            }
+                                        case "category":
+                                            if let categoryName = supplierToUpdate?.categories.first?.name{
+                                                cell.pickerTextView.datasource = [categoryName]
+                                            }
+                                        default:
+                                            fatalError()
+                                    }
+                                }
+
+                            }else{
+
+                                if let source = field["source"] as? String{
+
+                                    switch source {
+                                        case "department":
+                                            cell.pickerTextView.datasource = self.departments?.map({$0.name})
+                                        case "category":
+                                            cell.pickerTextView.datasource = self.categories?.map({$0.name})
+                                        default:
+                                        fatalError()
+                                    }
+                                }
+                            }
+                            return cell
+
                         default:
                             fatalError()
                     }
@@ -748,6 +854,64 @@ extension AddSuppliersViewController: DataEntryBankCellDelegate{
         banks.replace(index: indexPath.row, object: bank)
     }
 
+
+
+}
+
+//MARK: - PickerDataEntryTextFiledCellDelegate
+extension AddSuppliersViewController: PickerDataEntryTextFiledCellDelegate{
+    func pickerDataEntryTextFiledDidSelected(cell: PickerDataEntryTextFiledCell, value: String?) {
+
+        if
+            let selectedValue = cell.pickerTextView.selectedValue,
+            !selectedValue.isEmpty,
+            let fieldInfo = cell.fieldInfo,
+            let fieldName = fieldInfo["source"] as? String
+        {
+            supplier[fieldName] = selectedValue.trimmingCharacters(in: CharacterSet.whitespaces)
+            if fieldName == "department"{
+                StorageManager.sharedInstance.getDefaultRealm { (realm) in
+                    self.department = realm.objects(Department.self).first(where: {$0.name == value!})
+                    if let departimentName = self.department?.name{
+                        self.categories = realm.objects(Category.self).filter("ANY department.name == %@", departimentName)
+                        if var indexPath = cell.indexPath {
+                            indexPath.row += 1
+                            if
+                                let cell = self.tableView.cellForRow(at: indexPath) as? PickerDataEntryTextFiledCell,
+                                let selectedValue = cell.pickerTextView.selectedValue,
+                                selectedValue.isEmpty
+                            {
+                                // se la categoria non è valorizzata allora ricarico i dati
+                                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+
+                            }
+                        }
+                    }
+                }
+            }
+            if fieldName == "category"{
+                StorageManager.sharedInstance.getDefaultRealm { (realm) in
+                    self.category = realm.objects(Category.self).first(where: {$0.name == value!})
+                    if let categoryName = self.category?.name{
+                        self.departments = realm.objects(Department.self).filter("ANY categories.name == %@", categoryName)
+                        if var indexPath = cell.indexPath {
+                            indexPath.row -= 1
+                            if
+                                let cell = self.tableView.cellForRow(at: indexPath) as? PickerDataEntryTextFiledCell,
+                                let selectedValue = cell.pickerTextView.selectedValue,
+                                selectedValue.isEmpty
+                            {
+                                // se i dipartimenti non è valorizzata allora ricarico i dati
+                                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+
+    }
 
 
 }

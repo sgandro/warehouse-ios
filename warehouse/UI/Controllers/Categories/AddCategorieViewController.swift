@@ -20,7 +20,6 @@ class AddCategorieViewController: BaseTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        isModalInPresentation = true
         isKeyboardNotificationEnabled = true
 
         // Do any additional setup after loading the view.
@@ -66,6 +65,19 @@ class AddCategorieViewController: BaseTableViewController {
         }
 
     }
+
+    override func keyboardWillShowNotification(notification: Notification, rect: CGRect) {
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: rect.height, right: 0)
+    }
+
+    override func keyboardWillChangeFrameNotification(notification: Notification, rect: CGRect) {
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: rect.height, right: 0)
+    }
+
+    override func keyboardWillHideNotification(notification: Notification, rect: CGRect) {
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: rect.height, right: 0)
+    }
+
 
     //MARK: - Action
     @IBAction func closeButtonPressed(button:UIButton){

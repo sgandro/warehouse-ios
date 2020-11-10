@@ -29,7 +29,6 @@ class AddItemsViewController: BaseTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        isModalInPresentation = true
         isKeyboardNotificationEnabled = true
         // Do any additional setup after loading the view.
         loadCategories()
@@ -75,6 +74,17 @@ class AddItemsViewController: BaseTableViewController {
 
     }
 
+    override func keyboardWillShowNotification(notification: Notification, rect: CGRect) {
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: rect.height, right: 0)
+    }
+
+    override func keyboardWillChangeFrameNotification(notification: Notification, rect: CGRect) {
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: rect.height, right: 0)
+    }
+
+    override func keyboardWillHideNotification(notification: Notification, rect: CGRect) {
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: rect.height, right: 0)
+    }
 
     //MARK: - Method
 
@@ -92,24 +102,24 @@ class AddItemsViewController: BaseTableViewController {
 
     }
 
-    func loadCategories(){
+    private func loadCategories(){
         StorageManager.sharedInstance.getDefaultRealm { (realm) in
             self.categories = realm.objects(Category.self)
+            let count = self.categories?.count ?? 0
+            if count == 0{
+                self.showAlert(title: "Informazione", andBody: "Creare prima una categoria")
+            }
         }
-        let count = self.categories?.count ?? 0
-        if count == 0{
-            self.showAlert(title: "Informazione", andBody: "Creare prima una categoria")
-        }
+
     }
 
-    func loadDepartiments(){
+    private func loadDepartiments(){
         StorageManager.sharedInstance.getDefaultRealm { (realm) in
             self.departments = realm.objects(Department.self)
-        }
-
-        let count = self.departments?.count ?? 0
-        if count == 0{
-            self.showAlert(title: "Informazione", andBody: "Creare prima un reparto")
+            let count = self.departments?.count ?? 0
+            if count == 0{
+                self.showAlert(title: "Informazione", andBody: "Creare prima un reparto")
+            }
         }
 
     }

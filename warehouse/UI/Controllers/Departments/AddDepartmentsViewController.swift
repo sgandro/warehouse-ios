@@ -20,7 +20,6 @@ class AddDepartmentsViewController: BaseTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        isModalInPresentation = true
         isKeyboardNotificationEnabled = true
 
         // Do any additional setup after loading the view.
@@ -30,6 +29,7 @@ class AddDepartmentsViewController: BaseTableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+    
         let keyboardToolBar = KeyboardToolBar()
         keyboardToolBar.nextButtonPressed = {
         }
@@ -63,6 +63,19 @@ class AddDepartmentsViewController: BaseTableViewController {
 
 
     }
+
+    override func keyboardWillShowNotification(notification: Notification, rect: CGRect) {
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: rect.height, right: 0)
+    }
+
+    override func keyboardWillChangeFrameNotification(notification: Notification, rect: CGRect) {
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: rect.height, right: 0)
+    }
+
+    override func keyboardWillHideNotification(notification: Notification, rect: CGRect) {
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: rect.height, right: 0)
+    }
+
 
     //MARK: - Method
 

@@ -16,30 +16,9 @@ class SuppliersViewController: BaseTableViewController {
 
     var notificationToken: NotificationToken?
     var datasource:Results<Supplier>?{
-
         didSet{
-
             if let datasource = datasource {
-                if notificationToken != nil { notificationToken?.invalidate() }
-                notificationToken = datasource.observe({ [weak self] (changes) in
-                    guard let tableView = self?.tableView else { return }
-
-                    switch changes {
-                    case .initial:
-                        tableView.reloadData()
-
-                    case .update( _, deletions: let deletions, insertions: let insertions, modifications: let updates):
-
-                        tableView.beginUpdates()
-                        tableView.insertRows(at: insertions.map({IndexPath(row: $0, section: 0)}), with: .automatic)
-                        tableView.reloadRows(at: updates.map({IndexPath(row: $0, section: 0)}), with: .automatic)
-                        tableView.deleteRows(at: deletions.map({IndexPath(row: $0, section: 0)}), with: .automatic)
-                        tableView.endUpdates()
-
-                    case .error(let error): fatalError("\(error)")
-                    }
-
-                })
+                notificationToken = datasource.observe(tableView.applayChanges)
             }
         }
     }
@@ -50,7 +29,6 @@ class SuppliersViewController: BaseTableViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        isModalInPresentation = true
         isKeyboardNotificationEnabled = true
         tableSettings()
     }
@@ -84,6 +62,18 @@ class SuppliersViewController: BaseTableViewController {
         {
             vc.supplierToUpdate = supplier
         }
+    }
+
+    override func keyboardWillShowNotification(notification: Notification, rect: CGRect) {
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: rect.height, right: 0)
+    }
+
+    override func keyboardWillChangeFrameNotification(notification: Notification, rect: CGRect) {
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: rect.height, right: 0)
+    }
+
+    override func keyboardWillHideNotification(notification: Notification, rect: CGRect) {
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: rect.height, right: 0)
     }
 
     //MARK: - Actions

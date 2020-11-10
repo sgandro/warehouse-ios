@@ -9,6 +9,11 @@ import UIKit
 
 class BaseTableViewController: UIViewController {
 
+    @objc func notificationWillEnterForeground(notification:Notification){}
+    @objc func notificationDidEnterBackground(notification:Notification){}
+    @objc func notificationWillResignActive(notification:Notification){}
+    @objc func notificationDidBecomeActive(notification:Notification){}
+
     @objc func keyboardWillShowNotification(notification:Notification, rect:CGRect){}
     @objc func keyboardDidShowNotification(notification:Notification, rect:CGRect){}
     @objc func keyboardDidChangeFrameNotification(notification:Notification, rect:CGRect){}
@@ -17,6 +22,7 @@ class BaseTableViewController: UIViewController {
     @objc func keyboardDidHideNotification(notification:Notification, rect:CGRect){}
 
     var isKeyboardNotificationEnabled = false
+    var isApplicationNotificationEnabled = false
 
 
     override func viewDidLoad() {
@@ -27,16 +33,17 @@ class BaseTableViewController: UIViewController {
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         //adding application notification
-
+        if isApplicationNotificationEnabled {
+            NotificationCenter.default.addObserver(self, selector: #selector(self.notificationWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(self.notificationDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(self.notificationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(self.notificationDidBecomeActive(notification:)), name: UIApplication.didBecomeActiveNotification, object: nil)
+        }
         //adding keyboard notification
         if isKeyboardNotificationEnabled {
             NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-
-            NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidShow(notification:)), name: UIResponder.keyboardDidShowNotification, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidChange(notification:)), name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardDidHide(notification:)), name: UIResponder.keyboardDidHideNotification, object: nil)
 
         }
     }
@@ -44,16 +51,20 @@ class BaseTableViewController: UIViewController {
     open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
+        //remove application notification
+        if isApplicationNotificationEnabled {
+            NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
+            NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+            NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
+            NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+        }
         //remove keyboard notification
         if isKeyboardNotificationEnabled {
             NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
             NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidShowNotification, object: nil)
             NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-
-            NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidShowNotification, object: nil)
-            NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
-            NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidHideNotification, object: nil)
         }
+
 
     }
 
@@ -62,15 +73,12 @@ class BaseTableViewController: UIViewController {
     @objc private func keyboardWillChange(notification: Notification) {
 
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            keyboardWillChangeFrameNotification(notification: notification, rect: keyboardSize)
 
             let duration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber) as? TimeInterval  ?? 0.0
             let curve: UIView.AnimationOptions = (notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber).map { UIView.AnimationOptions(rawValue: UInt(truncating: $0)) } ?? UIView.AnimationOptions.curveLinear
 
-            if let constraintBottomTable = self.view.constraints.first(where: {$0.identifier == "bottomTable"}){
-                constraintBottomTable.constant = -keyboardSize.size.height
-            }
-            
+            keyboardWillChangeFrameNotification(notification: notification, rect: keyboardSize)
+
             UIView.animate(withDuration: duration, delay: 0.0, options: curve, animations: {
                 self.view.setNeedsLayout()
             }, completion: nil)
@@ -82,14 +90,11 @@ class BaseTableViewController: UIViewController {
     @objc private func keyboardWillShow(notification: Notification){
 
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            keyboardWillShowNotification(notification: notification, rect: keyboardSize)
 
             let duration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber) as? TimeInterval  ?? 0.0
             let curve: UIView.AnimationOptions = (notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber).map { UIView.AnimationOptions(rawValue: UInt(truncating: $0)) } ?? UIView.AnimationOptions.curveLinear
 
-            if let constraintBottomTable = self.view.constraints.first(where: {$0.identifier == "bottomTable"}){
-                constraintBottomTable.constant = -keyboardSize.size.height
-            }
+            keyboardWillShowNotification(notification: notification, rect: keyboardSize)
 
             UIView.animate(withDuration: duration, delay: 0.0, options: curve, animations: {
                 self.view.setNeedsLayout()
@@ -101,14 +106,11 @@ class BaseTableViewController: UIViewController {
     @objc private func keyboardWillHide(notification: Notification){
 
         if let _ = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            keyboardWillHideNotification(notification: notification, rect: CGRect.zero)
 
             let duration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber) as? TimeInterval  ?? 0.0
             let curve: UIView.AnimationOptions = (notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber).map { UIView.AnimationOptions(rawValue: UInt(truncating: $0)) } ?? UIView.AnimationOptions.curveLinear
 
-            if let constraintBottomTable = self.view.constraints.first(where: {$0.identifier == "bottomTable"}){
-                constraintBottomTable.constant = 0
-            }
+            keyboardWillHideNotification(notification: notification, rect: CGRect.zero)
 
             UIView.animate(withDuration: duration, delay: 0.0, options: curve, animations: {
                 self.view.setNeedsLayout()
@@ -121,14 +123,11 @@ class BaseTableViewController: UIViewController {
     @objc private func keyboardDidChange(notification: Notification) {
 
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            keyboardDidChangeFrameNotification(notification: notification, rect: keyboardSize)
 
             let duration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber) as? TimeInterval  ?? 0.0
             let curve: UIView.AnimationOptions = (notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber).map { UIView.AnimationOptions(rawValue: UInt(truncating: $0)) } ?? UIView.AnimationOptions.curveLinear
 
-            if let constraintBottomTable = self.view.constraints.first(where: {$0.identifier == "bottomTable"}){
-                constraintBottomTable.constant = -keyboardSize.size.height
-            }
+            keyboardDidChangeFrameNotification(notification: notification, rect: keyboardSize)
 
             UIView.animate(withDuration: duration, delay: 0.0, options: curve, animations: {
                 self.view.setNeedsLayout()
@@ -141,14 +140,11 @@ class BaseTableViewController: UIViewController {
     @objc private func keyboardDidShow(notification: Notification){
 
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            keyboardDidShowNotification(notification: notification, rect: keyboardSize)
 
             let duration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber) as? TimeInterval  ?? 0.0
             let curve: UIView.AnimationOptions = (notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber).map { UIView.AnimationOptions(rawValue: UInt(truncating: $0)) } ?? UIView.AnimationOptions.curveLinear
 
-            if let constraintBottomTable = self.view.constraints.first(where: {$0.identifier == "bottomTable"}){
-                constraintBottomTable.constant = -keyboardSize.size.height
-            }
+            keyboardDidShowNotification(notification: notification, rect: keyboardSize)
 
             UIView.animate(withDuration: duration, delay: 0.0, options: curve, animations: {
                 self.view.setNeedsLayout()
@@ -160,14 +156,11 @@ class BaseTableViewController: UIViewController {
     @objc private func keyboardDidHide(notification: Notification){
 
         if let _ = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            keyboardDidHideNotification(notification: notification, rect: CGRect.zero)
 
             let duration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber) as? TimeInterval  ?? 0.0
             let curve: UIView.AnimationOptions = (notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber).map { UIView.AnimationOptions(rawValue: UInt(truncating: $0)) } ?? UIView.AnimationOptions.curveLinear
 
-            if let constraintBottomTable = self.view.constraints.first(where: {$0.identifier == "bottomTable"}){
-                constraintBottomTable.constant = 0
-            }
+            keyboardDidHideNotification(notification: notification, rect: CGRect.zero)
 
             UIView.animate(withDuration: duration, delay: 0.0, options: curve, animations: {
                 self.view.setNeedsLayout()
